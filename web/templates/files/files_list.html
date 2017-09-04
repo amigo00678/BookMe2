@@ -4,12 +4,21 @@
 
 {% block content %}
 
-<h2> Hello files </h2>
+<table class="list-table">
+    <tr>
+        <th class="sortable" data-field='name'>Name</th>
+        <th class="sortable" data-field='created'>Created</th>
+        <th class="sortable" data-field='type'>Type</th>
+    </tr>
 
-{% for file in files %}
-<h2>
-    {{ file.name }}
-</h2>
-{% endfor %}
+    {% for file in files %}
+    <tr>
+        <td>{{ file.name }}</td>
+        <td>{{ file.created_at }}</td>
+        <td>{{ file.type }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
 
 {% endblock %}

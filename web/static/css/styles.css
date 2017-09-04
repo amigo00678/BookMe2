@@ -2,43 +2,56 @@ body{
     font-size: 16px;
     font-family: "Sans-serif", Arial, serif;
 }
-
 .main{
     
 }
-
 .menu{
     width: 200px;
     background-color: #3e3aa8;
     float: left;
     padding-left: 0px;
+    margin: 0px;
 }
-
 .menu a {
     text-decoration: none;
     color: #a6a4e8;
 }
-
 .menu li{
     padding-top: 20px;
     padding-bottom: 20px;
     list-style: none;
     border-bottom: 1px solid #6562af;
 }
-
 .menu li i{
     padding-left: 10px;
     padding-right: 10px;
 }
-
 .menu li span{
     vertical-align: top;
     display: inline-block;
     padding-top: 4px;
 }
-
 .content{
-    width: 200px;
-    background-color: gray;
     float: left;
+}
+.header{
+    height: 80px;
+    border-bottom: 1px solid #ccc;
+}
+.container{
+    padding-left: 210px;
+}
+.list-table td{
+    padding: 10px;
+}
+.list-table th{
+    text-align: left;
+    padding: 10px;
+}
+.list-table tr td,
+.list-table tr th{
+    border-bottom: 1px solid #ccc;
+}
+.list-table th.sortable{
+    cursor: pointer;
 }
