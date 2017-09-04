@@ -22,10 +22,10 @@
 
 <body>
     <ul class="menu">
-        <li><a href=""><i class="material-icons">attach_file</i><span>Files</span></a></li>
-        <li><a href=""><i class="material-icons">folder</i>Folders</a></li>
-        <li><a href=""><i class="material-icons">personal_video</i>Videos</a></li>
-        <li><a href=""><i class="material-icons">audiotrack</i>Audio</a></li>
+        <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
+        <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
+        <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
+        <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
     </ul>
 
     <div class="content">
