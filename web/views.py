@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 from django.views.generic import ListView, TemplateView
+from django.urls import reverse
 
 from web.models import *
 
@@ -18,6 +19,7 @@ class FilesListView(ListView):
             {'name': 'f2', 'created_at': datetime.now(), 'type': 3},
             {'name': 'f3', 'created_at': datetime.now(), 'type': 3},
         ]
+        context['list_url'] = reverse('files_list')
         return context
 
 
