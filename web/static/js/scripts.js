@@ -31,8 +31,11 @@ $.ajaxSetup({
 var csrftoken = getCookie('csrftoken');
 
 function updateTable(){
+    data = {}
+
     asc = $('.asc').data('field');
     desc = $('.desc').data('field');
+
     if (typeof asc != 'undefined'){
         sort = asc;
         order = 'asc';
@@ -43,10 +46,17 @@ function updateTable(){
         order = '';
         sort = '';
     }
-    data = {
-        order: order,
-        sort: sort,
-    }
+
+    data.order = order;
+    data.sort = sort;
+
+    $('.filter').each(function(){
+        if (this.value != ''){
+            name = $(this).data('field');
+            data[name] = this.value;
+        }
+    });
+
     $.ajax({
         url: listURL,
         type: 'POST',
@@ -70,6 +80,12 @@ $(document).ready(function(){
         $('.sortable').removeClass('asc');
         $('.sortable').removeClass('desc');
         $(this).addClass(sortClass);
+        updateTable();
+    });
+    $('body').on('keyup', '.keyup', function(){
+        updateTable();
+    });
+    $('body').on('change', '.change', function(){
         updateTable();
     });
 });
