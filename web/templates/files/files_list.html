@@ -5,20 +5,16 @@
 {% block content %}
 
 <table class="list-table">
-    <tr>
-        <th class="sortable" data-field='name'>Name</th>
-        <th class="sortable" data-field='created'>Created</th>
-        <th class="sortable" data-field='type'>Type</th>
-    </tr>
-
-    {% for file in files %}
-    <tr>
-        <td>{{ file.name }}</td>
-        <td>{{ file.created_at }}</td>
-        <td>{{ file.type }}</td>
-    </tr>
-    {% endfor %}
-
+    <thead>
+        <tr>
+            <th class="sortable" data-field='name'>Name</th>
+            <th class="sortable" data-field='created'>Created</th>
+            <th class="sortable" data-field='type'>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include 'files/_files_list.html' %}
+    </tbody>
 </table>
 
 <script>

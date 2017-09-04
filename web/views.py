@@ -2,12 +2,17 @@
 from __future__ import unicode_literals
 
 from datetime import datetime
+
+from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 from django.urls import reverse
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
 
 from web.models import *
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class FilesListView(ListView):
     model = File
     template_name = 'files/files_list.html'
@@ -19,8 +24,18 @@ class FilesListView(ListView):
             {'name': 'f2', 'created_at': datetime.now(), 'type': 3},
             {'name': 'f3', 'created_at': datetime.now(), 'type': 3},
         ]
-        context['list_url'] = reverse('files_list')
+        context['list_url'] = reverse('files')
         return context
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        context = {}
+        context['files'] = [
+            {'name': 'f4', 'created_at': datetime.now(), 'type': 3},
+            {'name': 'f5', 'created_at': datetime.now(), 'type': 3},
+            {'name': 'f6', 'created_at': datetime.now(), 'type': 3},
+        ]
+        return render(request, 'files/_files_list.html', context)
 
 
 class FoldersListView(ListView):
