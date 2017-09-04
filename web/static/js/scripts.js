@@ -31,13 +31,27 @@ $.ajaxSetup({
 var csrftoken = getCookie('csrftoken');
 
 function updateTable(){
+    asc = $('.asc').data('field');
+    desc = $('.desc').data('field');
+    if (typeof asc != 'undefined'){
+        sort = asc;
+        order = 'asc';
+    } else if (typeof desc != 'undefined'){
+        sort = desc;
+        order = 'desc';
+    } else {
+        order = '';
+        sort = '';
+    }
     data = {
-        
+        order: order,
+        sort: sort,
     }
     $.ajax({
         url: listURL,
         type: 'POST',
-        data: data,
+        data: JSON.stringify(data),
+        dataType: 'json',
         success: function(data){
             $('.list-table tbody').replaceWith(data);
         },
