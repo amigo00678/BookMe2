@@ -25,12 +25,15 @@
 <body>
     <div class="container col-xs-12">
         <div class="row">
-            <ul class="menu">
-                <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
-                <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
-                <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
-                <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
-            </ul>
+            <div class="left-col">
+                <div class="logo">Logo</div>
+                <ul class="menu">
+                    <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
+                    <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
+                    <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
+                    <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
+                </ul>
+            </div>
 
             <div class="content-container">
                 <div class="header">Breadcrumbs</div>
