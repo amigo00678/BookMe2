@@ -1,0 +1,17 @@
+.main{
+    
+}
+
+.menu{
+    width: 200px;
+    background-color: blue;
+}
+
+.menu li{
+    height: 12px;
+}
+
+.content{
+    width: 200px;
+    background-color: gray;
+}
