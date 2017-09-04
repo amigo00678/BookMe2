@@ -5,13 +5,29 @@
 .menu{
     width: 200px;
     background-color: blue;
+    float: left;
+    padding-left: 0px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
 }
 
 .menu li{
-    height: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    list-style: none;
+    border-bottom: 1px solid gray;
+}
+
+.menu li i{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .content{
     width: 200px;
     background-color: gray;
+    float: left;
 }

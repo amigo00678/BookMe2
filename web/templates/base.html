@@ -9,6 +9,8 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     {% block js %}
     <script src="{% static 'js/scripts.js' %}"></script>
     {% endblock %}
@@ -20,10 +22,10 @@
 
 <body>
     <ul class="menu">
-        <li>Files</li>
-        <li>Folders</li>
-        <li>Videos</li>
-        <li>Audio</li>
+        <li><a href=""><i class="material-icons">attach_file</i><span>Files</span></a></li>
+        <li><a href=""><i class="material-icons">folder</i>Folders</a></li>
+        <li><a href=""><i class="material-icons">personal_video</i>Videos</a></li>
+        <li><a href=""><i class="material-icons">audiotrack</i>Audio</a></li>
     </ul>
 
     <div class="content">
