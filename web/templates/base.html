@@ -17,24 +17,29 @@
     {% endblock %}
 
     {% block css %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% endblock %}
 </head>
 
 <body>
-    <ul class="menu">
-        <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
-        <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
-        <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
-        <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
-    </ul>
+    <div class="container col-xs-12">
+        <div class="row">
+            <ul class="menu">
+                <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
+                <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
+                <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
+                <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
+            </ul>
 
-    <div class="container">
-        <div class="header">Breadcrumbs</div>
+            <div class="content-container">
+                <div class="header">Breadcrumbs</div>
 
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+                <div class="content">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </div>
 </body>

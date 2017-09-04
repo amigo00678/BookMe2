@@ -38,7 +38,7 @@ body{
     height: 80px;
     border-bottom: 1px solid #ccc;
 }
-.container{
+.content-container{
     padding-left: 210px;
 }
 .list-table td{
