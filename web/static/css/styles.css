@@ -65,3 +65,15 @@ body{
 .list-table th.sortable{
     cursor: pointer;
 }
+.asc{
+    background-image: url("/static/img/a-up.png");
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right 10px center;
+}
+.desc{
+    background-image: url("/static/img/a-down.png");
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right 10px center;
+}

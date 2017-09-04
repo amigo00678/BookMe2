@@ -31,16 +31,31 @@ $.ajaxSetup({
 var csrftoken = getCookie('csrftoken');
 
 function updateTable(){
+    data = {
+        
+    }
     $.ajax({
         url: listURL,
         type: 'POST',
+        data: data,
         success: function(data){
-            console.log(data);
             $('.list-table tbody').replaceWith(data);
         },
     });
 }
 
 $(document).ready(function(){
-    $('body').on('click', '.sortable', updateTable);
+    $('body').on('click', '.sortable', function(){
+        if ($(this).hasClass('asc')){
+            sortClass='desc';
+        } else if ($(this).hasClass('desc')){
+            sortClass='asc';
+        } else {
+            sortClass='desc';
+        }
+        $('.sortable').removeClass('asc');
+        $('.sortable').removeClass('desc');
+        $(this).addClass(sortClass);
+        updateTable();
+    });
 });
