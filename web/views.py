@@ -8,6 +8,8 @@ from django.views.generic import ListView, TemplateView
 from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from django.template import loader, Context
+from django.http import JsonResponse
 
 from web.models import *
 
@@ -19,11 +21,7 @@ class FilesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(FilesListView, self).get_context_data(**kwargs)
-        context['files'] = [
-            {'name': 'f1', 'created_at': datetime.now(), 'type': 3},
-            {'name': 'f2', 'created_at': datetime.now(), 'type': 3},
-            {'name': 'f3', 'created_at': datetime.now(), 'type': 3},
-        ]
+        context['files'] = self.get_list({})
         context['list_url'] = reverse('files')
         return context
 
@@ -41,7 +39,9 @@ class FilesListView(ListView):
     def post(self, request, *args, **kwargs):
         context = {}
         context['files'] = self.get_list(request.POST)
-        return render(request, 'files/_files_list.html', context)
+
+        tpl = loader.get_template('files/_files_list.html')
+        return JsonResponse({'reply': tpl.render(context)})
 
 
 class FoldersListView(ListView):

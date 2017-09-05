@@ -1,7 +1,7 @@
 from web.enum_bc import *
 
 
-class FileType(ChoiceEnum):
+class FileTypeE(ChoiceEnum):
     TXT = 1
     AUDIO = 2
     VIDEO = 3

@@ -10,7 +10,7 @@ class File(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('Folder')
-    type = models.IntegerField(choices=FileType.choices(), default=FileType.TXT)
+    type = models.IntegerField(choices=FileTypeE.choices(), default=FileTypeE.TXT)
 
 
 class Folder(models.Model):

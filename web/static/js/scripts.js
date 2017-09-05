@@ -57,14 +57,13 @@ function updateTable(){
         }
     });
 
-    console.log(data);
     $.ajax({
         url: listURL,
         type: 'POST',
         data: data,
         dataType: 'json',
         success: function(data){
-            $('.list-table tbody').replaceWith(data);
+            $('.list-table tbody').html(data.reply);
         },
     });
 }
