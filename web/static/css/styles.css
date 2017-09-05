@@ -77,3 +77,14 @@ body{
     background-size: 12px;
     background-position: right 10px center;
 }
+.page{
+    padding: 10px;
+    float: left;
+}
+.pages{
+    padding: 2 px;
+    float: right;
+}
+.pp{
+    float: left;
+}

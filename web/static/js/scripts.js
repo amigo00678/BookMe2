@@ -64,6 +64,7 @@ function updateTable(){
         dataType: 'json',
         success: function(data){
             $('.list-table tbody').html(data.reply);
+            $('.pagin').html(data.pagin);
         },
     });
 }

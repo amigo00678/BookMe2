@@ -10,6 +10,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 from web.models import *
 
@@ -21,9 +22,24 @@ class FilesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(FilesListView, self).get_context_data(**kwargs)
-        context['files'] = self.get_list({})
+        objects, page = self.get_objects()
+        context['files'] = objects
+        context['page'] = page
         context['list_url'] = reverse('files')
         return context
+
+    def get_objects(self, filter={}, pp=10, page=1):
+        objects = self.get_list(filter)
+        return self.get_pages(objects, pp, page)
+
+    def get_pages(self, objects, pp, page):
+        #TODO: move to base class
+        pagin = Paginator(objects, pp)
+        try:
+            page = pagin.page(page)
+        except EmptyPage:
+            page = pagin.page(pagin.num_pages)
+        return page.object_list, page
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -34,7 +50,7 @@ class FilesListView(ListView):
             objects = objects.filter(created_at__gte=filter['created_at'][1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
-        if 'sort' in filter:
+        if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
                 'created': 'created_at'
@@ -47,8 +63,13 @@ class FilesListView(ListView):
 
     def post(self, request, *args, **kwargs):
         context = {}
-        context['files'] = self.get_list(request.POST)
-        return JsonResponse({'reply': render_to_string('files/_files_list.html', context)})
+        objects, page = self.get_objects(request.POST, request.POST.get('pp', 10), request.POST.get('page', 1))
+        context['files'] = objects
+        context['page'] = page
+        return JsonResponse({
+            'reply': render_to_string('files/_files_list.html', context),
+            'pagin': render_to_string('_pagin.html', context)
+        })
 
 
 class FoldersListView(ListView):
