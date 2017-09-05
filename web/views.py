@@ -27,14 +27,20 @@ class FilesListView(ListView):
         context['list_url'] = reverse('files')
         return context
 
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'created_at' in filter:
+            objects = objects.filter(created_at__lte=filter['created_at'][0])
+            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'type' in filter:
+            objects = objects.filter(type=filter['type'])
+        return objects
+
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         context = {}
-        context['files'] = [
-            {'name': 'f4', 'created_at': datetime.now(), 'type': 3},
-            {'name': 'f5', 'created_at': datetime.now(), 'type': 3},
-            {'name': 'f6', 'created_at': datetime.now(), 'type': 3},
-        ]
+        context['files'] = self.get_list(request.POST)
         return render(request, 'files/_files_list.html', context)
 
 

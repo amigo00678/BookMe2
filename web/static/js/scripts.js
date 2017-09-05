@@ -31,7 +31,7 @@ $.ajaxSetup({
 var csrftoken = getCookie('csrftoken');
 
 function updateTable(){
-    data = {}
+    data = {};
 
     asc = $('.asc').data('field');
     desc = $('.desc').data('field');
@@ -57,10 +57,11 @@ function updateTable(){
         }
     });
 
+    console.log(data);
     $.ajax({
         url: listURL,
         type: 'POST',
-        data: JSON.stringify(data),
+        data: data,
         dataType: 'json',
         success: function(data){
             $('.list-table tbody').replaceWith(data);
