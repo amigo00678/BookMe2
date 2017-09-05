@@ -34,6 +34,15 @@ class FilesListView(ListView):
             objects = objects.filter(created_at__gte=filter['created_at'][1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
+        if 'sort' in filter:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created_at'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
         return objects
 
     def post(self, request, *args, **kwargs):

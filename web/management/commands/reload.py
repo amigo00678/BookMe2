@@ -16,3 +16,12 @@ class Command(BaseCommand):
         folder1 = Folder.objects.create(name='Folder1')
         for i in range(10):
             File.objects.create(name='file_txt_'+str(i), type=FileTypeE.TXT, parent=folder1)
+
+        for i in range(10):
+            File.objects.create(name='file_audio_'+str(i), type=FileTypeE.AUDIO, parent=folder1)
+
+        for i in range(10):
+            File.objects.create(name='file_video_'+str(i), type=FileTypeE.VIDEO, parent=folder1)
+
+        for i in range(10):
+            File.objects.create(name='file_binary_'+str(i), type=FileTypeE.BINARY, parent=folder1)
