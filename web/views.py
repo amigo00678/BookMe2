@@ -32,7 +32,7 @@ class FilesListView(ListView):
         if 'created_at' in filter:
             objects = objects.filter(created_at__lte=filter['created_at'][0])
             objects = objects.filter(created_at__gte=filter['created_at'][1])
-        if 'type' in filter:
+        if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
         return objects
 
