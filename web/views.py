@@ -18,8 +18,8 @@ from web.models import *
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class ObjectsListView(ListView):
     model = File
-    template_name = 'files/files_list.html'
-    list_template = 'files/_files_list.html'
+    template_name = 'files_list.html'
+    list_template = '_files_list.html'
     base_url = 'files'
 
     def get_context_data(self, **kwargs):
@@ -53,15 +53,15 @@ class ObjectsListView(ListView):
         context['page'] = page
         return JsonResponse({
             'reply': render_to_string(self.list_template, context),
-            'pagin': render_to_string('_pagin.html', context)
+            'pagin': render_to_string('common/_pagin.html', context)
         })
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class FilesListView(ObjectsListView):
     model = File
-    template_name = 'files/files_list.html'
-    list_template = 'files/_files_list.html'
+    template_name = 'files_list.html'
+    list_template = '_files_list.html'
     base_url = 'files'
 
     def get_list(self, filter):
@@ -85,29 +85,82 @@ class FilesListView(ObjectsListView):
         return objects
 
 
-class FoldersListView(ListView):
-    model = File
-    template_name = 'files/files_list.html'
+class FoldersListView(ObjectsListView):
+    model = Folder
+    template_name = 'folders_list.html'
+    list_template = '_folders_list.html'
+    base_url = 'folders'
 
-    def get_context_data(self, **kwargs):
-        context = super(FoldersListView, self).get_context_data(**kwargs)
-        context['files'] = [
-            {'name': 'f1'},
-            {'name': 'f2'},
-            {'name': 'f3'},
-        ]
-        return context
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'created_at' in filter:
+            objects = objects.filter(created_at__lte=filter['created_at'][0])
+            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'type' in filter and int(filter['type']):
+            objects = objects.filter(type=filter['type'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created_at'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
 
 
-class VideoListView(ListView):
-    model = File
-    template_name = 'files/files_list.html'
+class VideoListView(ObjectsListView):
+    model = Folder
+    template_name = 'folders_list.html'
+    list_template = '_folders_list.html'
+    base_url = 'folders'
 
-    def get_context_data(self, **kwargs):
-        context = super(VideoListView, self).get_context_data(**kwargs)
-        context['files'] = [
-            {'name': 'f1'},
-            {'name': 'f2'},
-            {'name': 'f3'},
-        ]
-        return context
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'created_at' in filter:
+            objects = objects.filter(created_at__lte=filter['created_at'][0])
+            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'type' in filter and int(filter['type']):
+            objects = objects.filter(type=filter['type'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created_at'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class AudioListView(ObjectsListView):
+    model = Folder
+    template_name = 'folders_list.html'
+    list_template = '_folders_list.html'
+    base_url = 'folders'
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'created_at' in filter:
+            objects = objects.filter(created_at__lte=filter['created_at'][0])
+            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'type' in filter and int(filter['type']):
+            objects = objects.filter(type=filter['type'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created_at'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects

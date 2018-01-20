@@ -24,11 +24,11 @@
         </tr>
     </thead>
     <tbody>
-        {% include 'files/_files_list.html' %}
+        {% include '_folders_list.html' %}
     </tbody>
 </table>
 
-{% include '_pagin.html' %}
+{% include 'common/_pagin.html' %}
 
 <script>
     listURL="{{ list_url }}";

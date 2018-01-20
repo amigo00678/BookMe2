@@ -13,6 +13,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.clear()
+
+        # create files in folder1
         folder1 = Folder.objects.create(name='Folder1')
         for i in range(10):
             File.objects.create(name='file_txt_'+str(i), type=FileTypeE.TXT, parent=folder1)
@@ -25,3 +27,8 @@ class Command(BaseCommand):
 
         for i in range(10):
             File.objects.create(name='file_binary_'+str(i), type=FileTypeE.BINARY, parent=folder1)
+
+        # create folders
+        for i in range(10):
+            Folder.objects.create(name='Folder' + str(i + 1))
+

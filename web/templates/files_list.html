@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+
+<table class="list-table">
+    <thead>
+        <tr>
+            <th class="sortable" data-field='name'>Name</th>
+            <th class="sortable" data-field='created'>Created</th>
+            <th class="sortable" data-field='type'>Type</th>
+        </tr>
+        <tr>
+            <th><input class='form-control filter keyup' data-field='name'></input></th>
+            <th><input class='form-control filter change' data-field='created'></input></th>
+            <th><select class='filter change selectpicker' data-field='type'>
+                <option value="0">--</option>
+                <option value="1">TXT</option>
+                <option value="2">AUDIO</option>
+                <option value="3">VIDEO</option>
+                <option value="4">BINARY</option>
+            </select></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include '_files_list.html' %}
+    </tbody>
+</table>
+
+{% include 'common/_pagin.html' %}
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}
