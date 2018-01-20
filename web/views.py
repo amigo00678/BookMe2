@@ -24,7 +24,8 @@ class ObjectsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
-        objects, page = self.get_objects()
+        page = int(self.kwargs.get('page', 1))
+        objects, page = self.get_objects(filter={}, pp=10, page=page)
         context['objects'] = objects
         context['page'] = page
         context['list_url'] = reverse(self.base_url)
@@ -51,6 +52,7 @@ class ObjectsListView(ListView):
             request.POST, request.POST.get('pp', 10), request.POST.get('page', 1))
         context['objects'] = objects
         context['page'] = page
+        context['list_url'] = reverse(self.base_url)
         return JsonResponse({
             'reply': render_to_string(self.list_template, context),
             'pagin': render_to_string('common/_pagin.html', context)

@@ -12,7 +12,7 @@
             {% if p == page.number %}
                 {{ p }}
             {% else %}
-                <a href="{{ list_url }}">{{ p }}</a>
+                <a href="{{ list_url }}{{ p }}/">{{ p }}</a>
             {% endif %}
         </div>
         {% endfor %}
