@@ -5,12 +5,12 @@ from datetime import datetime
 
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.template.loader import render_to_string
 from django.http import JsonResponse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 
 from web.models import *
 
