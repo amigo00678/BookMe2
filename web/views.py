@@ -85,6 +85,7 @@ class FilesListView(ObjectsListView):
         return objects
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class FoldersListView(ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
@@ -112,6 +113,7 @@ class FoldersListView(ObjectsListView):
         return objects
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class VideoListView(ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
@@ -139,6 +141,7 @@ class VideoListView(ObjectsListView):
         return objects
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class AudioListView(ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'

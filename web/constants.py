@@ -1,9 +1,7 @@
-from web.enum_bc import *
 
-
-class FileTypeE(ChoiceEnum):
-    TXT = 1
-    AUDIO = 2
-    VIDEO = 3
-    BINARY = 4
-
+FILE_TYPE_E = (
+    (1, 'TXT'),
+    (2, 'AUDIO'),
+    (3, 'VIDEO'),
+    (4, 'BINARY')
+)
