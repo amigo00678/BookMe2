@@ -54,8 +54,8 @@ ROOT_URLCONF = 'cadmin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'web/templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

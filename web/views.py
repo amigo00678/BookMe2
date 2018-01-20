@@ -16,16 +16,18 @@ from web.models import *
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-class FilesListView(ListView):
+class ObjectsListView(ListView):
     model = File
     template_name = 'files/files_list.html'
+    list_template = 'files/_files_list.html'
+    base_url = 'files'
 
     def get_context_data(self, **kwargs):
-        context = super(FilesListView, self).get_context_data(**kwargs)
+        context = super(ObjectsListView, self).get_context_data(**kwargs)
         objects, page = self.get_objects()
-        context['files'] = objects
+        context['objects'] = objects
         context['page'] = page
-        context['list_url'] = reverse('files')
+        context['list_url'] = reverse(self.base_url)
         return context
 
     def get_objects(self, filter={}, pp=10, page=1):
@@ -33,13 +35,34 @@ class FilesListView(ListView):
         return self.get_pages(objects, pp, page)
 
     def get_pages(self, objects, pp, page):
-        #TODO: move to base class
         pagin = Paginator(objects, pp)
         try:
             page = pagin.page(page)
         except EmptyPage:
             page = pagin.page(pagin.num_pages)
         return page.object_list, page
+
+    def get_list(self, filter):
+        return self.model.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+        objects, page = self.get_objects(
+            request.POST, request.POST.get('pp', 10), request.POST.get('page', 1))
+        context['objects'] = objects
+        context['page'] = page
+        return JsonResponse({
+            'reply': render_to_string(self.list_template, context),
+            'pagin': render_to_string('_pagin.html', context)
+        })
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class FilesListView(ObjectsListView):
+    model = File
+    template_name = 'files/files_list.html'
+    list_template = 'files/_files_list.html'
+    base_url = 'files'
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -60,16 +83,6 @@ class FilesListView(ListView):
                 sort = '-' + sort
             objects = objects.order_by(sort)
         return objects
-
-    def post(self, request, *args, **kwargs):
-        context = {}
-        objects, page = self.get_objects(request.POST, request.POST.get('pp', 10), request.POST.get('page', 1))
-        context['files'] = objects
-        context['page'] = page
-        return JsonResponse({
-            'reply': render_to_string('files/_files_list.html', context),
-            'pagin': render_to_string('_pagin.html', context)
-        })
 
 
 class FoldersListView(ListView):
