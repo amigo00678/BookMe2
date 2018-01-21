@@ -65,6 +65,7 @@ function updateTable(){
         success: function(data){
             $('.list-table tbody').html(data.reply);
             $('.pagin').html(data.pagin);
+            $('.selectpicker').selectpicker('refresh');
         },
     });
 }
