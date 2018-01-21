@@ -96,3 +96,10 @@ body{
 .pp{
     float: left;
 }
+.page_select{
+    cursor: pointer;
+    text-decoration: none;
+}
+.page_select:hover{
+    text-decoration: none;
+}

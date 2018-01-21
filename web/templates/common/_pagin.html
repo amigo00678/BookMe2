@@ -1,9 +1,9 @@
 <div class="pagin">
 
-    <select class="selectpicker">
-        <option value='5'>5</option>
-        <option value='10'>10</option>
-        <option value='20'>20</option>
+    <select class="filter change selectpicker" data-field='pp'>
+        <option value='5' {% if page.paginator.per_page == 5 %}selected{% endif %}>5</option>
+        <option value='10' {% if page.paginator.per_page == 10 %}selected{% endif %}>10</option>
+        <option value='20' {% if page.paginator.per_page == 20 %}selected{% endif %}>20</option>
     </select>
 
     <div class="pages">
@@ -12,10 +12,11 @@
             {% if p == page.number %}
                 {{ p }}
             {% else %}
-                <a href="{{ list_url }}{{ p }}/">{{ p }}</a>
+                <a class="page_select">{{ p }}</a>
             {% endif %}
         </div>
         {% endfor %}
+        <input type="hidden" class="filter change page_filter" data-field="page"></input>
     </div>
 
 </div>

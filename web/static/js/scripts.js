@@ -90,4 +90,9 @@ $(document).ready(function(){
     $('body').on('change', '.change', function(){
         updateTable();
     });
+    $('body').on('click', '.page_select', function(){
+        $('.page_filter').val($(this).text());
+        updateTable();
+    });
+    $('.selectpicker').selectpicker('refresh');
 });
