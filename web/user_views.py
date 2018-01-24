@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic import FormView
+from django.views.generic import FormView, RedirectView
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login, logout
 
 from django.http import HttpResponseRedirect
 
@@ -20,15 +21,19 @@ class LoginView(FormView):
     def dispatch(self, *args, **kwargs):
         return super(LoginView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        return super(LoginView, self).get_context_data(**kwargs)
-
     def form_valid(self, form):
-        login(self.request, form.get_user())
-        return HttpResponseRedirect('files')
+        user = authenticate(username=form.data.get('username'),
+            password=form.data.get('password'))
+        if user:
+            login(self.request, user)
+            return HttpResponseRedirect('files')
+        else:
+            return HttpResponseRedirect('login')
 
-    def get(self, request, *args, **kwargs):
-        return super(LoginView, self).get(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return super(LoginView, self).post(request, *args, **kwargs)
+class LogoutView(RedirectView):
+    pattern_name = 'login'
+
+    def get_redirect_url(self, *args, **kwargs):
+        logout(self.request)
+        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
