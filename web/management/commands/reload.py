@@ -8,12 +8,17 @@ class Command(BaseCommand):
     help = 'Closes the specified poll for voting'
 
     def clear(self):
+        User.objects.all().delete()
         Folder.objects.all().delete()
         File.objects.all().delete()
 
     def handle(self, *args, **options):
         self.clear()
+        self.create_files()
+        self.create_folders()
+        self.create_users()
 
+    def create_files(self):
         # create files in folder1
         folder1 = Folder.objects.create(name='Folder1')
         for i in range(10):
@@ -28,7 +33,11 @@ class Command(BaseCommand):
         for i in range(10):
             File.objects.create(name='file_binary_'+str(i), type=4, parent=folder1)
 
+    def create_folders(self):
         # create folders
         for i in range(10):
             Folder.objects.create(name='Folder' + str(i + 1))
 
+    def create_users(self):
+        # create users
+        User.objects.create_user(email='u@u.com', password='123')
