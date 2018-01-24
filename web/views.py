@@ -11,12 +11,13 @@ from django.utils.decorators import method_decorator
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from web.models import *
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-class ObjectsListView(ListView):
+class ObjectsListView(LoginRequiredMixin, ListView):
     model = File
     template_name = 'files_list.html'
     list_template = '_files_list.html'
