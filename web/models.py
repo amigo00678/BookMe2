@@ -11,7 +11,8 @@ from web.constants import *
 class AuthManager(BaseUserManager):
 
     def create_user(self, email, password, first_name, last_name, **extra_fields):
-        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user = self.model(email=self.normalize_email(email), first_name=first_name,
+            last_name=last_name, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -30,7 +31,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
 
