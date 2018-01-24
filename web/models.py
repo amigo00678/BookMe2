@@ -10,14 +10,14 @@ from web.constants import *
 
 class AuthManager(BaseUserManager):
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password, first_name, last_name, **extra_fields):
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
-        return self.create_user(email, password, is_admin=True, **extra_fields)
+    def create_superuser(self, email, password, first_name, last_name, **extra_fields):
+        return self.create_user(email, password, first_name, last_name, is_admin=True, **extra_fields)
 
 
 class User(AbstractBaseUser):
@@ -27,9 +27,11 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.email
+        return "%s %s" % (self.first_name, self.last_name)
 
 
 class File(models.Model):

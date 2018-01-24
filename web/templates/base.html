@@ -33,16 +33,30 @@
             {% block container %}
             <div class="left-col">
                 <div class="logo">Logo</div>
-                <ul class="menu">
-                    <li><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></li>
-                    <li><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></li>
-                    <li><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></li>
-                    <li><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></li>
-                </ul>
+                <div class="menu">
+                    <div class="parent">
+                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items</span></a></div>
+                        <div><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></div>
+                        <div><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></div>
+                    </div>
+                    <div class="parent">
+                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items 2</span></a></div>
+                        <div><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></div>
+                        <div><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></div>
+                    </div>
+                    <div class="parent">
+                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items 2</span></a></div>
+                        <div><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></div>
+                        <div><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></div>
+                    </div>
+                </div>
             </div>
 
             <div class="content-container">
-                <div class="header">Breadcrumbs</div>
+                <div class="header">
+                    <div class="row col-xs-6 breadcrumbs">Breadcrumbs</div>
+                    <div class="row col-xs-4 account">Logged in as: {{ user }}</div>
+                </div>
                 <div class="content">
                     {% block content %}
                     {% endblock %}
@@ -51,5 +65,19 @@
             {% endblock %}
         </div>
     </div>
+    <script>
+    $(document).ready(function(){
+        $('body').on('click', '.unfold', function(){
+            if (!$(this).hasClass('shown')){
+                $(this).parent().find('div').show();
+                $(this).addClass('shown');
+            } else {
+                $(this).parent().find('div').hide();
+                $(this).show();
+                $(this).removeClass('shown');
+            }
+        });
+    });
+    </script>
 </body>
 </html>

@@ -40,4 +40,5 @@ class Command(BaseCommand):
 
     def create_users(self):
         # create users
-        User.objects.create_user(email='u@u.com', password='123')
+        User.objects.create_user(email='u@u.com', password='123',
+            first_name="U", last_name="U")

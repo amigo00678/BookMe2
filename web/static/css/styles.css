@@ -16,20 +16,33 @@ body{
     text-decoration: none;
     color: #a6a4e8;
 }
-.menu li{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    list-style: none;
+.menu div:not(.parent){
+    padding: 20px 0px 20px 22px;
     border-bottom: 1px solid #6562af;
+    display: none;
+    background-color: #494098;
 }
-.menu li:first-child{
+.menu .parent{
+    display: block;
     border-top: 1px solid #6562af;
 }
-.menu li i{
+.menu .parent div:first-child{
+    display: block;
+    padding-left: 0px;
+    border-bottom: none;
+    background-color: #492ab1;
+}
+.menu .parent div:last-child{
+    border-bottom: none;
+}
+.menu .shown{
+    border-bottom: 1px solid #6562af !important;
+}
+.menu div i{
     padding-left: 10px;
     padding-right: 10px;
 }
-.menu li span{
+.menu div span{
     vertical-align: top;
     display: inline-block;
     padding-top: 4px;
@@ -120,4 +133,8 @@ body{
     text-align: right;
     width: 40%;
     float: right;
+}
+.account{
+    float: right;
+    text-align: right;
 }
