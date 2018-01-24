@@ -5,13 +5,15 @@ from django.views.generic import FormView
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
-from django.contrib.auth.forms import AuthenticationForm
+
 from django.http import HttpResponseRedirect
+
+from web.forms import *
 
 
 class LoginView(FormView):
     template_name = 'common/login.html'
-    form_class = AuthenticationForm
+    form_class = AuthForm
 
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
@@ -19,13 +21,11 @@ class LoginView(FormView):
         return super(LoginView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
-        context['form'] = AuthenticationForm
-        return context
+        return super(LoginView, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('files')
 
     def get(self, request, *args, **kwargs):
         return super(LoginView, self).get(request, *args, **kwargs)

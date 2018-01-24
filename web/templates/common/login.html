@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load widget_tweaks %}
+
 {% block title %}Login{% endblock %}
 
 {% block container %}
@@ -7,13 +9,19 @@
 <div class="col-xs-4 col-xs-offset-4">
     <form role="form" class="form-horizontal" method="post" action=".">
         {% csrf_token %}
+
+        {% include "common/_form_nf_errors.html" %}
+
         {% for field in form %}
+
+            {% include "common/_form_field_errors.html" %}
+
             <div class="form-label">{{ field.label }}</div>
-            <input class="form-control" id="{{ field.id_for_label }}"
-                name="{{ field.html_name }}" type="{{ field.type }}" />
-            {{ field.errors }}
+            {{ field|add_class:"form-control" }}
+
         {% endfor %}
-        <input type="submit" class="btn btn-primary" value="Login" />
+
+        <input type="submit" class="btn btn-primary btn-container btn-bold" value="Login" />
     </form>
 </div>
 

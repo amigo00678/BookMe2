@@ -57,7 +57,7 @@ body{
     text-align: center;
 }
 .content-container{
-    padding-left: 210px;
+    padding-left: 20px;
 }
 .list-table td{
     padding: 10px;
@@ -106,7 +106,18 @@ body{
 .form-label{
     font-weight: bold;
 }
-.btn{
-    font-weight: bold;
+.btn-container{
     margin: 12px 0px;
+}
+.btn-bold{
+    font-weight: bold;
+}
+.form-error,
+.field-error{
+    color: purple;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: right;
+    width: 40%;
+    float: right;
 }
