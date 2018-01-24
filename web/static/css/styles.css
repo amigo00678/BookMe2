@@ -103,3 +103,10 @@ body{
 .page_select:hover{
     text-decoration: none;
 }
+.form-label{
+    font-weight: bold;
+}
+.btn{
+    font-weight: bold;
+    margin: 12px 0px;
+}

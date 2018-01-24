@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block container %}
+
+<div class="col-xs-4 col-xs-offset-4">
+    <form role="form" class="form-horizontal" method="post" action=".">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-label">{{ field.label }}</div>
+            <input class="form-control" id="{{ field.id_for_label }}"
+                name="{{ field.html_name }}" type="{{ field.type }}" />
+            {{ field.errors }}
+        {% endfor %}
+        <input type="submit" class="btn btn-primary" value="Login" />
+    </form>
+</div>
+
+{% endblock %}

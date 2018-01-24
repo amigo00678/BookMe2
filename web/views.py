@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator

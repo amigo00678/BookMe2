@@ -21,7 +21,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    url(r'^web/', include('web.urls')),
+    url(r'^', include('web.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
