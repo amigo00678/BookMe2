@@ -19,6 +19,8 @@ class LoginView(FormView):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            return HttpResponseRedirect('files')
         return super(LoginView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
