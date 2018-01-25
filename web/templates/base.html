@@ -35,19 +35,45 @@
                 <div class="logo">Logo</div>
                 <div class="menu">
                     <div class="parent">
-                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items</span></a></div>
-                        <div><a href="{% url 'files' %}"><i class="material-icons">attach_file</i><span>Files</span></a></div>
-                        <div><a href="{% url 'folders' %}"><i class="material-icons">folder</i><span>Folders</span></a></div>
+                        <div class="unfold" id="menu_files"><a>
+                            <i class="material-icons">attach_file</i>
+                            <span>Items</span>
+                        </a></div>
+                        <div><a href="{% url 'files' %}">
+                            <i class="material-icons">attach_file</i>
+                            <span>Files</span>
+                        </a></div>
+                        <div><a href="{% url 'folders' %}">
+                            <i class="material-icons">folder</i>
+                            <span>Folders</span>
+                        </a></div>
                     </div>
                     <div class="parent">
-                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items 2</span></a></div>
-                        <div><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></div>
-                        <div><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></div>
+                        <div class="unfold" id="menu_items_2"><a>
+                            <i class="material-icons">attach_file</i>
+                            <span>Items 2</span></a>
+                        </div>
+                        <div><a href="{% url 'video' %}">
+                            <i class="material-icons">personal_video</i>
+                            <span>Videos</span>
+                        </a></div>
+                        <div><a href="">
+                            <i class="material-icons">audiotrack</i><span>Audio</span>
+                        </a></div>
                     </div>
                     <div class="parent">
-                        <div class="unfold"><a><i class="material-icons">attach_file</i><span>Items 2</span></a></div>
-                        <div><a href="{% url 'video' %}"><i class="material-icons">personal_video</i><span>Videos</span></a></div>
-                        <div><a href=""><i class="material-icons">audiotrack</i><span>Audio</span></a></div>
+                        <div class="unfold" id="menu_items_3">
+                            <a><i class="material-icons">attach_file</i>
+                            <span>Items 3</span></a>
+                        </div>
+                        <div><a href="{% url 'video' %}">
+                            <i class="material-icons">personal_video</i>
+                            <span>Videos</span>
+                        </a></div>
+                        <div><a href="">
+                            <i class="material-icons">audiotrack</i>
+                            <span>Audio</span>
+                        </a></div>
                     </div>
                 </div>
             </div>
@@ -67,6 +93,14 @@
         </div>
     </div>
     <script>
+    {% if request.path == "/files/" or request.path == '/folders/' %}
+        $("#menu_files").parent().find('div').show();
+        $("#menu_files").addClass('shown');
+    {% elif request.path == "/video/" or request.path == "/audio/" %}
+        $("#menu_items_2").parent().find('div').show();
+        $("#menu_items_2").addClass('shown');
+    {% endif %}
+
     $(document).ready(function(){
         $('body').on('click', '.unfold', function(){
             if (!$(this).hasClass('shown')){
