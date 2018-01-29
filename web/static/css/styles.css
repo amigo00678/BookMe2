@@ -7,38 +7,38 @@ body{
 }
 .menu{
     width: 200px;
-    background-color: #3e3aa8;
+    background-color: #3333cc;
     padding-left: 0px;
     margin: 0px;
 }
 .menu a {
     text-decoration: none;
-    color: #a6a4e8;
+    color: white;
 }
 .menu div:not(.parent){
     padding: 20px 0px 20px 22px;
-    border-bottom: 1px solid #6562af;
+    border-bottom: 1px solid #8000ff;
     display: none;
-    background-color: #494098;
+    background-color: #6600cc;
 }
 .menu .parent{
     display: block;
-    border-top: 1px solid #6562af;
+    border-top: 1px solid #8000ff;
 }
 .menu .parent div:first-child{
     display: block;
     padding-left: 0px;
     border-bottom: none;
-    background-color: #492ab1;
+    background-color: #3333cc;
 }
 .menu div:last-child{
-    border-bottom: 1px solid #6562af;
+    border-bottom: 1px solid #8000ff;
 }
 .menu .parent div:last-child{
     border-bottom: none;
 }
 .menu .shown{
-    border-bottom: 1px solid #6562af !important;
+    border-bottom: 1px solid #8000ff !important;
 }
 .menu div i{
     padding-left: 10px;
@@ -58,15 +58,16 @@ body{
 }
 .left-col{
     float: left;
-    background-color: #3e3aa8;
+    background-color: #3333cc;
 }
 .container{
     display: inline-flex;
 }
 .logo{
+    padding-top: 28px;
     width: 200px;
     height: 80px;
-    background-color: #3e3aa8;
+    background-color: #3333cc;
     color: white;
     text-align: center;
 }
@@ -138,4 +139,7 @@ body{
 .account{
     float: right;
     text-align: right;
+}
+.breadcrumbs{
+    padding-top: 26px;
 }
