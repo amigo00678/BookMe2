@@ -9,4 +9,4 @@ python manage.py reload
 python manage.py runserver 0.0.0.0:8000
 ```
 
-Please see [project.png](https://raw.githubusercontent.com/amigo00678/CAdmin/master/project.png)
+Please see [project.png](https://github.com/amigo00678/CAdmin/blob/master/project.png)
