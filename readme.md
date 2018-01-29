@@ -9,4 +9,4 @@ python manage.py reload
 python manage.py runserver 0.0.0.0:8000
 ```
 
-Plase see 'project.png'.
+Please see [project.png](https://raw.githubusercontent.com/amigo00678/CAdmin/master/project.png)
