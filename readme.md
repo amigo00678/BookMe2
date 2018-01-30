@@ -13,3 +13,4 @@ Please see [project.png](https://github.com/amigo00678/CAdmin/blob/master/projec
 
 And [project1.png](https://github.com/amigo00678/CAdmin/blob/master/project1.png) for updates.
 
+All updates in [commits list](https://github.com/amigo00678/CAdmin/commits/master)
