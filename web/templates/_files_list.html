@@ -4,5 +4,9 @@
     <td>{{ object.name }}</td>
     <td>{{ object.created_at }}</td>
     <td>{{ object.get_type_display }}</td>
+    <td>
+        <a class="list-option" href="{% url 'files_edit' id=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="list-option" href="{% url 'files_delete' id=object.id %}"><i class="material-icons">delete</i></a>
+    </td>
 </tr>
 {% endfor %}

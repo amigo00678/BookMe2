@@ -52,6 +52,7 @@ body{
 .content{
     float: left;
     border-top: 1px solid #ccc;
+    width: 100%;
 }
 .header{
     height: 80px;
@@ -73,6 +74,9 @@ body{
 }
 .content-container{
     padding-left: 20px;
+}
+.list-table{
+    width: 100%;
 }
 .list-table td{
     padding: 10px;
@@ -142,4 +146,12 @@ body{
 }
 .breadcrumbs{
     padding-top: 26px;
+}
+.list-option i{
+    font-size: 18px;
+    border: 1px solid gray;
+    padding: 3px;
+    border-radius: 3px;
+    color: gray;
+    cursor: pointer;
 }

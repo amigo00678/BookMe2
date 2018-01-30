@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Files Edit{% endblock %}
+
+{% block content %}
+
+<div class="col-xs-8">
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {% include "common/_form_nf_errors.html" %}
+
+            {% for field in form %}
+
+                {% include "common/_form_field_errors.html" %}
+
+                <div class="form-label">{{ field.label }}</div>
+                {{ field|add_class:"form-control" }}
+
+            {% endfor %}
+
+            <div class="btn-container">
+                <input class="btn btn-bold btn-default" type="submit" value="Update" />
+                <a role="button" class="btn btn-bold btn-danger" href="{% url 'files' %}">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

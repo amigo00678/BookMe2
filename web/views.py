@@ -4,8 +4,13 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.shortcuts import render
+
 from django.views.generic import ListView
-from django.core.urlresolvers import reverse
+from django.views.generic.edit import FormView
+from django.views.generic.base import RedirectView
+
+from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.template.loader import render_to_string
@@ -14,6 +19,7 @@ from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from web.models import *
+from web.forms import *
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -64,6 +70,7 @@ class ObjectsListView(LoginRequiredMixin, ListView):
         date_lte = datetime.strptime(filter[data_name][-10:], '%m/%d/%Y')
         return [date_gte, date_lte]
 
+
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class FilesListView(ObjectsListView):
     model = File
@@ -91,6 +98,34 @@ class FilesListView(ObjectsListView):
                 sort = '-' + sort
             objects = objects.order_by(sort)
         return objects
+
+
+class FilesEditView(LoginRequiredMixin, FormView):
+    form_class = FileEditForm
+    success_url = reverse_lazy('files')
+    template_name = 'files_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = File.objects.get(id=self.kwargs.get('id'))
+            return form_class(instance=instance, **self.get_form_kwargs())
+        except File.DoesNotExist:
+            return form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        return super(FilesEditView, self).form_valid(form)
+
+
+class FilesDeleteView(LoginRequiredMixin, RedirectView):
+    pattern_name = 'files'
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            File.objects.get(id=self.kwargs.get('id')).delete()
+        except File.DoesNotExist:
+            pass
+        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
