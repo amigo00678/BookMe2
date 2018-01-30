@@ -10,3 +10,6 @@ python manage.py runserver 0.0.0.0:8000
 ```
 
 Please see [project.png](https://github.com/amigo00678/CAdmin/blob/master/project.png)
+
+And [project1.png](https://github.com/amigo00678/CAdmin/blob/master/project1.png) for updates.
+
