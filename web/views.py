@@ -114,6 +114,7 @@ class FilesEditView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
+        messages.info(self.request, 'File updated successfully')
         return super(FilesEditView, self).form_valid(form)
 
 
