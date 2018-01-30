@@ -95,4 +95,22 @@ $(document).ready(function(){
         updateTable();
     });
     $('.selectpicker').selectpicker('refresh');
+    $('.datepicker').val('');
+    $('.datepicker').daterangepicker({
+        autoUpdateInput: false,
+        locale: {
+            cancelLabel: 'Clear',
+            applyLabel: 'OK',
+        },
+        'applyClass': 'btn-info',
+    });
+    $('.datepicker').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        updateTable();
+    });
+
+    $('.datepicker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        updateTable();
+    });
 });

@@ -59,6 +59,10 @@ class ObjectsListView(LoginRequiredMixin, ListView):
             'pagin': render_to_string('common/_pagin.html', context)
         })
 
+    def format_dates(self, filter, data_name):
+        date_gte = datetime.strptime(filter[data_name][:10], '%m/%d/%Y')
+        date_lte = datetime.strptime(filter[data_name][-10:], '%m/%d/%Y')
+        return [date_gte, date_lte]
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class FilesListView(ObjectsListView):
@@ -71,15 +75,16 @@ class FilesListView(ObjectsListView):
         objects = self.model.objects.all()
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
-        if 'created_at' in filter:
-            objects = objects.filter(created_at__lte=filter['created_at'][0])
-            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created_at'
+                'created': 'created'
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
@@ -99,15 +104,16 @@ class FoldersListView(ObjectsListView):
         objects = self.model.objects.all()
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
-        if 'created_at' in filter:
-            objects = objects.filter(created_at__lte=filter['created_at'][0])
-            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created_at'
+                'created': 'created'
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
@@ -127,15 +133,16 @@ class VideoListView(ObjectsListView):
         objects = self.model.objects.all()
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
-        if 'created_at' in filter:
-            objects = objects.filter(created_at__lte=filter['created_at'][0])
-            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created_at'
+                'created': 'created'
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
@@ -155,15 +162,16 @@ class AudioListView(ObjectsListView):
         objects = self.model.objects.all()
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
-        if 'created_at' in filter:
-            objects = objects.filter(created_at__lte=filter['created_at'][0])
-            objects = objects.filter(created_at__gte=filter['created_at'][1])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
         if 'type' in filter and int(filter['type']):
             objects = objects.filter(type=filter['type'])
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created_at'
+                'created': 'created'
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
