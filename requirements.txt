@@ -1,2 +1,4 @@
 Django==1.9
 django-widget-tweaks==1.4.1
+django-bootstrap-breadcrumbs==0.9.0
+six==1.11.0

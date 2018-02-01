@@ -145,7 +145,10 @@ body{
     text-align: right;
 }
 .breadcrumbs{
-    padding-top: 26px;
+    padding-top: 20px;
+}
+.breadcrumbs .breadcrumb{
+    background-color: #fff;
 }
 .list-option i{
     font-size: 18px;

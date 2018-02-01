@@ -1,4 +1,6 @@
 {% load static %}
+{% load django_bootstrap_breadcrumbs %}
+
 <!doctype html>
 
 <html lang="en">
@@ -29,6 +31,11 @@
     {% endblock %}
 
 </head>
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+{% endblock %}
 
 <body>
     <div class="row">
@@ -83,7 +90,7 @@
 
             <div class="content-container col-xs-8">
                 <div class="header">
-                    <div class="row col-xs-6 breadcrumbs">Breadcrumbs</div>
+                    <div class="row col-xs-6 breadcrumbs">{% render_breadcrumbs %}</div>
                     <div class="row col-xs-4 account">Logged in as:<br>{{ user }}<br>
                         <a href="{% url 'logout' %}">Logout</a></div>
                 </div>

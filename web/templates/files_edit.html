@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% load widget_tweaks %}
+{% load django_bootstrap_breadcrumbs %}
 
 {% block title %}Files Edit{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Files" "files" %}
+    {% breadcrumb "Edit files" "" %}
+{% endblock %}
 
 {% block content %}
 

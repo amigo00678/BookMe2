@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap_breadcrumbs',
     'widget_tweaks',
     'web',
 ]
@@ -125,6 +126,8 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = '/'
+
+BREADCRUMBS_TEMPLATE = "django_bootstrap_breadcrumbs/bootstrap3.html"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "web/static"),

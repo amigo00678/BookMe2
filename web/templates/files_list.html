@@ -1,6 +1,13 @@
 {% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
 
 {% block title %}Files{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Files" "" %}
+{% endblock %}
 
 {% block content %}
 
