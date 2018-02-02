@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Users{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Users" "" %}
+{% endblock %}
+
+{% block content %}
+
+<table class="list-table">
+    <thead>
+        <tr>
+            <th class="sortable" data-field='name'>Name</th>
+            <th class="sortable" data-field='created'>Created</th>
+            <th class="sortable" data-field='email'>Email</th>
+            <th class="">Options<th>
+        </tr>
+        <tr>
+            <th><input class='form-control filter keyup' data-field='name'></input></th>
+            <th><input class='form-control filter change datepicker' data-field='created'></input></th>
+            <th><input class='form-control filter keyup' data-field='email'></input></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include '_users_list.html' %}
+    </tbody>
+</table>
+
+{% include 'common/_pagin.html' %}
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}

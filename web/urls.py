@@ -13,6 +13,10 @@ urlpatterns = [
     url(r'^files/edit/(?P<id>\d+)/$', FilesEditView.as_view(), name='files_edit'),
     url(r'^files/delete/(?P<id>\d+)$', FilesDeleteView.as_view(), name='files_delete'),
 
+    url(r'^users/$', UsersListView.as_view(), name='users'),
+    url(r'^users/edit/(?P<id>\d+)/$', UsersEditView.as_view(), name='users_edit'),
+    url(r'^users/delete/(?P<id>\d+)$', UsersDeleteView.as_view(), name='users_delete'),
+
     url(r'^folders/', FoldersListView.as_view(), name='folders'),
     url(r'^video/', VideoListView.as_view(), name='video'),
 ]

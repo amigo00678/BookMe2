@@ -1,0 +1,14 @@
+
+{% for object in objects %}
+<tr>
+    <td>{{ object }}</td>
+    <td>{{ object.created_at }}</td>
+    <td>{{ object.email }}</td>
+    <td>
+        <a class="list-option" href="{% url 'users_edit' id=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="list-option" href="{% url 'users_delete' id=object.id %}" onclick="return confirm('Please confirm user {{ object }} deletion?')">
+            <i class="material-icons">delete</i>
+        </a>
+    </td>
+</tr>
+{% endfor %}

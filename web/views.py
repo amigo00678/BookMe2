@@ -217,3 +217,64 @@ class AudioListView(ObjectsListView):
                 sort = '-' + sort
             objects = objects.order_by(sort)
         return objects
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class UsersListView(ObjectsListView):
+    model = User
+    template_name = 'users_list.html'
+    list_template = '_users_list.html'
+    base_url = 'users'
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(first_name__icontains=filter['name'])
+        if 'email' in filter:
+            objects = objects.filter(email__icontains=filter['email'])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class UsersEditView(LoginRequiredMixin, FormView):
+    form_class = FileEditForm
+    success_url = reverse_lazy('files')
+    template_name = 'files_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = File.objects.get(id=self.kwargs.get('id'))
+            return form_class(instance=instance, **self.get_form_kwargs())
+        except File.DoesNotExist:
+            return form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'File updated successfully')
+        return super(FilesEditView, self).form_valid(form)
+
+
+class UsersDeleteView(LoginRequiredMixin, RedirectView):
+    reverse_url = reverse_lazy('files')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            file = File.objects.get(id=self.kwargs.get('id'))
+            fname = file.name
+            file.delete()
+            messages.info(self.request, "File '%s' deleted successfully" % (fname))
+        except File.DoesNotExist:
+            pass
+        return self.reverse_url
