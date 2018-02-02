@@ -119,14 +119,17 @@ class FilesEditView(LoginRequiredMixin, FormView):
 
 
 class FilesDeleteView(LoginRequiredMixin, RedirectView):
-    pattern_name = 'files'
+    reverse_url = reverse_lazy('files')
 
     def get_redirect_url(self, *args, **kwargs):
         try:
-            File.objects.get(id=self.kwargs.get('id')).delete()
+            file = File.objects.get(id=self.kwargs.get('id'))
+            fname = file.name
+            file.delete()
+            messages.info(self.request, "File '%s' deleted successfully" % (fname))
         except File.DoesNotExist:
             pass
-        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
+        return self.reverse_url
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
