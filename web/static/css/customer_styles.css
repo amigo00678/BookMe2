@@ -100,6 +100,9 @@ body{
     padding: 2 px;
     float: right;
 }
+.pages a{
+    color: purple;
+}
 .pp{
     float: left;
 }

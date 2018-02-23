@@ -62,7 +62,7 @@ class MainListView(ListView):
         context['list_url'] = reverse(self.base_url)
         return JsonResponse({
             'reply': render_to_string(self.list_template, context),
-            'pagin': render_to_string('common/_pagin.html', context)
+            'pagin': render_to_string('customers/_pagin.html', context)
         })
 
     def format_dates(self, filter, data_name):
