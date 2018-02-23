@@ -1,0 +1,10 @@
+<div class="items-list">
+
+    {% for object in objects %}
+    <div class='item {{ object.get_type_display }}'>
+        <div class="name">{{ object.name }}</div>
+        <div class="info-created">{{ object.created_at }}</div>
+    </div>
+    {% endfor %}
+
+</div>

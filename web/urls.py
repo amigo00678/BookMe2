@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from web.views import *
 from web.user_views import *
+from web.customers_views import *
 
 
 urlpatterns = [
@@ -17,6 +18,8 @@ urlpatterns = [
     url(r'^users/edit/(?P<id>\d+)/$', UsersEditView.as_view(), name='users_edit'),
     url(r'^users/delete/(?P<id>\d+)$', UsersDeleteView.as_view(), name='users_delete'),
 
-    url(r'^folders/', FoldersListView.as_view(), name='folders'),
-    url(r'^video/', VideoListView.as_view(), name='video'),
+    url(r'^folders/$', FoldersListView.as_view(), name='folders'),
+    url(r'^video/$', VideoListView.as_view(), name='video'),
+
+    url(r'^customers/$', HomeListView.as_view(), name='customers'),
 ]

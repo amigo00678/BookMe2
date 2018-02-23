@@ -1,0 +1,20 @@
+{% extends "customers/home.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+
+<div class="items-container">
+
+    {% include 'customers/_files_list.html' %}
+
+    {% include 'customers/_pagin.html' %}
+
+</div>
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}

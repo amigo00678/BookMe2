@@ -1,0 +1,16 @@
+<div class="items-pagin">
+
+    <div class="pages">
+        {% for p in page.paginator.page_range %}
+        <div class="page">
+            {% if p == page.number %}
+                {{ p }}
+            {% else %}
+                <a class="page_select">{{ p }}</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input type="hidden" class="filter change page_filter" data-field="page"></input>
+    </div>
+
+</div>

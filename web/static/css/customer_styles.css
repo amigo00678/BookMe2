@@ -1,0 +1,184 @@
+body{
+    font-size: 16px;
+    font-family: "Sans-serif", Arial, serif;
+}
+.main{
+    
+}
+.menu{
+    width: 140px;
+    background-color: #3333cc;
+    padding-left: 0px;
+    margin: 0px;
+}
+.menu a {
+    text-decoration: none;
+    color: purple !important;
+}
+.menu div:not(.parent){
+    padding: 5px 0px 5px 22px;
+    background-color: white;
+}
+.menu .parent{
+    display: block;
+}
+.menu .parent div:first-child{
+    display: block;
+    padding-left: 0px;
+    background-color: #3333cc;
+}
+.menu div i{
+    padding-right: 10px;
+    padding-top: 2px;
+    font-size: 24px;
+}
+.menu div span{
+    vertical-align: top;
+    display: inline-block;
+    padding-top: 4px;
+}
+.content{
+    float: left;
+    border-top: 1px solid #ccc;
+    width: 100%;
+}
+.header{
+    height: 80px;
+}
+.left-col{
+    float: left;
+    background-color: #fff;
+}
+.container{
+    display: inline-flex;
+}
+.logo{
+    padding-top: 28px;
+    width: 140px;
+    height: 80px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+}
+.content-container{
+    padding-left: 20px;
+}
+.list-table{
+    width: 100%;
+}
+.list-table td{
+    padding: 10px;
+}
+.list-table th{
+    text-align: left;
+    padding: 10px;
+}
+.list-table tr td,
+.list-table tr th{
+    border-bottom: 1px solid #ccc;
+}
+.list-table th.sortable{
+    cursor: pointer;
+}
+.asc{
+    background-image: url("/static/img/a-up.png");
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right 10px center;
+}
+.desc{
+    background-image: url("/static/img/a-down.png");
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right 10px center;
+}
+.page{
+    padding: 10px;
+    float: left;
+}
+.pages{
+    padding: 2 px;
+    float: right;
+}
+.pp{
+    float: left;
+}
+.page_select{
+    cursor: pointer;
+    text-decoration: none;
+}
+.page_select:hover{
+    text-decoration: none;
+}
+.form-label{
+    font-weight: bold;
+}
+.btn-container{
+    margin: 12px 0px;
+}
+.btn-bold{
+    font-weight: bold;
+}
+.form-error,
+.field-error{
+    color: purple;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: right;
+    width: 40%;
+    float: right;
+}
+.account{
+    float: right;
+    text-align: right;
+}
+.breadcrumbs{
+    padding-top: 20px;
+}
+.breadcrumbs .breadcrumb{
+    background-color: #fff;
+}
+.list-option i{
+    font-size: 18px;
+    border: 1px solid gray;
+    padding: 3px;
+    border-radius: 3px;
+    color: gray;
+    cursor: pointer;
+}
+.alert{
+    padding: 8px;
+    padding-right: 35px;
+}
+.alert button{
+    padding-top: 3px;
+}
+
+/*   */
+
+.item{
+    float: left;
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 8px;
+}
+.item.VIDEO{
+    background-color: yellow;
+}
+.item.TXT{
+    background-color: blue;
+}
+.item.BINARY{
+    background-color: green;
+}
+.item.AUDIO{
+    background-color: purple;
+}
+.items-list{
+    display: inline-block;
+}
+.items-pagin .pages{
+    float: left;
+}
