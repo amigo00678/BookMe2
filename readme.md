@@ -1,4 +1,6 @@
-A base project for client admin part.
+This is NOT a finished project, just the basics.
+
+Django provides default admin, spartanian one. The target of this project is to create an admin for clients. So it has to be beautiful and convenient to use. Many modern CMSs have admins with statistics, objects editing, permissions, etc, etc.
 
 ```
 mkvirtualenv cadmin
