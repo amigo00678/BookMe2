@@ -41,6 +41,7 @@ class File(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('Folder')
     type = models.IntegerField(choices=FILE_TYPE_E, default=1)
+    content = models.TextField()
 
 
 class Folder(models.Model):

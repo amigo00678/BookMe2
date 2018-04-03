@@ -7,6 +7,8 @@ from web.customers_views import *
 
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name="index.html"), name='index'),
+    url(r'^$', HomeListView.as_view(), name='customers'),
+
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
@@ -20,6 +22,4 @@ urlpatterns = [
 
     url(r'^folders/$', FoldersListView.as_view(), name='folders'),
     url(r'^video/$', VideoListView.as_view(), name='video'),
-
-    url(r'^$', HomeListView.as_view(), name='customers'),
 ]

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.validators import validate_email
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.contrib.auth.forms import AuthenticationForm
 
 from web.models import *
@@ -19,4 +19,8 @@ class AuthForm(AuthenticationForm):
 class FileEditForm(ModelForm):
     class Meta:
         model = File
-        fields = ['name', 'type']
+        fields = ['name', 'type', 'content']
+
+        widgets = {
+            'content': Textarea(attrs={'class': 'tinymce'}),
+        }
