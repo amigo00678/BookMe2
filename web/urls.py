@@ -7,7 +7,8 @@ from web.customers_views import *
 
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name="index.html"), name='index'),
-    url(r'^$', HomeListView.as_view(), name='customers'),
+    url(r'^$', HomeListView.as_view(), name='fe_home'),
+    url(r'^file/(?P<id>\d+)/$', FileDetailView.as_view(), name='fe_file'),
 
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),

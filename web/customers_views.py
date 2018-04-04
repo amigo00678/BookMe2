@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
+from django.views.generic.detail import DetailView
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -27,7 +28,7 @@ class MainListView(ListView):
     model = File
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'
-    base_url = 'customers'
+    base_url = 'fe_home'
 
     def get_context_data(self, **kwargs):
         context = super(MainListView, self).get_context_data(**kwargs)
@@ -76,7 +77,7 @@ class HomeListView(MainListView):
     model = File
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'
-    base_url = 'customers'
+    base_url = 'fe_home'
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -98,3 +99,9 @@ class HomeListView(MainListView):
                 sort = '-' + sort
             objects = objects.order_by(sort)
         return objects
+
+
+class FileDetailView(DetailView):
+    model = File
+    template_name = 'customers/file_view.html'
+    pk_url_kwarg = 'id'

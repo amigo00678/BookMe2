@@ -166,6 +166,8 @@ body{
     border-radius: 4px;
     margin: 8px;
     padding: 8px;
+    color: black !important;
+    text-decoration: none !important;
 }
 .item.VIDEO{
     background-color: yellow;
