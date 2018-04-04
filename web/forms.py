@@ -1,10 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from django.core.validators import validate_email
-from django.forms import ModelForm, Textarea
+from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
 from web.models import *
+
+
+class SaveFileMixin(object):
+    def save_files(self, files):
+        import pdb; pdb.set_trace()
+        if files:
+            slider = ImageSlider.objects.create()
+
+            for file in files:
+                pass
+                #image = SliderImage.objects.create(image=file)
+                #slider.images.add(image)
+
+            return slider
 
 
 class AuthForm(AuthenticationForm):
@@ -16,11 +30,24 @@ class AuthForm(AuthenticationForm):
             validate_email(email)
 
 
-class FileEditForm(ModelForm):
+class FileEditForm(forms.ModelForm, SaveFileMixin):
+
+    top_images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+    bottom_images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+
     class Meta:
         model = File
         fields = ['name', 'type', 'content']
 
         widgets = {
-            'content': Textarea(attrs={'class': 'tinymce'}),
+            'content': forms.Textarea(attrs={'class': 'tinymce'}),
         }
+
+    def save(self, commit=True):
+        instance = super(FileEditForm, self).save(commit=commit)
+
+        instance.top_slider = self.save_files(self.files.getlist('top_images'))
+        instance.bottom_slider = self.save_files(self.files.getlist('bottom_images'))
+        instance.save()
+
+        return instance

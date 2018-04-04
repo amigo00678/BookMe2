@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import random
+import string
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
@@ -42,6 +46,24 @@ class File(models.Model):
     parent = models.ForeignKey('Folder')
     type = models.IntegerField(choices=FILE_TYPE_E, default=1)
     content = models.TextField()
+
+    top_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='top_slider')
+    bottom_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='bottom_slider')
+
+
+class ImageSlider(models.Model):
+    images = models.ManyToManyField('SliderImage', blank=True)
+
+
+def image_upload_path(instance, filename):
+    rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
+    now = datetime.now()
+    return 'uploads/{0}/{1}/{2}/img_{3}{4}'.format(
+        now.year, now.month, now.day, rnd_part, filename[-4:])
+
+
+class SliderImage(models.Model):
+    image = models.FileField(upload_to=image_upload_path)
 
 
 class Folder(models.Model):
