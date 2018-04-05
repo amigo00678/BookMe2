@@ -10,7 +10,19 @@
     <div class="row">
 
         <div class="form-label">{{ file.name }}</div>
-        <div>{{ file.content|safe }}</div>
+        <div>{{ file.top_content|safe }}</div>
+        <div class="image_slider">
+            {% for img in file.top_slider.images.all %}
+                <img src="{{ img.image.url }}"></img>
+            {% endfor %}
+        </div>
+        <div>{{ file.middle_content|safe }}</div>
+        <div class="image_slider">
+            {% for img in file.bottom_slider.images.all %}
+                <img src="{{ img.image.url }}"></img>
+            {% endfor %}
+        </div>
+        <div>{{ file.bottom_content|safe }}</div>
 
         <div class="btn-container">
             <a role="button" class="btn btn-bold btn-default" href="{% url 'files' %}">Back</a>

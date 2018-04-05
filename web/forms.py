@@ -9,14 +9,12 @@ from web.models import *
 
 class SaveFileMixin(object):
     def save_files(self, files):
-        import pdb; pdb.set_trace()
         if files:
             slider = ImageSlider.objects.create()
 
             for file in files:
-                pass
-                #image = SliderImage.objects.create(image=file)
-                #slider.images.add(image)
+                image = SliderImage.objects.create(image=file)
+                slider.images.add(image)
 
             return slider
 
@@ -37,10 +35,12 @@ class FileEditForm(forms.ModelForm, SaveFileMixin):
 
     class Meta:
         model = File
-        fields = ['name', 'type', 'content']
+        fields = ['name', 'type', 'top_content', 'middle_content', 'bottom_content']
 
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'tinymce'}),
+            'top_content': forms.Textarea(attrs={'class': 'tinymce'}),
+            'middle_content': forms.Textarea(attrs={'class': 'tinymce'}),
+            'bottom_content': forms.Textarea(attrs={'class': 'tinymce'}),
         }
 
     def save(self, commit=True):

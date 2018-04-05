@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import random
 import string
+import os
 from datetime import datetime
 
 from django.db import models
@@ -45,7 +46,10 @@ class File(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('Folder')
     type = models.IntegerField(choices=FILE_TYPE_E, default=1)
-    content = models.TextField()
+
+    top_content = models.TextField(null=True, blank=True)
+    middle_content = models.TextField(null=True, blank=True)
+    bottom_content = models.TextField(null=True, blank=True)
 
     top_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='top_slider')
     bottom_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='bottom_slider')
@@ -56,10 +60,18 @@ class ImageSlider(models.Model):
 
 
 def image_upload_path(instance, filename):
-    rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
     now = datetime.now()
-    return 'uploads/{0}/{1}/{2}/img_{3}{4}'.format(
+    rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
+
+    path = 'uploads/{0}/{1}/{2}/img_{3}{4}'.format(
         now.year, now.month, now.day, rnd_part, filename[-4:])
+
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        pass
+
+    return path
 
 
 class SliderImage(models.Model):

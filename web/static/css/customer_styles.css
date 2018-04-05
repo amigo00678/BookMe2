@@ -187,3 +187,6 @@ body{
 .pagin .pages{
     float: left;
 }
+.image_slider img{
+    width: 100%;
+}
