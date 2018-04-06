@@ -46,8 +46,9 @@ class FileEditForm(forms.ModelForm, SaveFileMixin):
     def save(self, commit=True):
         instance = super(FileEditForm, self).save(commit=commit)
 
-        instance.top_slider = self.save_files(self.files.getlist('top_images'))
-        instance.bottom_slider = self.save_files(self.files.getlist('bottom_images'))
-        instance.save()
+        if self.files:
+            instance.top_slider = self.save_files(self.files.getlist('top_images'))
+            instance.bottom_slider = self.save_files(self.files.getlist('bottom_images'))
+            instance.save()
 
         return instance

@@ -188,5 +188,6 @@ body{
     float: left;
 }
 .image_slider img{
-    width: 100%;
+    width: 20%;
+    border: 1px solid #555;
 }
