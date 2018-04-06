@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
 
 from django.http import HttpResponseRedirect
 
@@ -20,7 +21,7 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            return HttpResponseRedirect('files')
+            return HttpResponseRedirect(reverse('files'))
         return super(LoginView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
@@ -28,9 +29,9 @@ class LoginView(FormView):
             password=form.data.get('password'))
         if user:
             login(self.request, user)
-            return HttpResponseRedirect('files')
+            return HttpResponseRedirect(reverse('files'))
         else:
-            return HttpResponseRedirect('login')
+            return HttpResponseRedirect(reverse('login'))
 
 
 class LogoutView(RedirectView):

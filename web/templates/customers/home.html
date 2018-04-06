@@ -37,7 +37,9 @@
         <div class="container col-xs-12">
             {% block container %}
             <div class="left-col">
-                <div class="logo"><img src="{% static 'img/project_logo.png' %}"></img></div>
+                <div class="logo">
+                    <a href="{% url 'fe_home' %}" class=""><img src="{% static 'img/project_logo.png' %}"></img></a>
+                </div>
                 <div class="menu">
 
                     <div><a href="{% url 'files' %}">
