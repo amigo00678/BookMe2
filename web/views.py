@@ -120,6 +120,17 @@ class FilesEditView(LoginRequiredMixin, FormView):
         return super(FilesEditView, self).form_valid(form)
 
 
+class FilesAddView(LoginRequiredMixin, FormView):
+    form_class = FileEditForm
+    success_url = reverse_lazy('files')
+    template_name = 'files_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'File created successfully')
+        return super(FilesAddView, self).form_valid(form)
+
+
 class FilesDeleteView(LoginRequiredMixin, RedirectView):
     reverse_url = reverse_lazy('files')
 

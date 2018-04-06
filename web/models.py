@@ -44,7 +44,7 @@ class User(AbstractBaseUser):
 class File(models.Model):
     name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    parent = models.ForeignKey('Folder')
+    parent = models.ForeignKey('Folder', null=True, blank=True)
     type = models.IntegerField(choices=FILE_TYPE_E, default=1)
 
     top_content = models.TextField(null=True, blank=True)

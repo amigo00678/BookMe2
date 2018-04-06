@@ -65,7 +65,7 @@ body{
     display: inline-flex;
 }
 .logo{
-    padding-top: 28px;
+    padding-top: 14px;
     width: 200px;
     height: 80px;
     background-color: #3333cc;
@@ -179,4 +179,7 @@ body{
     width: 40%;
     margin-right: 20px;
     border: 1px solid #aaa;
+}
+.item_actions{
+    padding: 10px;
 }

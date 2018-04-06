@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
     url(r'^files/$', FilesListView.as_view(), name='files'),
+    url(r'^files/add/$', FilesAddView.as_view(), name='files_add'),
     url(r'^files/edit/(?P<id>\d+)/$', FilesEditView.as_view(), name='files_edit'),
     url(r'^files/delete/(?P<id>\d+)$', FilesDeleteView.as_view(), name='files_delete'),
 
