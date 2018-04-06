@@ -72,6 +72,9 @@ body{
     color: white;
     text-align: center;
 }
+.logo img{
+    width: 80%;
+}
 .content-container{
     padding-left: 20px;
 }

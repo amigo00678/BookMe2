@@ -23,16 +23,18 @@ from web.forms import *
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-class ObjectsListView(LoginRequiredMixin, ListView):
+class ObjectsListView(ListView):
     model = File
     template_name = 'files_list.html'
     list_template = '_files_list.html'
+    pagin_template = 'common/_pagin.html'
+    default_pp = 10
     base_url = 'files'
 
     def get_context_data(self, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
         page = int(self.kwargs.get('page', 1))
-        objects, page = self.get_objects(filter={}, pp=10, page=page)
+        objects, page = self.get_objects(filter={}, pp=self.default_pp, page=page)
         context['objects'] = objects
         context['page'] = page
         context['list_url'] = reverse(self.base_url)
@@ -56,13 +58,13 @@ class ObjectsListView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         context = {}
         objects, page = self.get_objects(
-            request.POST, request.POST.get('pp', 10), request.POST.get('page', 1))
+            request.POST, request.POST.get('pp', self.default_pp), request.POST.get('page', 1))
         context['objects'] = objects
         context['page'] = page
         context['list_url'] = reverse(self.base_url)
         return JsonResponse({
             'reply': render_to_string(self.list_template, context),
-            'pagin': render_to_string('common/_pagin.html', context)
+            'pagin': render_to_string(self.pagin_template, context)
         })
 
     def format_dates(self, filter, data_name):

@@ -21,59 +21,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from web.models import *
 from web.forms import *
+from web.views import ObjectsListView
+
+
+class FEListView(ObjectsListView):
+    pagin_template = 'customers/_pagin.html'
+    default_pp = 12
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-class MainListView(ListView):
-    model = File
-    template_name = 'customers/files_list.html'
-    list_template = 'customers/_files_list.html'
-    base_url = 'fe_home'
-
-    def get_context_data(self, **kwargs):
-        context = super(MainListView, self).get_context_data(**kwargs)
-        page = int(self.kwargs.get('page', 1))
-        objects, page = self.get_objects(filter={}, pp=12, page=page)
-        context['objects'] = objects
-        context['page'] = page
-        context['list_url'] = reverse(self.base_url)
-        return context
-
-    def get_objects(self, filter={}, pp=12, page=1):
-        objects = self.get_list(filter)
-        return self.get_pages(objects, pp, page)
-
-    def get_pages(self, objects, pp, page):
-        pagin = Paginator(objects, pp)
-        try:
-            page = pagin.page(page)
-        except EmptyPage:
-            page = pagin.page(pagin.num_pages)
-        return page.object_list, page
-
-    def get_list(self, filter):
-        return self.model.objects.all()
-
-    def post(self, request, *args, **kwargs):
-        context = {}
-        objects, page = self.get_objects(
-            request.POST, request.POST.get('pp', 12), request.POST.get('page', 1))
-        context['objects'] = objects
-        context['page'] = page
-        context['list_url'] = reverse(self.base_url)
-        return JsonResponse({
-            'reply': render_to_string(self.list_template, context),
-            'pagin': render_to_string('customers/_pagin.html', context)
-        })
-
-    def format_dates(self, filter, data_name):
-        date_gte = datetime.strptime(filter[data_name][:10], '%m/%d/%Y')
-        date_lte = datetime.strptime(filter[data_name][-10:], '%m/%d/%Y')
-        return [date_gte, date_lte]
-
-
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class HomeListView(MainListView):
+class HomeListView(FEListView):
     model = File
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'

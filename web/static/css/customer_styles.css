@@ -53,12 +53,15 @@ body{
     display: inline-flex;
 }
 .logo{
-    padding-top: 28px;
+    padding-top: 10px;
     width: 140px;
     height: 80px;
     background-color: #fff;
     color: #000;
     text-align: center;
+}
+.logo img{
+    width: 80%;
 }
 .content-container{
     padding-left: 20px;
