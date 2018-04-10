@@ -17,9 +17,17 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 from web.models import *
 from web.forms import *
+
+
+class AuthUserMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('fe_home'))
+        return super(AuthUserMixin, self).dispatch(request, *args, **kwargs)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -73,8 +81,7 @@ class ObjectsListView(ListView):
         return [date_gte, date_lte]
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class FilesListView(ObjectsListView):
+class FilesListView(AuthUserMixin, ObjectsListView):
     model = File
     template_name = 'files_list.html'
     list_template = '_files_list.html'
@@ -102,7 +109,7 @@ class FilesListView(ObjectsListView):
         return objects
 
 
-class FilesEditView(LoginRequiredMixin, FormView):
+class FilesEditView(AuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
     template_name = 'files_edit.html'
@@ -120,7 +127,7 @@ class FilesEditView(LoginRequiredMixin, FormView):
         return super(FilesEditView, self).form_valid(form)
 
 
-class FilesAddView(LoginRequiredMixin, FormView):
+class FilesAddView(AuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
     template_name = 'files_add.html'
@@ -131,7 +138,7 @@ class FilesAddView(LoginRequiredMixin, FormView):
         return super(FilesAddView, self).form_valid(form)
 
 
-class FilesDeleteView(LoginRequiredMixin, RedirectView):
+class FilesDeleteView(AuthUserMixin, RedirectView):
     reverse_url = reverse_lazy('files')
 
     def get_redirect_url(self, *args, **kwargs):
@@ -145,8 +152,7 @@ class FilesDeleteView(LoginRequiredMixin, RedirectView):
         return self.reverse_url
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class FoldersListView(ObjectsListView):
+class FoldersListView(AuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
@@ -174,8 +180,7 @@ class FoldersListView(ObjectsListView):
         return objects
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class VideoListView(ObjectsListView):
+class VideoListView(AuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
@@ -203,8 +208,7 @@ class VideoListView(ObjectsListView):
         return objects
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class AudioListView(ObjectsListView):
+class AudioListView(AuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
@@ -232,8 +236,7 @@ class AudioListView(ObjectsListView):
         return objects
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-class UsersListView(ObjectsListView):
+class UsersListView(AuthUserMixin, ObjectsListView):
     model = User
     template_name = 'users_list.html'
     list_template = '_users_list.html'
@@ -261,7 +264,7 @@ class UsersListView(ObjectsListView):
         return objects
 
 
-class UsersEditView(LoginRequiredMixin, FormView):
+class UsersEditView(AuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
     template_name = 'files_edit.html'
@@ -279,7 +282,7 @@ class UsersEditView(LoginRequiredMixin, FormView):
         return super(FilesEditView, self).form_valid(form)
 
 
-class UsersDeleteView(LoginRequiredMixin, RedirectView):
+class UsersDeleteView(AuthUserMixin, RedirectView):
     reverse_url = reverse_lazy('files')
 
     def get_redirect_url(self, *args, **kwargs):
