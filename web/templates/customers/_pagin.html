@@ -1,5 +1,7 @@
 <div class="pagin">
 
+    {% if page.paginator.num_pages > 1 %}
+
     <div class="pages">
         {% for p in page.paginator.page_range %}
         <div class="page">
@@ -12,5 +14,7 @@
         {% endfor %}
         <input type="hidden" class="filter change page_filter" data-field="page"></input>
     </div>
+
+    {% endif %}
 
 </div>

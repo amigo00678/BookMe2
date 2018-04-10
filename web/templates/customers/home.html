@@ -42,23 +42,24 @@
                 </div>
                 <div class="menu">
 
-                    <div><a href="{% url 'files' %}">
+                    <div><a href="{% url 'fe_files' %}">
                         <i class="material-icons">attach_file</i>
                         <span>Files</span>
                     </a></div>
-                    <div><a href="{% url 'folders' %}">
-                        <i class="material-icons">folder</i>
-                        <span>Folders</span>
-                    </a></div>
 
-                    <div><a href="">
+                    <div><a href="{% url 'fe_audio' %}">
                         <i class="material-icons">audiotrack</i>
                         <span>Audio</span>
                     </a></div>
 
-                    <div><a href="{% url 'video' %}">
+                    <div><a href="{% url 'fe_video' %}">
                         <i class="material-icons">personal_video</i>
                         <span>Videos</span>
+                    </a></div>
+
+                    <div><a href="{% url 'fe_bin' %}">
+                        <i class="material-icons">view_compact</i>
+                        <span>Binaries</span>
                     </a></div>
 
                 </div>

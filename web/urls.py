@@ -9,7 +9,12 @@ urlpatterns = [
 
     # customer fronted views
     url(r'^$', HomeListView.as_view(), name='fe_home'),
-    url(r'^file/(?P<id>\d+)/$', FileDetailView.as_view(), name='fe_file'),
+
+    url(r'^customer-file/(?P<id>\d+)/$', FileDetailView.as_view(), name='fe_file'),
+    url(r'^customer-files/$', HomeFilesListView.as_view(), name='fe_files'),
+    url(r'^customer-audio/$', HomeAudioListView.as_view(), name='fe_audio'),
+    url(r'^customer-video/$', HomeVideoListView.as_view(), name='fe_video'),
+    url(r'^customer-bin/$', HomeBinaryListView.as_view(), name='fe_bin'),
 
     # admin views
     url(r'^login/$', LoginView.as_view(), name='login'),
