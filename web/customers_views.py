@@ -38,6 +38,7 @@ class HomeListView(FEListView):
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'
     base_url = 'fe_home'
+    default_pp = 12
 
     def get_list(self, filter):
         return self.model.objects.all()
