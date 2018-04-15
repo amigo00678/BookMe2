@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Customers Login{% endblock %}
+
+{% block container %}
+
+<div class="col-xs-4 col-xs-offset-4">
+    <div class="form-label">
+        Wellcome! Please log in!
+    </div>
+    <form role="form" class="form-horizontal" method="post" action=".">
+        {% csrf_token %}
+
+        {% include "common/_form_nf_errors.html" %}
+
+        {% for field in form %}
+
+            {% include "common/_form_field_errors.html" %}
+
+            <div class="form-label">{{ field.label }}</div>
+            {{ field|add_class:"form-control" }}
+
+        {% endfor %}
+
+        <input type="submit" class="btn btn-primary btn-container btn-bold" value="Login" />
+    </form>
+</div>
+
+{% endblock %}
