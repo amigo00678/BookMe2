@@ -52,13 +52,13 @@ class HomeListView(FEListView):
         return self.model.objects.all()
 
 
-class FileDetailView(CustomerAuthUserMixin, DetailView):
+class FileDetailView(DetailView):
     model = File
     template_name = 'customers/file_view.html'
     pk_url_kwarg = 'id'
 
 
-class HomeFilesListView(CustomerAuthUserMixin, FEListView):
+class HomeFilesListView(FEListView):
     model = File
     base_url = 'fe_files'
 
@@ -66,7 +66,7 @@ class HomeFilesListView(CustomerAuthUserMixin, FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[0][0])
 
 
-class HomeAudioListView(CustomerAuthUserMixin, FEListView):
+class HomeAudioListView(FEListView):
     model = File
     base_url = 'fe_audio'
 
@@ -74,7 +74,7 @@ class HomeAudioListView(CustomerAuthUserMixin, FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[1][0])
 
 
-class HomeVideoListView(CustomerAuthUserMixin, FEListView):
+class HomeVideoListView(FEListView):
     model = File
     base_url = 'fe_video'
 
@@ -82,7 +82,7 @@ class HomeVideoListView(CustomerAuthUserMixin, FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[2][0])
 
 
-class HomeBinaryListView(CustomerAuthUserMixin, FEListView):
+class HomeBinaryListView(FEListView):
     model = File
     base_url = 'fe_bin'
 
