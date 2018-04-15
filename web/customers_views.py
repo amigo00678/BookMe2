@@ -18,10 +18,18 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 from web.models import *
 from web.forms import *
 from web.views import ObjectsListView
+
+
+class CustomerAuthUserMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('fe_home'))
+        return super(CustomerAuthUserMixin, self).dispatch(request, *args, **kwargs)
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -44,13 +52,13 @@ class HomeListView(FEListView):
         return self.model.objects.all()
 
 
-class FileDetailView(DetailView):
+class FileDetailView(CustomerAuthUserMixin, DetailView):
     model = File
     template_name = 'customers/file_view.html'
     pk_url_kwarg = 'id'
 
 
-class HomeFilesListView(FEListView):
+class HomeFilesListView(CustomerAuthUserMixin, FEListView):
     model = File
     base_url = 'fe_files'
 
@@ -58,7 +66,7 @@ class HomeFilesListView(FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[0][0])
 
 
-class HomeAudioListView(FEListView):
+class HomeAudioListView(CustomerAuthUserMixin, FEListView):
     model = File
     base_url = 'fe_audio'
 
@@ -66,7 +74,7 @@ class HomeAudioListView(FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[1][0])
 
 
-class HomeVideoListView(FEListView):
+class HomeVideoListView(CustomerAuthUserMixin, FEListView):
     model = File
     base_url = 'fe_video'
 
@@ -74,7 +82,7 @@ class HomeVideoListView(FEListView):
         return self.model.objects.filter(type=FILE_TYPE_E[2][0])
 
 
-class HomeBinaryListView(FEListView):
+class HomeBinaryListView(CustomerAuthUserMixin, FEListView):
     model = File
     base_url = 'fe_bin'
 

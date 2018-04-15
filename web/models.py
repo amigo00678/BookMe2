@@ -36,6 +36,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
+    type = models.IntegerField(choices=USER_TYPE_E, default=2)
 
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)

@@ -88,4 +88,6 @@ class Command(BaseCommand):
     def create_users(self):
         # create users
         User.objects.create_user(email='u@u.com', password='123',
-            first_name="UFn", last_name="ULn")
+            first_name="UFn", last_name="ULn", type=1)
+        User.objects.create_user(email='c@c.com', password='123',
+            first_name="CFn", last_name="CLn", type=2)
