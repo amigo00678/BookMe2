@@ -167,10 +167,17 @@ body{
     display: inline-block;
     border: 1px solid gray;
     border-radius: 4px;
-    margin: 8px;
+    margin: 8px 0px 8px 0px;
     padding: 8px;
     color: black !important;
     text-decoration: none !important;
+}
+.item img{
+    width: 180px;
+}
+.item .name{
+    font-size: 20px;
+    margin: 0px 0px 8px 0px;
 }
 .item.VIDEO{
     background-color: yellow;
@@ -193,4 +200,9 @@ body{
 .image_slider img{
     width: 20%;
     border: 1px solid #555;
+}
+.features div{
+    padding: 0px 10px 0px 0px;
+    font-weight: bold;
+    color: #268e28;
 }

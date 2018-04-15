@@ -2,9 +2,17 @@
 
     {% for object in objects %}
         {% if object.type == 1 %}
-            <a href="{% url 'fe_file' id=object.id %}" class='item {{ object.get_type_display }}'>
-                <div class="name">{{ object.name }}</div>
-                <div class="info-created">{{ object.created_at }}</div>
+            <a href="{% url 'fe_file' id=object.id %}" class='item col-xs-12 {{ object.get_type_display }}'>
+                <div class="pull-left">
+                    <img src="{{ object.top_slider.images.first.image.url }}"></img>
+                </div>
+                <div class="pull-left col-xs-6">
+                    <div class="name">{{ object.name }}</div>
+                    <div class="info-created">{{ object.created_at }}</div>
+                </div>
+                <div class="pull-right col-xs-2 text-right">
+                    <div class="name">{{ object.rate }}</div>
+                </div>
             </a>
         {% else %}
             <div class='item {{ object.get_type_display }}'>

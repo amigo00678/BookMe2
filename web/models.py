@@ -54,6 +54,16 @@ class File(models.Model):
     top_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='top_slider')
     bottom_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='bottom_slider')
 
+    rate = models.FloatField(default=0)
+    features = models.ManyToManyField('Feature')
+
+
+class Feature(models.Model):
+    name = models.CharField(max_length=200)
+    value = models.BooleanField(default=True)
+    key = models.CharField(max_length=10)
+    image = models.FileField(null=True, blank=True)
+
 
 class ImageSlider(models.Model):
     images = models.ManyToManyField('SliderImage', blank=True)
