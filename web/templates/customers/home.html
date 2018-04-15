@@ -68,10 +68,15 @@
             <div class="content-container col-xs-8">
                 <div class="header">
                     <div class="row col-xs-6 breadcrumbs">{% render_breadcrumbs %}</div>
-                    {% comment %}
-                    <div class="row col-xs-4 account">Logged in as:<br>{{ user }}<br>
-                        <a href="{% url 'logout' %}">Logout</a></div>
-                    {% endcomment %}
+                    {% if request.user.is_authenticated %}
+                        <div class="row col-xs-4 account">Logged in as:<br>{{ user }}<br>
+                            <a href="{% url 'fe_logout' %}">Logout</a>
+                        </div>
+                    {% else %}
+                        <div class="row col-xs-4 account">
+                            <a href="{% url 'fe_login' %}">Log in</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="content">
                     <div class="btn-container">

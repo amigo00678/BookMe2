@@ -16,6 +16,9 @@ urlpatterns = [
     url(r'^customer-video/$', HomeVideoListView.as_view(), name='fe_video'),
     url(r'^customer-bin/$', HomeBinaryListView.as_view(), name='fe_bin'),
 
+    url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
+    url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
+
     # admin views
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),

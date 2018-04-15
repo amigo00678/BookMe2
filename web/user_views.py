@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from web.forms import *
 
 
+# admin
 class LoginView(FormView):
     template_name = 'common/login.html'
     form_class = AuthForm
@@ -21,7 +22,10 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('files'))
+            if self.request.user.type == 1:
+                return HttpResponseRedirect(reverse('files'))
+            else:
+                return HttpResponseRedirect(reverse('fe_home'))
         return super(LoginView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
@@ -29,9 +33,7 @@ class LoginView(FormView):
             password=form.data.get('password'))
         if user:
             login(self.request, user)
-            return HttpResponseRedirect(reverse('files'))
-        else:
-            return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse('login'))
 
 
 class LogoutView(RedirectView):
@@ -40,3 +42,17 @@ class LogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super(LogoutView, self).get_redirect_url(*args, **kwargs)
+
+
+# customer
+class HomeLoginView(LoginView):
+    template_name = 'customers/login.html'
+    form_class = AuthForm
+
+    def form_valid(self, *args, **kwargs):
+        super(HomeLoginView, self).form_valid(*args, **kwargs)
+        return HttpResponseRedirect(reverse('fe_login'))
+
+
+class HomeLogoutView(LogoutView):
+    pattern_name = 'fe_home'
