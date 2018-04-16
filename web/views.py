@@ -33,8 +33,8 @@ class AdminAuthUserMixin(object):
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class ObjectsListView(ListView):
     model = File
-    template_name = 'files_list.html'
-    list_template = '_files_list.html'
+    template_name = 'files/files_list.html'
+    list_template = 'files/_files_list.html'
     pagin_template = 'common/_pagin.html'
     default_pp = 10
     base_url = 'files'
@@ -81,10 +81,12 @@ class ObjectsListView(ListView):
         return [date_gte, date_lte]
 
 
+#####
+
 class FilesListView(AdminAuthUserMixin, ObjectsListView):
     model = File
-    template_name = 'files_list.html'
-    list_template = '_files_list.html'
+    template_name = 'files/files_list.html'
+    list_template = 'files/_files_list.html'
     base_url = 'files'
 
     def get_list(self, filter):
@@ -112,7 +114,7 @@ class FilesListView(AdminAuthUserMixin, ObjectsListView):
 class FilesEditView(AdminAuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
-    template_name = 'files_edit.html'
+    template_name = 'files/files_edit.html'
 
     def get_form(self, form_class):
         try:
@@ -130,7 +132,7 @@ class FilesEditView(AdminAuthUserMixin, FormView):
 class FilesAddView(AdminAuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
-    template_name = 'files_add.html'
+    template_name = 'files/files_add.html'
 
     def form_valid(self, form):
         form.save()
@@ -151,6 +153,74 @@ class FilesDeleteView(AdminAuthUserMixin, RedirectView):
             pass
         return self.reverse_url
 
+
+#####
+
+class FeaturesListView(AdminAuthUserMixin, ObjectsListView):
+    model = Feature
+    template_name = 'features/features_list.html'
+    list_template = 'features/_features_list.html'
+    base_url = 'features'
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class FeatureEditView(AdminAuthUserMixin, FormView):
+    form_class = FeatureEditForm
+    success_url = reverse_lazy('features')
+    template_name = 'features/features_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = Feature.objects.get(id=self.kwargs.get('id'))
+            return self.form_class(instance=instance, **self.get_form_kwargs())
+        except Feature.DoesNotExist:
+            return self.form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Feature updated successfully')
+        return super(FeatureEditView, self).form_valid(form)
+
+
+class FeatureAddView(AdminAuthUserMixin, FormView):
+    form_class = FeatureEditForm
+    success_url = reverse_lazy('features')
+    template_name = 'features/features_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Feature created successfully')
+        return super(FeatureAddView, self).form_valid(form)
+
+
+class FeatureDeleteView(AdminAuthUserMixin, RedirectView):
+    reverse_url = reverse_lazy('features')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            feature = Feature.objects.get(id=self.kwargs.get('id'))
+            fname = feature.name
+            feature.delete()
+            messages.info(self.request, "feature '%s' deleted successfully" % (fname))
+        except Feature.DoesNotExist:
+            pass
+        return self.reverse_url
+
+#####
 
 class FoldersListView(AdminAuthUserMixin, ObjectsListView):
     model = Folder

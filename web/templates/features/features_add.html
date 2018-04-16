@@ -1,14 +1,14 @@
-{% extends "files_edit.html" %}
+{% extends "features/features_edit.html" %}
 
 {% load django_bootstrap_breadcrumbs %}
 
-{% block title %}Files Add{% endblock %}
+{% block title %}Features Add{% endblock %}
 
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
     {% breadcrumb "Home" "/" %}
-    {% breadcrumb "Files" "files" %}
-    {% breadcrumb "Add files" "" %}
+    {% breadcrumb "Features" "features" %}
+    {% breadcrumb "Add features" "" %}
 {% endblock %}
 
 {% block content %}

@@ -59,11 +59,25 @@ class File(models.Model):
     features = models.ManyToManyField('Feature')
 
 
+def feature_upload_path(instance, filename):
+    rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
+    path = 'uploads/features/feature_{0}{1}'.format(rnd_part, filename[-4:])
+
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        pass
+    return path
+
+
 class Feature(models.Model):
     name = models.CharField(max_length=200)
     value = models.BooleanField(default=True)
     key = models.CharField(max_length=10)
-    image = models.FileField(null=True, blank=True)
+    image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
 
 
 class ImageSlider(models.Model):

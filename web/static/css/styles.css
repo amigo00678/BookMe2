@@ -183,3 +183,11 @@ body{
 .item_actions{
     padding: 10px;
 }
+.admin_images{
+    padding: 4px 4px;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+select.form-control option{
+    padding: 6px;
+}

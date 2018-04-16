@@ -23,11 +23,19 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
+    # features
+    url(r'^features/$', FeaturesListView.as_view(), name='features'),
+    url(r'^features/add/$', FeatureAddView.as_view(), name='features_add'),
+    url(r'^features/edit/(?P<id>\d+)/$', FeatureEditView.as_view(), name='features_edit'),
+    url(r'^features/delete/(?P<id>\d+)$', FeatureDeleteView.as_view(), name='features_delete'),
+
+    # files
     url(r'^files/$', FilesListView.as_view(), name='files'),
     url(r'^files/add/$', FilesAddView.as_view(), name='files_add'),
     url(r'^files/edit/(?P<id>\d+)/$', FilesEditView.as_view(), name='files_edit'),
     url(r'^files/delete/(?P<id>\d+)$', FilesDeleteView.as_view(), name='files_delete'),
 
+    # users
     url(r'^users/$', UsersListView.as_view(), name='users'),
     url(r'^users/edit/(?P<id>\d+)/$', UsersEditView.as_view(), name='users_edit'),
     url(r'^users/delete/(?P<id>\d+)$', UsersDeleteView.as_view(), name='users_delete'),
