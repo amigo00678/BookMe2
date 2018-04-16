@@ -42,7 +42,8 @@ class Command(BaseCommand):
 
     def create_reviews(self, file, count, from_user):
         for i in range(count):
-            Review.objects.create(rate=i, user=from_user, item=file, 
+            Review.objects.create(rate=i, user=from_user, item=file,
+                heading="<strong>Lorem ipsum!</strong>",
                 pros="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!",
                 cons="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!"
             )
