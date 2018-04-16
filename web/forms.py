@@ -35,7 +35,7 @@ class FileEditForm(forms.ModelForm, SaveFileMixin):
 
     class Meta:
         model = File
-        fields = ['name', 'type', 'rate', 'features', 'top_content', 'middle_content', 'bottom_content']
+        fields = ['name', 'type', 'features', 'top_content', 'middle_content', 'bottom_content']
 
         widgets = {
             'top_content': forms.Textarea(attrs={'class': 'tinymce'}),
@@ -58,7 +58,7 @@ class FeatureEditForm(forms.ModelForm):
 
     class Meta:
         model = Feature
-        fields = ['name', 'value', 'image']
+        fields = ['name', 'image']
 
         widgets = {
             'image': forms.FileInput(),

@@ -35,6 +35,29 @@
             {% endfor %}
         </div>
 
+        <div class="reviews">
+            <div class="name">
+                <span>Reviews</span><a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">See all ({{ file.reviews_count }})</a>
+            </div>
+            {% for review in file.latest_reviews %}
+                <div class="review col-xs-12">
+                    <div class="col-xs-4">
+                        <div class="review_user">{{ review.user.public_name }}</div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="">{{ review.rate }}</div>
+                        <div class="review_date">{{ review.created_at }}</div>
+                    </div>
+                    <div class="col-xs-12">
+                        Pros<br>
+                        <div class="review_txt">{{ review.pros|safe }}</div>
+                        Cons<br>
+                        <div class="review_txt">{{ review.cons|safe }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
         <div class="btn-container">
             <a role="button" class="btn btn-bold btn-default pull-right" href="{% url 'fe_home' %}">Back</a>
         </div>

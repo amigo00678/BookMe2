@@ -40,7 +40,6 @@ class FEListView(ObjectsListView):
     default_pp = 8
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
 class HomeListView(FEListView):
     model = File
     template_name = 'customers/files_list.html'
@@ -50,6 +49,17 @@ class HomeListView(FEListView):
 
     def get_list(self, filter):
         return self.model.objects.all()
+
+
+class ReviewsListView(FEListView):
+    model = Review
+    template_name = 'customers/files_list.html'
+    list_template = 'customers/_files_list.html'
+    base_url = 'fe_home'
+    default_pp = 4
+
+    def get_list(self, filter):
+        return self.model.objects.filter(item__id=int(self.kwargs.get('id')))
 
 
 class FileDetailView(DetailView):

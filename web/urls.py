@@ -16,6 +16,8 @@ urlpatterns = [
     url(r'^customer-video/$', HomeVideoListView.as_view(), name='fe_video'),
     url(r'^customer-bin/$', HomeBinaryListView.as_view(), name='fe_bin'),
 
+    url(r'^customer-reviews/(?P<id>\d+)/$', ReviewsListView.as_view(), name='fe_reviews'),
+
     url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
     url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
 

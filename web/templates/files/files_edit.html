@@ -28,13 +28,13 @@
                 <div class="form-label">{{ field.label }}</div>
                 {{ field|add_class:"form-control" }}
 
-                {% if field.name == 'top_images' %}
+                {% if field.name == 'top_images' and form.instance.top_slider.images.all %}
                     <div class="slider_images">
                         {% for img in form.instance.top_slider.images.all %}
                         <img src="{{ img.image.url }}"></img>
                         {% endfor %}
                     </div>
-                {% elif field.name == 'bottom_images' %}
+                {% elif field.name == 'bottom_images' and form.instance.bottom_slider.images.all%}
                     <div class="slider_images">
                         {% for img in form.instance.bottom_slider.images.all %}
                         <img src="{{ img.image.url }}"></img>

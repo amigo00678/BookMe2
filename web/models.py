@@ -7,6 +7,8 @@ import os
 from datetime import datetime
 
 from django.db import models
+from django.db.models import Avg
+
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 
@@ -41,6 +43,9 @@ class User(AbstractBaseUser):
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+    def public_name(self):
+        return "%s" % (self.first_name)
+
 
 class File(models.Model):
     name = models.CharField(max_length=200)
@@ -55,8 +60,28 @@ class File(models.Model):
     top_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='top_slider')
     bottom_slider = models.ForeignKey('ImageSlider', null=True, blank=True, related_name='bottom_slider')
 
-    rate = models.FloatField(default=0)
     features = models.ManyToManyField('Feature')
+
+    @property
+    def latest_reviews(self):
+        return self.review_set.all()[:3]
+
+    @property
+    def rate(self):
+        return Review.objects.filter(item=self).aggregate(Avg('rate')).get('rate__avg')
+
+    @property
+    def reviews_count(self):
+        return Review.objects.filter(item=self).count()
+
+
+class Review(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.FloatField(default=0)
+    user = models.ForeignKey('User')
+    item = models.ForeignKey('File')
+    pros = models.TextField(null=True, blank=True)
+    cons = models.TextField(null=True, blank=True)
 
 
 def feature_upload_path(instance, filename):

@@ -16,9 +16,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.clear()
         self.create_features()
+        self.create_users()
         self.create_files()
         self.create_folders()
-        self.create_users()
 
     def create_features(self):
         Feature.objects.create(name="First Feature", key="feature_1", image="uploads/f1.JPG")
@@ -40,6 +40,13 @@ class Command(BaseCommand):
 
         return slider
 
+    def create_reviews(self, file, count, from_user):
+        for i in range(count):
+            Review.objects.create(rate=i, user=from_user, item=file, 
+                pros="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!",
+                cons="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!"
+            )
+
 
     def create_files(self):
         # create files in folder1
@@ -56,28 +63,25 @@ class Command(BaseCommand):
                 top_content=top_content, middle_content=middle_content)
             file.features = features
             file.top_slider = slider
-            file.rate = (10 - i)
             file.save()
+            self.create_reviews(file, 10 - i, User.objects.filter(email="c@c.com").first())
 
         for i in range(10):
             File.objects.create(name='file_audio_'+str(i), type=2, parent=folder1,
                 top_content=top_content, middle_content=middle_content)
             file.features = features
-            file.rate = (10 - i)
             file.save()
 
         for i in range(10):
             File.objects.create(name='file_video_'+str(i), type=3, parent=folder1,
                 top_content=top_content, middle_content=middle_content)
             file.features = features
-            file.rate = (10 - i)
             file.save()
 
         for i in range(10):
             File.objects.create(name='file_binary_'+str(i), type=4, parent=folder1,
                 top_content=top_content, middle_content=middle_content)
             file.features = features
-            file.rate = (10 - i)
             file.save()
 
     def create_folders(self):

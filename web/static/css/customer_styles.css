@@ -206,3 +206,12 @@ body{
     font-weight: bold;
     color: #268e28;
 }
+.reviews{
+    padding-top: 4px;
+}
+.review{
+    padding: 10px 0px 10px 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #aaa;
+}
