@@ -23,8 +23,9 @@
             {% endfor %}
 
             <div class="btn-container">
-                <input class="btn btn-bold btn-default" type="submit" value="Submit" />
-                <a role="button" class="btn btn-bold btn-danger" href="{% url 'fe_file' id=file.id %}">Cancel</a>
+                <input class="btn btn-bold btn-default" type="submit" value="OK" />
+                <a role="button" class="btn btn-bold btn-primary" href="{% url 'fe_file' id=file.id %}">
+                    Back</a>
             </div>
 
         </form>

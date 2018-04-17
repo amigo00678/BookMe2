@@ -11,7 +11,7 @@
                     <div class="info-created">{{ object.created_at }}</div>
                 </div>
                 <div class="pull-right col-xs-2 text-right">
-                    <div class="name">{{ object.rate }}</div>
+                    <div class="name">{{ object.rate|floatformat }}</div>
                     <div class="">{{ object.reviews_count }} reviews</div>
                 </div>
             </a>

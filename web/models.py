@@ -64,7 +64,7 @@ class File(models.Model):
 
     @property
     def latest_reviews(self):
-        return self.review_set.all()[:3]
+        return self.review_set.all().order_by('-id')[:3]
 
     @property
     def rate(self):

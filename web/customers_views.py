@@ -71,7 +71,7 @@ class ReviewsListView(FEListView):
         return context
 
     def get_list(self, filter):
-        return self.model.objects.filter(item__id=int(self.kwargs.get('id')))
+        return self.model.objects.filter(item__id=int(self.kwargs.get('id'))).order_by('-id')
 
 
 class ReviewAddView(CustomerAuthUserMixin, FormView):
