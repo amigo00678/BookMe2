@@ -37,7 +37,7 @@ class ObjectsListView(ListView):
     list_template = 'files/_files_list.html'
     pagin_template = 'common/_pagin.html'
     default_pp = 10
-    base_url = 'files'
+    base_url = reverse_lazy('files')
 
     def get_context_data(self, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
@@ -45,7 +45,7 @@ class ObjectsListView(ListView):
         objects, page = self.get_objects(filter={}, pp=self.default_pp, page=page)
         context['objects'] = objects
         context['page'] = page
-        context['list_url'] = reverse(self.base_url)
+        context['list_url'] = self.base_url
         return context
 
     def get_objects(self, filter={}, pp=10, page=1):
@@ -69,7 +69,7 @@ class ObjectsListView(ListView):
             request.POST, request.POST.get('pp', self.default_pp), request.POST.get('page', 1))
         context['objects'] = objects
         context['page'] = page
-        context['list_url'] = reverse(self.base_url)
+        context['list_url'] = self.base_url
         return JsonResponse({
             'reply': render_to_string(self.list_template, context),
             'pagin': render_to_string(self.pagin_template, context)
@@ -87,7 +87,7 @@ class FilesListView(AdminAuthUserMixin, ObjectsListView):
     model = File
     template_name = 'files/files_list.html'
     list_template = 'files/_files_list.html'
-    base_url = 'files'
+    base_url = reverse_lazy('files')
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -160,7 +160,7 @@ class FeaturesListView(AdminAuthUserMixin, ObjectsListView):
     model = Feature
     template_name = 'features/features_list.html'
     list_template = 'features/_features_list.html'
-    base_url = 'features'
+    base_url = reverse_lazy('features')
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -226,7 +226,7 @@ class FoldersListView(AdminAuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
-    base_url = 'folders'
+    base_url = reverse_lazy('folders')
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -254,7 +254,7 @@ class VideoListView(AdminAuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
-    base_url = 'folders'
+    base_url = reverse_lazy('folders')
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -282,7 +282,7 @@ class AudioListView(AdminAuthUserMixin, ObjectsListView):
     model = Folder
     template_name = 'folders_list.html'
     list_template = '_folders_list.html'
-    base_url = 'folders'
+    base_url = reverse_lazy('folders')
 
     def get_list(self, filter):
         objects = self.model.objects.all()
@@ -310,7 +310,7 @@ class UsersListView(AdminAuthUserMixin, ObjectsListView):
     model = User
     template_name = 'users_list.html'
     list_template = '_users_list.html'
-    base_url = 'users'
+    base_url = reverse_lazy('users')
 
     def get_list(self, filter):
         objects = self.model.objects.all()

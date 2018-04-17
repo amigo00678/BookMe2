@@ -44,7 +44,6 @@ class HomeListView(FEListView):
     model = File
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'
-    base_url = 'fe_home'
     default_pp = 12
 
     def get_list(self, filter):
@@ -53,10 +52,23 @@ class HomeListView(FEListView):
 
 class ReviewsListView(FEListView):
     model = Review
-    template_name = 'customers/files_list.html'
-    list_template = 'customers/_files_list.html'
-    base_url = 'fe_home'
+    template_name = 'customers/reviews_list.html'
+    list_template = 'customers/_reviews_list.html'
+    base_url = 'fe_reviews'
     default_pp = 4
+
+    def dispatch(self, *args, **kwargs):
+        self.base_url = reverse(self.base_url, kwargs={'id': self.kwargs.get('id')})
+        return super(ReviewsListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewsListView, self).get_context_data(**kwargs)
+        try:
+            file = File.objects.get(id=self.kwargs.get('id'))
+            context['file'] = file
+        except File.DoesNotExist:
+            pass
+        return context
 
     def get_list(self, filter):
         return self.model.objects.filter(item__id=int(self.kwargs.get('id')))
@@ -70,7 +82,7 @@ class FileDetailView(DetailView):
 
 class HomeFilesListView(FEListView):
     model = File
-    base_url = 'fe_files'
+    base_url = reverse_lazy('fe_files')
 
     def get_list(self, filter):
         return self.model.objects.filter(type=FILE_TYPE_E[0][0])
@@ -78,7 +90,7 @@ class HomeFilesListView(FEListView):
 
 class HomeAudioListView(FEListView):
     model = File
-    base_url = 'fe_audio'
+    base_url = reverse_lazy('fe_audio')
 
     def get_list(self, filter):
         return self.model.objects.filter(type=FILE_TYPE_E[1][0])
@@ -86,7 +98,7 @@ class HomeAudioListView(FEListView):
 
 class HomeVideoListView(FEListView):
     model = File
-    base_url = 'fe_video'
+    base_url = reverse_lazy('fe_video')
 
     def get_list(self, filter):
         return self.model.objects.filter(type=FILE_TYPE_E[2][0])
@@ -94,7 +106,7 @@ class HomeVideoListView(FEListView):
 
 class HomeBinaryListView(FEListView):
     model = File
-    base_url = 'fe_bin'
+    base_url = reverse_lazy('fe_bin')
 
     def get_list(self, filter):
         return self.model.objects.filter(type=FILE_TYPE_E[3][0])

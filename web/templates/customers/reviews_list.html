@@ -1,0 +1,27 @@
+{% extends "customers/home.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{{ file.name }} Reviews{% endblock %}
+
+{% block content %}
+
+<div class="items-container row">
+    <div class="col-xs-8">
+        <div class="reviews">
+            <div class="form-label">{{ file.name }}</div>
+            <div class="name">Reviews</div>
+            {% include 'customers/_reviews_list.html' %}
+            {% include 'customers/_pagin.html' %}
+        </div>
+        <div class="btn-container">
+            <a role="button" class="btn btn-bold btn-default pull-right"
+                href="{% url 'fe_file' id=file.id %}">Back</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}
