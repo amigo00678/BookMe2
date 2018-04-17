@@ -98,7 +98,7 @@ def feature_upload_path(instance, filename):
 
 class Feature(models.Model):
     name = models.CharField(max_length=200)
-    value = models.BooleanField(default=True)
+    is_main = models.BooleanField(default=False)
     key = models.CharField(max_length=10)
     image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
 

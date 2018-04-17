@@ -58,7 +58,7 @@ class FeatureEditForm(forms.ModelForm):
 
     class Meta:
         model = Feature
-        fields = ['name', 'image']
+        fields = ['name', 'is_main', 'image']
 
         widgets = {
             'image': forms.FileInput(),

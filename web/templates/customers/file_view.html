@@ -26,12 +26,10 @@
 
         <div class="features clearfix">
             {% for feature in file.features.all %}
-                {% if feature.value == True %}
-                    <div class="pull-left">
-                        <img src="{{ feature.image.url }}"></img>
-                        {{ feature.name }}
-                    </div>
-                {% endif %}
+            <div class="pull-left {% if feature.is_main == True %}feature_main{% endif %}">
+                <img src="{{ feature.image.url }}"></img>
+                {{ feature.name }}
+            </div>
             {% endfor %}
         </div>
 

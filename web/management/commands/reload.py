@@ -21,10 +21,13 @@ class Command(BaseCommand):
         self.create_folders()
 
     def create_features(self):
-        Feature.objects.create(name="First Feature", key="feature_1", image="uploads/f1.JPG")
-        Feature.objects.create(name="Second Feature", key="feature_2", image="uploads/f2.JPG")
-        Feature.objects.create(name="Feature 3", key="feature_3", image="uploads/f3.JPG")
-        Feature.objects.create(name="Feature 4", key="feature_4", image="uploads/f4.JPG")
+        Feature.objects.create(name="First Feature", key="feature_1", image="uploads/f1.JPG", is_main=True)
+        Feature.objects.create(name="Second Feature", key="feature_2", image="uploads/f2.JPG", is_main=True)
+        Feature.objects.create(name="Feature 3", key="feature_3", image="uploads/f3.JPG", is_main=True)
+        Feature.objects.create(name="Feature 4", key="feature_4", image="uploads/f4.JPG", is_main=True)
+
+        Feature.objects.create(name="Fifth Feature", key="feature_5", image="uploads/f5.JPG", is_main=False)
+        Feature.objects.create(name="Sixth Feature", key="feature_6", image="uploads/f6.JPG", is_main=False)
 
     def create_images(self):
         slider = ImageSlider.objects.create()
