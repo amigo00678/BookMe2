@@ -35,7 +35,13 @@
 
         <div class="reviews">
             <div class="name">
-                <span>Reviews</span><a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">See all ({{ file.reviews_count }})</a>
+                <span>Reviews</span>
+                <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">
+                    See all ({{ file.reviews_count }})</a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'fe_review_add' id=file.id %}" class="pull-right">
+                    Add review</a>
+                {% endif %}
             </div>
             {% for review in file.latest_reviews %}
                 {% include 'customers/_review_details.html' %}

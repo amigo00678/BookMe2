@@ -63,3 +63,10 @@ class FeatureEditForm(forms.ModelForm):
         widgets = {
             'image': forms.FileInput(),
         }
+
+
+class ReviewEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+        fields = ['heading', 'rate', 'pros', 'cons']

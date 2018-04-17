@@ -74,6 +74,39 @@ class ReviewsListView(FEListView):
         return self.model.objects.filter(item__id=int(self.kwargs.get('id')))
 
 
+class ReviewAddView(CustomerAuthUserMixin, FormView):
+    form_class = ReviewEditForm
+    success_url = 'fe_file'
+    template_name = 'customers/review_add.html'
+
+    def dispatch(self, *args, **kwargs):
+        self.success_url = reverse(self.success_url, kwargs={'id': self.kwargs.get('id')})
+        return super(ReviewAddView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewAddView, self).get_context_data(**kwargs)
+        try:
+            file = File.objects.get(id=self.kwargs.get('id'))
+            context['file'] = file
+        except File.DoesNotExist:
+            pass
+        return context
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+
+        try:
+            file = File.objects.get(id=self.kwargs.get('id'))
+            instance.item = file
+        except File.DoesNotExist:
+            pass
+
+        instance.user = self.request.user
+        instance.save()
+
+        return super(ReviewAddView, self).form_valid(form)
+
+
 class FileDetailView(DetailView):
     model = File
     template_name = 'customers/file_view.html'

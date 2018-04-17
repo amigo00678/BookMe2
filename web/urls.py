@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^customer-bin/$', HomeBinaryListView.as_view(), name='fe_bin'),
 
     url(r'^customer-reviews/(?P<id>\d+)/$', ReviewsListView.as_view(), name='fe_reviews'),
+    url(r'^customer-reviews-add/(?P<id>\d+)/$', ReviewAddView.as_view(), name='fe_review_add'),
 
     url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
     url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
