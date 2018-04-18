@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 from web.models import *
 from web.forms import *
@@ -217,6 +218,85 @@ class FeatureDeleteView(AdminAuthUserMixin, RedirectView):
             feature.delete()
             messages.info(self.request, "feature '%s' deleted successfully" % (fname))
         except Feature.DoesNotExist:
+            pass
+        return self.reverse_url
+
+#####
+
+class ReviewsListView(AdminAuthUserMixin, ObjectsListView):
+    model = Review
+    template_name = 'reviews/reviews_list.html'
+    list_template = 'reviews/_reviews_list.html'
+    base_url = reverse_lazy('reviews')
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+
+        if 'name' in filter:
+            objects = objects.filter(item__name__icontains=filter['name'])
+        if 'user' in filter:
+            objects = objects.filter(Q(user__first_name__icontains=filter['user']) |
+                Q(user__last_name__icontains=filter['user']))
+        if 'heading' in filter:
+            objects = objects.filter(heading__icontains=filter['heading'])
+        if 'created_at' in filter:
+            dates = self.format_dates(filter, 'created_at')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
+
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'name': 'item__name',
+                'user': 'user__first_name',
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+
+        return objects
+
+
+class ReviewEditView(AdminAuthUserMixin, FormView):
+    form_class = ReviewEditForm
+    success_url = reverse_lazy('reviews')
+    template_name = 'reviews/reviews_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = Review.objects.get(id=self.kwargs.get('id'))
+            return self.form_class(instance=instance, **self.get_form_kwargs())
+        except Review.DoesNotExist:
+            return self.form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Review updated successfully')
+        return super(ReviewEditView, self).form_valid(form)
+
+
+class ReviewAddView(AdminAuthUserMixin, FormView):
+    form_class = ReviewEditForm
+    success_url = reverse_lazy('reviews')
+    template_name = 'reviews/reviews_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Review created successfully')
+        return super(ReviewAddView, self).form_valid(form)
+
+
+class ReviewDeleteView(AdminAuthUserMixin, RedirectView):
+    reverse_url = reverse_lazy('reviews')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            review = Review.objects.get(id=self.kwargs.get('id'))
+            rname = review.name
+            review.delete()
+            messages.info(self.request, "review '%s' deleted successfully" % (rname))
+        except Review.DoesNotExist:
             pass
         return self.reverse_url
 

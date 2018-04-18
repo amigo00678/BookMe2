@@ -50,7 +50,7 @@ class HomeListView(FEListView):
         return self.model.objects.all()
 
 
-class ReviewsListView(FEListView):
+class HomeReviewsListView(FEListView):
     model = Review
     template_name = 'customers/reviews_list.html'
     list_template = 'customers/_reviews_list.html'
@@ -74,7 +74,7 @@ class ReviewsListView(FEListView):
         return self.model.objects.filter(item__id=int(self.kwargs.get('id'))).order_by('-id')
 
 
-class ReviewAddView(CustomerAuthUserMixin, FormView):
+class HomeReviewAddView(CustomerAuthUserMixin, FormView):
     form_class = ReviewEditForm
     success_url = 'fe_file'
     template_name = 'customers/review_add.html'

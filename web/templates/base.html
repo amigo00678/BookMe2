@@ -69,6 +69,10 @@
                             <i class="material-icons">attach_file</i>
                             <span>Features</span>
                         </a></div>
+                        <div><a href="{% url 'reviews' %}">
+                            <i class="material-icons">attach_file</i>
+                            <span>Reviews</span>
+                        </a></div>
                     </div>
                     <div class="parent">
                         <div class="unfold" id="menu_items_2"><a>
@@ -142,9 +146,11 @@
         </div>
     </div>
     <script>
-    {% if "/files" in request.path or '/folders' in request.path or '/features' in request.path %}
+    {% if "/files" in request.path or '/folders' in request.path or '/features' in request.path or 'reviews' in request.path %}
+
         $("#menu_files").parent().find('div').show();
         $("#menu_files").addClass('shown');
+
     {% elif "/video/" in request.path or "/audio/" in request.path %}
         $("#menu_items_2").parent().find('div').show();
         $("#menu_items_2").addClass('shown');

@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^customer-video/$', HomeVideoListView.as_view(), name='fe_video'),
     url(r'^customer-bin/$', HomeBinaryListView.as_view(), name='fe_bin'),
 
-    url(r'^customer-reviews/(?P<id>\d+)/$', ReviewsListView.as_view(), name='fe_reviews'),
-    url(r'^customer-reviews-add/(?P<id>\d+)/$', ReviewAddView.as_view(), name='fe_review_add'),
+    url(r'^customer-reviews/(?P<id>\d+)/$', HomeReviewsListView.as_view(), name='fe_reviews'),
+    url(r'^customer-reviews-add/(?P<id>\d+)/$', HomeReviewAddView.as_view(), name='fe_review_add'),
 
     url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
     url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
@@ -31,6 +31,12 @@ urlpatterns = [
     url(r'^features/add/$', FeatureAddView.as_view(), name='features_add'),
     url(r'^features/edit/(?P<id>\d+)/$', FeatureEditView.as_view(), name='features_edit'),
     url(r'^features/delete/(?P<id>\d+)$', FeatureDeleteView.as_view(), name='features_delete'),
+
+    # reviews
+    url(r'^reviews/$', ReviewsListView.as_view(), name='reviews'),
+    url(r'^reviews/add/$', ReviewAddView.as_view(), name='reviews_add'),
+    url(r'^reviews/edit/(?P<id>\d+)/$', ReviewEditView.as_view(), name='reviews_edit'),
+    url(r'^reviews/delete/(?P<id>\d+)$', ReviewDeleteView.as_view(), name='reviews_delete'),
 
     # files
     url(r'^files/$', FilesListView.as_view(), name='files'),
