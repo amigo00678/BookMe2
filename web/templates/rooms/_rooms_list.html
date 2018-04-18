@@ -6,8 +6,8 @@
     <td>{{ object.users_count }}</td>
     <td>{{ object.count }}</td>
     <td>
-        <a class="list-option" href="{% url 'files_edit' id=object.id %}"><i class="material-icons">edit</i></a>
-        <a class="list-option" href="{% url 'files_delete' id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">
+        <a class="list-option" href="{% url 'rooms_edit' p_id=file.id id=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="list-option" href="{% url 'rooms_delete' p_id=file.id id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">
             <i class="material-icons">delete</i>
         </a>
     </td>

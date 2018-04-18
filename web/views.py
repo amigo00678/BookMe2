@@ -39,6 +39,7 @@ class ObjectsListView(ListView):
     pagin_template = 'common/_pagin.html'
     default_pp = 10
     base_url = reverse_lazy('files')
+    object_list = []
 
     def get_context_data(self, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
@@ -65,7 +66,7 @@ class ObjectsListView(ListView):
         return self.model.objects.all()
 
     def post(self, request, *args, **kwargs):
-        context = {}
+        context = self.get_context_data(**kwargs)
         objects, page = self.get_objects(
             request.POST, request.POST.get('pp', self.default_pp), request.POST.get('page', 1))
         context['objects'] = objects
@@ -255,6 +256,8 @@ class RoomsListView(AdminAuthUserMixin, ObjectsListView):
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
+                'number': 'users_count',
+                'count': 'count',
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
@@ -264,21 +267,34 @@ class RoomsListView(AdminAuthUserMixin, ObjectsListView):
 
 
 class RoomEditView(AdminAuthUserMixin, FormView):
-    form_class = FeatureEditForm
-    success_url = reverse_lazy('features')
-    template_name = 'features/features_edit.html'
+    form_class = RoomEditForm
+    success_url = 'rooms'
+    template_name = 'rooms/rooms_edit.html'
+
+    def dispatch(self, *args, **kwargs):
+        self.success_url = reverse(self.success_url, kwargs={'p_id': self.kwargs.get('p_id')})
+        return super(RoomEditView, self).dispatch(*args, **kwargs)
 
     def get_form(self, form_class):
         try:
-            instance = Feature.objects.get(id=self.kwargs.get('id'))
+            instance = Room.objects.get(id=self.kwargs.get('id'))
             return self.form_class(instance=instance, **self.get_form_kwargs())
         except Feature.DoesNotExist:
             return self.form_class(**self.get_form_kwargs())
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(RoomEditView, self).get_context_data(*args, **kwargs)
+        try:
+            file = File.objects.get(id=self.kwargs.get('p_id'))
+            context['file'] = file
+        except File.DoesNotExist:
+            pass
+        return context
+
     def form_valid(self, form):
-        form.save()
-        messages.info(self.request, 'Feature updated successfully')
-        return super(FeatureEditView, self).form_valid(form)
+        instance = form.save()
+        messages.info(self.request, "Room '%s' updated successfully" % (instance.name))
+        return super(RoomEditView, self).form_valid(form)
 
 
 class RoomAddView(AdminAuthUserMixin, FormView):
@@ -312,17 +328,17 @@ class RoomAddView(AdminAuthUserMixin, FormView):
 
 
 class RoomDeleteView(AdminAuthUserMixin, RedirectView):
-    reverse_url = reverse_lazy('features')
+    reverse_url = 'rooms'
 
     def get_redirect_url(self, *args, **kwargs):
         try:
-            feature = Feature.objects.get(id=self.kwargs.get('id'))
-            fname = feature.name
-            feature.delete()
-            messages.info(self.request, "feature '%s' deleted successfully" % (fname))
-        except Feature.DoesNotExist:
+            room = Room.objects.get(id=self.kwargs.get('id'))
+            rname = room.name
+            room.delete()
+            messages.info(self.request, "Room '%s' deleted successfully" % (rname))
+        except Room.DoesNotExist:
             pass
-        return self.reverse_url
+        return reverse(self.reverse_url, kwargs={'p_id': self.kwargs.get('p_id')})
 
 #####
 

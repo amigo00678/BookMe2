@@ -11,6 +11,7 @@
     {% breadcrumb "Files" "files" %}
     {% breadcrumb file.name "files_edit" file.id %}
     {% breadcrumb "Rooms" "rooms" file.id %}
+    {% breadcrumb "Rooms edit" "" %}
 {% endblock %}
 
 {% block content %}
@@ -33,7 +34,7 @@
 
             <div class="btn-container">
                 <input class="btn btn-bold btn-default" type="submit" value="Update" />
-                <a role="button" class="btn btn-bold btn-danger" href="{% url 'files' %}">Cancel</a>
+                <a role="button" class="btn btn-bold btn-danger" href="{% url 'rooms' p_id=file.id %}">Cancel</a>
             </div>
 
         </form>
