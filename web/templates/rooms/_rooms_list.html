@@ -5,7 +5,6 @@
     <td>{{ object.created_at }}</td>
     <td>{{ object.get_type_display }}</td>
     <td>
-        <a href="{% url 'rooms' p_id=object.id %}">Rooms</a><br>
         <a class="list-option" href="{% url 'files_edit' id=object.id %}"><i class="material-icons">edit</i></a>
         <a class="list-option" href="{% url 'files_delete' id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">
             <i class="material-icons">delete</i>

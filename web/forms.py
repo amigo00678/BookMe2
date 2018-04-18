@@ -65,6 +65,19 @@ class FeatureEditForm(forms.ModelForm):
         }
 
 
+class FEReviewEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+        fields = ['heading', 'rate', 'pros', 'cons']
+
+        widgets = {
+            'heading': forms.Textarea(attrs={'class': 'tinymce'}),
+            'pros': forms.Textarea(attrs={'class': 'tinymce'}),
+            'cons': forms.Textarea(attrs={'class': 'tinymce'}),
+        }
+
+
 class ReviewEditForm(forms.ModelForm):
 
     class Meta:
@@ -75,4 +88,15 @@ class ReviewEditForm(forms.ModelForm):
             'heading': forms.Textarea(attrs={'class': 'tinymce'}),
             'pros': forms.Textarea(attrs={'class': 'tinymce'}),
             'cons': forms.Textarea(attrs={'class': 'tinymce'}),
+        }
+
+
+class RoomEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Room
+        fields = ['name', 'price', 'users_count', 'count', 'features']
+
+        widgets = {
+            'name': forms.TextInput(),
         }

@@ -3,20 +3,20 @@
 {% load widget_tweaks %}
 {% load django_bootstrap_breadcrumbs %}
 
-{% block title %}Files Edit{% endblock %}
+{% block title %}Rooms Edit{% endblock %}
 
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
     {% breadcrumb "Home" "files" %}
     {% breadcrumb "Files" "files" %}
-    {% breadcrumb "Edit files" "" %}
+    {% breadcrumb file.name "files_edit" file.id %}
+    {% breadcrumb "Rooms" "rooms" file.id %}
 {% endblock %}
 
 {% block content %}
 
 <div class="col-xs-8">
     <div class="row">
-        <a href="{% url 'rooms' p_id=form.instance.id %}">Rooms</a>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -28,20 +28,6 @@
 
                 <div class="form-label">{{ field.label }}</div>
                 {{ field|add_class:"form-control" }}
-
-                {% if field.name == 'top_images' and form.instance.top_slider.images.all %}
-                    <div class="slider_images">
-                        {% for img in form.instance.top_slider.images.all %}
-                        <img src="{{ img.image.url }}"></img>
-                        {% endfor %}
-                    </div>
-                {% elif field.name == 'bottom_images' and form.instance.bottom_slider.images.all%}
-                    <div class="slider_images">
-                        {% for img in form.instance.bottom_slider.images.all %}
-                        <img src="{{ img.image.url }}"></img>
-                        {% endfor %}
-                    </div>
-                {% endif %}
 
             {% endfor %}
 

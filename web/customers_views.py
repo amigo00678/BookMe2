@@ -75,7 +75,7 @@ class HomeReviewsListView(FEListView):
 
 
 class HomeReviewAddView(CustomerAuthUserMixin, FormView):
-    form_class = ReviewEditForm
+    form_class = FEReviewEditForm
     success_url = 'fe_file'
     template_name = 'customers/review_add.html'
 

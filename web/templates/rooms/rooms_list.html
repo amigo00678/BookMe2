@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Files" "files" %}
+    {% breadcrumb file.name "files_edit" file.id %}
+    {% breadcrumb "Rooms" "" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="item_actions">
+    <a role="button" class="btn btn-bold btn-default" href="{% url 'rooms_add' p_id=file.id %}">Add</a>
+</div>
+
+<table class="list-table">
+    <thead>
+        <tr>
+            <th class="sortable" data-field='name'>Name</th>
+            <th class="sortable" data-field='price'>Price</th>
+            <th class="sortable" data-field='number'>Users number</th>
+            <th class="sortable" data-field='count'>Count</th>
+            <th class="">Options<th>
+        </tr>
+        <tr>
+            <th><input class='form-control filter keyup' data-field='name'></input></th>
+            <th><input class='form-control filter keyup' data-field='price'></input></th>
+            <th><input class='form-control filter keyup' data-field='number'></input></th>
+            <th><input class='form-control filter keyup' data-field='count'></input></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include 'rooms/_rooms_list.html' %}
+    </tbody>
+</table>
+
+{% include 'common/_pagin.html' %}
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}

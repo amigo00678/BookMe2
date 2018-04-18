@@ -78,16 +78,6 @@ class File(models.Model):
         return Review.objects.filter(item=self).count()
 
 
-class Review(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    rate = models.FloatField(default=0)
-    user = models.ForeignKey('User')
-    item = models.ForeignKey('File')
-    pros = models.TextField(null=True, blank=True)
-    cons = models.TextField(null=True, blank=True)
-    heading = models.TextField()
-
-
 def feature_upload_path(instance, filename):
     rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
     path = 'uploads/features/feature_{0}{1}'.format(rnd_part, filename[-4:])
@@ -97,6 +87,37 @@ def feature_upload_path(instance, filename):
     except Exception as e:
         pass
     return path
+
+
+class RoomFeature(models.Model):
+    name = models.TextField()
+    image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
+
+
+class Room(models.Model):
+    item = models.ForeignKey('File')
+    name = models.TextField()
+    price = models.FloatField(default=0)
+    users_count = models.IntegerField(default=1)
+    count = models.IntegerField(default=1)
+
+    features = models.ManyToManyField('RoomFeature')
+
+
+class RoomPrice(models.Model):
+    people_number = models.IntegerField(default=1)
+    price = models.FloatField(default=0)
+    room = models.ForeignKey('Room')
+
+
+class Review(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.FloatField(default=0)
+    user = models.ForeignKey('User')
+    item = models.ForeignKey('File')
+    pros = models.TextField(null=True, blank=True)
+    cons = models.TextField(null=True, blank=True)
+    heading = models.TextField()
 
 
 class Feature(models.Model):

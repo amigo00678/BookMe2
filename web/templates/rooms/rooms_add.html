@@ -1,0 +1,18 @@
+{% extends "rooms/rooms_edit.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Rooms Add{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "files" %}
+    {% breadcrumb "Files" "files" %}
+    {% breadcrumb file.name "files_edit" file.id %}
+    {% breadcrumb "Rooms" "rooms" file.id %}
+    {% breadcrumb "Room Add" "" %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}

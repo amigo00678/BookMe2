@@ -32,6 +32,12 @@ urlpatterns = [
     url(r'^features/edit/(?P<id>\d+)/$', FeatureEditView.as_view(), name='features_edit'),
     url(r'^features/delete/(?P<id>\d+)$', FeatureDeleteView.as_view(), name='features_delete'),
 
+    # rooms
+    url(r'^rooms/(?P<p_id>\d+)/$', RoomsListView.as_view(), name='rooms'),
+    url(r'^rooms/(?P<p_id>\d+)/add/$', RoomAddView.as_view(), name='rooms_add'),
+    url(r'^rooms/(?P<p_id>\d+)/edit/(?P<id>\d+)/$', RoomEditView.as_view(), name='rooms_edit'),
+    url(r'^rooms/(?P<p_id>\d+)/delete/(?P<id>\d+)$', RoomDeleteView.as_view(), name='rooms_delete'),
+
     # reviews
     url(r'^reviews/$', ReviewsListView.as_view(), name='reviews'),
     url(r'^reviews/add/$', ReviewAddView.as_view(), name='reviews_add'),

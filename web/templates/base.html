@@ -118,7 +118,7 @@
 
             <div class="content-container col-xs-8">
                 <div class="header">
-                    <div class="row col-xs-6 breadcrumbs">{% render_breadcrumbs %}</div>
+                    <div class="row col-xs-8 breadcrumbs">{% render_breadcrumbs %}</div>
                     {% if request.user.is_authenticated %}
                         <div class="row col-xs-4 account">Logged in as:<br>{{ user }}<br>
                             <a href="{% url 'fe_logout' %}">Logout</a>
@@ -148,7 +148,7 @@
         </div>
     </div>
     <script>
-    {% if "/files" in request.path or '/folders' in request.path or '/features' in request.path or 'reviews' in request.path %}
+    {% if "/files" in request.path or '/folders' in request.path or '/features' in request.path or 'reviews' in request.path or '/rooms' in request.path %}
 
         $("#menu_files").parent().find('div').show();
         $("#menu_files").addClass('shown');

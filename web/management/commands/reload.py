@@ -16,6 +16,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.clear()
         self.create_features()
+        self.create_room_features()
         self.create_users()
         self.create_files()
         self.create_folders()
@@ -28,6 +29,12 @@ class Command(BaseCommand):
 
         Feature.objects.create(name="Fifth Feature", key="feature_5", image="uploads/f5.JPG", is_main=False)
         Feature.objects.create(name="Sixth Feature", key="feature_6", image="uploads/f6.JPG", is_main=False)
+
+    def create_room_features(self):
+        RoomFeature.objects.create(name='Room feature 1', image="uploads/f1.JPG")
+        RoomFeature.objects.create(name='Room feature 2', image="uploads/f2.JPG")
+        RoomFeature.objects.create(name='Room feature 3')
+        RoomFeature.objects.create(name='Room feature 4')
 
     def create_images(self):
         slider = ImageSlider.objects.create()
