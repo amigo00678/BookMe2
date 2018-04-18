@@ -59,10 +59,10 @@ class HomeReviewsListView(FEListView):
 
     def dispatch(self, *args, **kwargs):
         self.base_url = reverse(self.base_url, kwargs={'id': self.kwargs.get('id')})
-        return super(ReviewsListView, self).dispatch(*args, **kwargs)
+        return super(HomeReviewsListView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(ReviewsListView, self).get_context_data(**kwargs)
+        context = super(HomeReviewsListView, self).get_context_data(**kwargs)
         try:
             file = File.objects.get(id=self.kwargs.get('id'))
             context['file'] = file
@@ -81,10 +81,10 @@ class HomeReviewAddView(CustomerAuthUserMixin, FormView):
 
     def dispatch(self, *args, **kwargs):
         self.success_url = reverse(self.success_url, kwargs={'id': self.kwargs.get('id')})
-        return super(ReviewAddView, self).dispatch(*args, **kwargs)
+        return super(HomeReviewAddView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(ReviewAddView, self).get_context_data(**kwargs)
+        context = super(HomeReviewAddView, self).get_context_data(**kwargs)
         try:
             file = File.objects.get(id=self.kwargs.get('id'))
             context['file'] = file
@@ -104,7 +104,7 @@ class HomeReviewAddView(CustomerAuthUserMixin, FormView):
         instance.user = self.request.user
         instance.save()
 
-        return super(ReviewAddView, self).form_valid(form)
+        return super(HomeReviewAddView, self).form_valid(form)
 
 
 class FileDetailView(DetailView):

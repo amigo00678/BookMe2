@@ -82,7 +82,7 @@ class Review(models.Model):
     item = models.ForeignKey('File')
     pros = models.TextField(null=True, blank=True)
     cons = models.TextField(null=True, blank=True)
-    heading = models.CharField(max_length=30)
+    heading = models.TextField()
 
 
 def feature_upload_path(instance, filename):

@@ -7,8 +7,8 @@
     <td>{{ object.created_at }}</td>
     <td>{{ object.heading|safe }}</td>
     <td>
-        <a class="list-option" href="{% url 'features_edit' id=object.id %}"><i class="material-icons">edit</i></a>
-        <a class="list-option" href="{% url 'features_delete' id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">
+        <a class="list-option" href="{% url 'reviews_edit' id=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="list-option" href="{% url 'reviews_delete' id=object.id %}" onclick="return confirm('Please confirm review {{ object.id }} deletion?')">
             <i class="material-icons">delete</i>
         </a>
     </td>
