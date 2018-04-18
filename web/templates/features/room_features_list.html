@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Room Features{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Room Features" "" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="item_actions">
+    <a role="button" class="btn btn-bold btn-default" href="{% url 'room_features_add' %}">Add</a>
+</div>
+
+<table class="list-table">
+    <thead>
+        <tr>
+            <th class="sortable" data-field='name'>Name</th>
+            <th class="">Options<th>
+        </tr>
+        <tr>
+            <th><input class='form-control filter keyup' data-field='name'></input></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include 'features/_room_features_list.html' %}
+    </tbody>
+</table>
+
+{% include 'common/_pagin.html' %}
+
+<script>
+    listURL="{{ list_url }}";
+</script>
+
+{% endblock %}

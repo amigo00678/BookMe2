@@ -224,6 +224,71 @@ class FeatureDeleteView(AdminAuthUserMixin, RedirectView):
 
 #####
 
+class RoomFeaturesListView(AdminAuthUserMixin, ObjectsListView):
+    model = RoomFeature
+    template_name = 'features/room_features_list.html'
+    list_template = 'features/_room_features_list.html'
+    base_url = reverse_lazy('room_features')
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class RoomFeatureEditView(AdminAuthUserMixin, FormView):
+    form_class = FeatureEditForm
+    success_url = reverse_lazy('features')
+    template_name = 'features/features_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = Feature.objects.get(id=self.kwargs.get('id'))
+            return self.form_class(instance=instance, **self.get_form_kwargs())
+        except Feature.DoesNotExist:
+            return self.form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Feature updated successfully')
+        return super(FeatureEditView, self).form_valid(form)
+
+
+class RoomFeatureAddView(AdminAuthUserMixin, FormView):
+    form_class = FeatureEditForm
+    success_url = reverse_lazy('features')
+    template_name = 'features/features_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Feature created successfully')
+        return super(FeatureAddView, self).form_valid(form)
+
+
+class RoomFeatureDeleteView(AdminAuthUserMixin, RedirectView):
+    reverse_url = reverse_lazy('features')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            feature = Feature.objects.get(id=self.kwargs.get('id'))
+            fname = feature.name
+            feature.delete()
+            messages.info(self.request, "feature '%s' deleted successfully" % (fname))
+        except Feature.DoesNotExist:
+            pass
+        return self.reverse_url
+
+#####
+
 class RoomsListView(AdminAuthUserMixin, ObjectsListView):
     model = Room
     template_name = 'rooms/rooms_list.html'

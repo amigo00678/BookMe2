@@ -69,11 +69,15 @@
                         </a></div>
                         <div><a href="{% url 'features' %}">
                             <i class="material-icons">attach_file</i>
-                            <span>Features</span>
+                            <span>File Features</span>
                         </a></div>
                         <div><a href="{% url 'reviews' %}">
                             <i class="material-icons">attach_file</i>
                             <span>Reviews</span>
+                        </a></div>
+                        <div><a href="{% url 'room_features' %}">
+                            <i class="material-icons">attach_file</i>
+                            <span>Room Features</span>
                         </a></div>
                     </div>
                     <div class="parent">
@@ -148,6 +152,9 @@
         </div>
     </div>
     <script>
+    $("#menu_files").parent().find('div').show();
+    $("#menu_files").addClass('shown');
+
     {% if "/files" in request.path or '/folders' in request.path or '/features' in request.path or 'reviews' in request.path or '/rooms' in request.path %}
 
         $("#menu_files").parent().find('div').show();
