@@ -93,6 +93,9 @@ class RoomFeature(models.Model):
     name = models.TextField()
     image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
 
+    def __unicode__(self):
+        return "%s" % (self.name)
+
 
 class Room(models.Model):
     item = models.ForeignKey('File')

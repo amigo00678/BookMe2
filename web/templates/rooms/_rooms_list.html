@@ -2,8 +2,9 @@
 {% for object in objects %}
 <tr>
     <td>{{ object.name }}</td>
-    <td>{{ object.created_at }}</td>
-    <td>{{ object.get_type_display }}</td>
+    <td>{{ object.price }}</td>
+    <td>{{ object.users_count }}</td>
+    <td>{{ object.count }}</td>
     <td>
         <a class="list-option" href="{% url 'files_edit' id=object.id %}"><i class="material-icons">edit</i></a>
         <a class="list-option" href="{% url 'files_delete' id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">

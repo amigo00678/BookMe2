@@ -246,10 +246,15 @@ class RoomsListView(AdminAuthUserMixin, ObjectsListView):
         objects = self.model.objects.all()
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
+        if 'price' in filter:
+            objects = objects.filter(price=float(filter['price']))
+        if 'number' in filter:
+            objects = objects.filter(users_count=int(filter['number']))
+        if 'count' in filter:
+            objects = objects.filter(count=int(filter['count']))
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created'
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
@@ -282,7 +287,7 @@ class RoomAddView(AdminAuthUserMixin, FormView):
     template_name = 'rooms/rooms_add.html'
 
     def dispatch(self, *args, **kwargs):
-        self.base_url = reverse(self.success_url, kwargs={'p_id': self.kwargs.get('p_id')})
+        self.success_url = reverse(self.success_url, kwargs={'p_id': self.kwargs.get('p_id')})
         return super(RoomAddView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
@@ -295,8 +300,14 @@ class RoomAddView(AdminAuthUserMixin, FormView):
         return context
 
     def form_valid(self, form):
+        instance = form.save(commit=False)
+        try:
+            item = File.objects.get(id=self.kwargs.get('p_id'))
+            instance.item = item
+        except File.DoesNotExist:
+            pass
         form.save()
-        messages.info(self.request, 'Room created successfully')
+        messages.info(self.request, "Room '%s' created successfully" % (instance.name))
         return super(RoomAddView, self).form_valid(form)
 
 
