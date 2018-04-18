@@ -69,7 +69,7 @@ class ReviewEditForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        fields = ['heading', 'pros', 'cons', 'user', 'item']
+        fields = ['heading', 'rate', 'pros', 'cons', 'user', 'item']
 
         widgets = {
             'heading': forms.Textarea(attrs={'class': 'tinymce'}),
