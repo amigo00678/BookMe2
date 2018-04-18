@@ -77,6 +77,10 @@ class File(models.Model):
     def reviews_count(self):
         return Review.objects.filter(item=self).count()
 
+    @property
+    def rooms(self):
+        return self.room_set.order_by('-price')
+
 
 def feature_upload_path(instance, filename):
     rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))

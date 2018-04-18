@@ -1,0 +1,26 @@
+
+<table class="list-table">
+    <thead>
+        <tr>
+            <th class="sortable">Room Name</th>
+            <th class="sortable">Price</th>
+            <th class="sortable">Users number</th>
+            <th class="sortable">Count</th>
+        </tr>
+    </thead>
+    <tbody class="rooms-list">
+        {% for room in file.rooms %}
+        <tr>
+            <td class="room-name">{{ room.name }}<br>
+                {% for feature in room.features.all %}
+                    <span class="room-feature">{{ feature }}</span>
+                {% endfor %}
+            </td>
+            <td>${{ room.price }}</td>
+            <td>{{ room.users_count }}</td>
+            <td>{{ room.count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+

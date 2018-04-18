@@ -218,3 +218,16 @@ body{
     background-color: #aaa;
     margin-bottom: 1px;
 }
+.room-name{
+    font-size: 18px;
+    font-weight: bold;
+    color: blue;
+}
+.room-feature{
+    font-size: 14px;
+    color: green;
+    margin-right: 12px;
+}
+.list-table{
+    margin: 20px 0 20px 0;
+}
