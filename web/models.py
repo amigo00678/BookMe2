@@ -62,6 +62,9 @@ class File(models.Model):
 
     features = models.ManyToManyField('Feature')
 
+    def __unicode__(self):
+        return "%s" % (self.name)
+
     @property
     def latest_reviews(self):
         return self.review_set.all().order_by('-id')[:3]
