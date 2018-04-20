@@ -44,10 +44,37 @@ class HomeListView(FEListView):
     model = File
     template_name = 'customers/files_list.html'
     list_template = 'customers/_files_list.html'
-    default_pp = 12
+    default_pp = 6
+    base_url = reverse_lazy('fe_home')
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeListView, self).get_context_data(**kwargs)
+        context['features'] = Feature.objects.all()
+        return context
 
     def get_list(self, filter):
-        return self.model.objects.all()
+        objects = self.model.objects.all()
+
+        fids = []
+        for key, value in filter.iteritems():
+            if key.startswith('feature_'):
+                fids.append(int(value))
+
+        if fids:
+            objects = objects.filter(features__in=fids).distinct()
+
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        else:
+            objects = objects.order_by('id')
+
+        return objects
 
 
 class HomeReviewsListView(FEListView):

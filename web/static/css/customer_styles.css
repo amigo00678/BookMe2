@@ -193,6 +193,7 @@ body{
 }
 .items-list{
     display: inline-block;
+    width: 100%;
 }
 .pagin .pages{
     float: left;
@@ -237,4 +238,11 @@ body{
 }
 .main-image img{
     width: 100%;
+}
+.filters{
+    margin-left: 14px;
+}
+.filter-checkbox label{
+    font-size: 12px;
+    color: #333;
 }

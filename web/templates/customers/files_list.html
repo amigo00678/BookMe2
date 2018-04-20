@@ -3,6 +3,19 @@
 
 {% block title %}Files{% endblock %}
 
+{% block left_filters %}
+    <div class="filters">
+        {% for feature in features %}
+        <div class="filter-checkbox">
+            <input type="checkbox" id="feature_{{ feature.id }}" class="filter"
+                data-value="{{ feature.id }}" data-field="feature_{{ feature.id }}"/>
+                <label for="feature_{{ feature.id }}">{{ feature }}</label>
+        </div>
+        {% endfor %}
+        <button class="btn btn-default" onclick="updateTable()">Apply</button>
+    </div>
+{% endblock %}
+
 {% block content %}
 
 <div class="items-container">

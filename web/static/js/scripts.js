@@ -51,7 +51,12 @@ function updateTable(){
     data.sort = sort;
 
     $('.filter').each(function(){
-        if (this.value != ''){
+        if ($(this).attr('type') == 'checkbox'){
+            if ($(this)[0].checked){
+                name = $(this).data('field');
+                data[name] = $(this).data('value');
+            }
+        } else if (this.value != ''){
             name = $(this).data('field');
             data[name] = this.value;
         }
