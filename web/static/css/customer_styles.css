@@ -197,9 +197,13 @@ body{
 .pagin .pages{
     float: left;
 }
+.image_slider{
+    padding: 14px 0px 14px 0px;
+}
 .image_slider img{
     width: 20%;
     border: 1px solid #555;
+    margin-right: 2px;
 }
 .features div{
     padding: 0px 10px 0px 0px;
@@ -230,4 +234,7 @@ body{
 }
 .list-table{
     margin: 20px 0 20px 0;
+}
+.main-image img{
+    width: 100%;
 }

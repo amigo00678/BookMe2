@@ -1,6 +1,7 @@
 {% extends "customers/home.html" %}
 
 {% load widget_tweaks %}
+{% load thumbnail %}
 
 {% block title %}{{ file.name }}{% endblock %}
 
@@ -11,9 +12,16 @@
 
         <div class="form-label">{{ file.name }}</div>
         <div>{{ file.top_content|default_if_none:""|safe }}</div>
+        <div class="main-image">
+            {% thumbnail file.top_slider.images.first.image "600x400" crop="center" as im %}
+                <img src="{{ im.url }}"></img>
+            {% endthumbnail %}
+        </div>
         <div class="image_slider">
             {% for img in file.top_slider.images.all %}
-                <img src="{{ img.image.url }}"></img>
+                {% thumbnail img.image "130x100" crop="center" as im %}
+                    <img src="{{ im.url }}"></img>
+                {% endthumbnail %}
             {% endfor %}
         </div>
         <div>{{ file.middle_content|default_if_none:""|safe }}</div>

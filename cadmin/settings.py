@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap_breadcrumbs',
     'widget_tweaks',
+    'sorl.thumbnail',
     'web',
 ]
 
