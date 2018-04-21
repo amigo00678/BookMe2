@@ -1,0 +1,12 @@
+{% extends "features/room_features_edit.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Room Features Add{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Room Features" "features" %}
+    {% breadcrumb "Add features" "" %}
+{% endblock %}

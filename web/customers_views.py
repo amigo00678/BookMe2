@@ -40,6 +40,7 @@ class FEListView(ObjectsListView):
     default_pp = 8
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class HomeListView(FEListView):
     model = File
     template_name = 'customers/files_list.html'
@@ -47,21 +48,27 @@ class HomeListView(FEListView):
     default_pp = 6
     base_url = reverse_lazy('fe_home')
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeListView, self).get_context_data(**kwargs)
-        context['features'] = Feature.objects.all()
-        return context
+    def get_additional_context(self):
+        return { 
+            'features': Feature.objects.all(),
+            'room_features': RoomFeature.objects.all()
+        }
 
     def get_list(self, filter):
         objects = self.model.objects.all()
 
         fids = []
+        rfids = []
         for key, value in filter.iteritems():
             if key.startswith('feature_'):
                 fids.append(int(value))
+            elif key.startswith('room_feature_'):
+                rfids.append(int(value))
 
         if fids:
             objects = objects.filter(features__in=fids).distinct()
+        if rfids:
+            objects = objects.filter(room__features__id__in=rfids).distinct()
 
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
@@ -88,8 +95,8 @@ class HomeReviewsListView(FEListView):
         self.base_url = reverse(self.base_url, kwargs={'id': self.kwargs.get('id')})
         return super(HomeReviewsListView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeReviewsListView, self).get_context_data(**kwargs)
+    def get_additional_context(self):
+        context = {}
         try:
             file = File.objects.get(id=self.kwargs.get('id'))
             context['file'] = file
@@ -110,8 +117,8 @@ class HomeReviewAddView(CustomerAuthUserMixin, FormView):
         self.success_url = reverse(self.success_url, kwargs={'id': self.kwargs.get('id')})
         return super(HomeReviewAddView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeReviewAddView, self).get_context_data(**kwargs)
+    def get_additional_context(self):
+        context = {}
         try:
             file = File.objects.get(id=self.kwargs.get('id'))
             context['file'] = file

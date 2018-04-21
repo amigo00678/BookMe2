@@ -65,6 +65,17 @@ class FeatureEditForm(forms.ModelForm):
         }
 
 
+class RoomFeatureEditForm(forms.ModelForm):
+
+    class Meta:
+        model = RoomFeature
+        fields = ['name', 'image']
+
+        widgets = {
+            'image': forms.FileInput(),
+        }
+
+
 class FEReviewEditForm(forms.ModelForm):
 
     class Meta:
