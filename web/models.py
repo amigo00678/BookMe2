@@ -12,6 +12,8 @@ from django.db.models import Avg
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 
+from django.core.cache import cache
+
 from web.constants import *
 
 
@@ -71,11 +73,21 @@ class File(models.Model):
 
     @property
     def rate(self):
-        return Review.objects.filter(item=self).aggregate(Avg('rate')).get('rate__avg')
+        cache_key = 'file_rate_%s' % (self.id)
+        rate = cache.get(cache_key)
+        if not rate:
+            rate = Review.objects.filter(item=self).aggregate(Avg('rate')).get('rate__avg')
+            cache.set(cache_key, rate)
+        return rate
 
     @property
     def reviews_count(self):
-        return Review.objects.filter(item=self).count()
+        cache_key = 'file_reviews_count_%s' % (self.id)
+        rcount = cache.get(cache_key)
+        if not rcount:
+            rcount = Review.objects.filter(item=self).count()
+            cache.set(cache_key, rcount)
+        return rcount
 
     @property
     def rooms(self):

@@ -48,10 +48,13 @@ class HomeListView(FEListView):
     default_pp = 6
     base_url = reverse_lazy('fe_home')
 
+    ratings = { 4: '9+', 3: '8+', 2: '7+', 1: '6+', 0: 'No rating' }
+
     def get_additional_context(self):
         return { 
             'features': Feature.objects.all(),
-            'room_features': RoomFeature.objects.all()
+            'room_features': RoomFeature.objects.all(),
+            'ratings': sorted(self.ratings.iteritems(), reverse=True)
         }
 
     def get_list(self, filter):
@@ -59,16 +62,24 @@ class HomeListView(FEListView):
 
         fids = []
         rfids = []
+        rates = []
+
         for key, value in filter.iteritems():
             if key.startswith('feature_'):
                 fids.append(int(value))
             elif key.startswith('room_feature_'):
                 rfids.append(int(value))
+            elif key.startswith('rate_'):
+                rates.append(int(value))
 
         if fids:
             objects = objects.filter(features__in=fids).distinct()
         if rfids:
             objects = objects.filter(room__features__id__in=rfids).distinct()
+        if rates:
+            rate = min(rates)
+            objects = objects.annotate(Avg('review__rate'))
+            objects = objects.filter(review__rate__avg__gte=rate)
 
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']

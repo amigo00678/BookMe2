@@ -21,7 +21,18 @@
                 <label for="room_feature_{{ feature.id }}">{{ feature }}</label>
         </div>
         {% endfor %}
+
+        <label class="">Ratings</label>
+        {% for key, value in ratings %}
+        <div class="filter-checkbox">
+            <input type="checkbox" id="rate_{{ key }}" class="filter"
+                data-value="{{ key }}" data-field="rate_{{ key }}"/>
+                <label for="rate_{{ key }}">{{ value }}</label>
+        </div>
+        {% endfor %}
+
         <button class="btn btn-default" onclick="updateTable()">Apply</button>
+        <button class="btn btn-default" onclick="clearFilters()">Clear</button>
     </div>
 {% endblock %}
 

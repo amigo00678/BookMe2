@@ -76,6 +76,13 @@ function updateTable(){
     });
 }
 
+function clearFilters(){
+    $('.filter[type=checkbox]').each(function(index, object){
+        object.checked = false;
+    });
+    updateTable();
+}
+
 $(document).ready(function(){
     $('body').on('click', '.sortable', function(){
         if ($(this).hasClass('asc')){
