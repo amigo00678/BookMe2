@@ -93,6 +93,11 @@ class File(models.Model):
     def rooms(self):
         return self.room_set.order_by('-price')
 
+    @property
+    def similar(self):
+        return File.objects.exclude(id=self.id).annotate(
+            Avg('review__rate')).order_by('-review__rate__avg')[:5]
+
 
 def feature_upload_path(instance, filename):
     rnd_part = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))

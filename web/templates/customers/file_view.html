@@ -67,4 +67,13 @@
     </div>
 </div>
 
+<div class="col-xs-4">
+    <div class="row">
+        <div class="form-label">Similar items</div>
+        {% for item in file.similar %}
+            {% include 'customers/_similar_details.html' %}
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
