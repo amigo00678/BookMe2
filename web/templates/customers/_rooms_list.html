@@ -15,6 +15,11 @@
                 {% for feature in room.features.all %}
                     <span class="room-feature">{{ feature }}</span>
                 {% endfor %}
+                <div>
+                {% for img in room.images.all %}
+                    <img width="80" src="{{ img.image.url }}"></img>
+                {% endfor %}
+                </div>
             </td>
             <td>${{ room.price }}</td>
             <td>{{ room.users_count }}</td>
