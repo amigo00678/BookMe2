@@ -31,6 +31,13 @@ class AdminAuthUserMixin(object):
         return super(AdminAuthUserMixin, self).dispatch(request, *args, **kwargs)
 
 
+class AdminClientAuthUserMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated() or not request.user.type in (1, 3):
+            return HttpResponseRedirect(reverse('fe_home'))
+        return super(AdminClientAuthUserMixin, self).dispatch(request, *args, **kwargs)
+
+
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class ObjectsListView(ListView):
     model = File
@@ -89,7 +96,7 @@ class ObjectsListView(ListView):
 
 #####
 
-class FilesListView(AdminAuthUserMixin, ObjectsListView):
+class FilesListView(AdminClientAuthUserMixin, ObjectsListView):
     model = File
     template_name = 'files/files_list.html'
     list_template = 'files/_files_list.html'
@@ -618,7 +625,12 @@ class UsersEditView(AdminAuthUserMixin, FormView):
             return form_class(**self.get_form_kwargs())
 
     def form_valid(self, form):
-        form.save()
+        instance = form.save()
+
+        if 'password' in form.cleaned_data:
+            instance.set_password(form.cleaned_data.get('password'))
+            instance.save()
+
         try:
             messages.info(self.request, "User '%s' updated successfully" % (form.instance))
         except User.DoesNotExist:
@@ -632,7 +644,12 @@ class UsersAddView(AdminAuthUserMixin, FormView):
     template_name = 'users/users_add.html'
 
     def form_valid(self, form):
-        form.save()
+        instance = form.save()
+
+        if 'password' in form.cleaned_data:
+            instance.set_password(form.cleaned_data.get('password'))
+            instance.save()
+
         messages.info(self.request, "User '%s' added successfully" % (form.instance))
         return super(UsersAddView, self).form_valid(form)
 

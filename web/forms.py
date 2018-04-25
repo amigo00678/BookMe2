@@ -56,12 +56,16 @@ class FileEditForm(forms.ModelForm, SaveFileMixin):
 
 class UserEditForm(forms.ModelForm):
 
+    password = forms.CharField(widget=forms.PasswordInput, required=False)
+
     class Meta:
         model = User
-        fields = ['is_active', 'first_name', 'last_name', 'type']
+        fields = ['is_active', 'first_name', 'last_name', 'type', 'email']
 
 
 class UserAddForm(forms.ModelForm):
+
+    password = forms.CharField(widget=forms.PasswordInput, required=False)
 
     class Meta:
         model = User
