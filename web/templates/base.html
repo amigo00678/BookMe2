@@ -63,6 +63,7 @@
                             <i class="material-icons">attach_file</i>
                             <span>Files</span>
                         </a></div>
+                        {% if user.is_admin_user %}
                         <div><a href="{% url 'folders' %}">
                             <i class="material-icons">folder</i>
                             <span>Folders</span>
@@ -71,15 +72,19 @@
                             <i class="material-icons">attach_file</i>
                             <span>File Features</span>
                         </a></div>
+                        {% endif %}
                         <div><a href="{% url 'reviews' %}">
                             <i class="material-icons">attach_file</i>
                             <span>Reviews</span>
                         </a></div>
+                        {% if user.is_admin_user %}
                         <div><a href="{% url 'room_features' %}">
                             <i class="material-icons">attach_file</i>
                             <span>Room Features</span>
                         </a></div>
+                        {% endif %}
                     </div>
+                    {% if user.is_admin_user %}
                     <div class="parent">
                         <div class="unfold" id="menu_items_2"><a>
                             <i class="material-icons">attach_file</i>
@@ -117,6 +122,7 @@
                             <span>Active</span>
                         </a></div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
 

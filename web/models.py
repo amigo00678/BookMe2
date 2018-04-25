@@ -48,6 +48,10 @@ class User(AbstractBaseUser):
     def public_name(self):
         return "%s" % (self.first_name)
 
+    @property
+    def is_admin_user(self):
+        return self.type == 1
+
 
 class File(models.Model):
     name = models.CharField(max_length=200)

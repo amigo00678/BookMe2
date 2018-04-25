@@ -422,14 +422,17 @@ class RoomDeleteView(AdminClientAuthUserMixin, RedirectView):
 
 #####
 
-class ReviewsListView(AdminAuthUserMixin, ObjectsListView):
+class ReviewsListView(AdminClientAuthUserMixin, ObjectsListView):
     model = Review
     template_name = 'reviews/reviews_list.html'
     list_template = 'reviews/_reviews_list.html'
     base_url = reverse_lazy('reviews')
 
     def get_list(self, filter):
-        objects = self.model.objects.all()
+        if self.request.user.type == 3:
+            objects = self.model.objects.filter(user=self.request.user)
+        else:
+            objects = self.model.objects.all()
 
         if 'name' in filter:
             objects = objects.filter(item__name__icontains=filter['name'])
@@ -457,7 +460,7 @@ class ReviewsListView(AdminAuthUserMixin, ObjectsListView):
         return objects
 
 
-class ReviewEditView(AdminAuthUserMixin, FormView):
+class ReviewEditView(AdminClientAuthUserMixin, FormView):
     form_class = ReviewEditForm
     success_url = reverse_lazy('reviews')
     template_name = 'reviews/reviews_edit.html'
@@ -475,7 +478,7 @@ class ReviewEditView(AdminAuthUserMixin, FormView):
         return super(ReviewEditView, self).form_valid(form)
 
 
-class ReviewAddView(AdminAuthUserMixin, FormView):
+class ReviewAddView(AdminClientAuthUserMixin, FormView):
     form_class = ReviewEditForm
     success_url = reverse_lazy('reviews')
     template_name = 'reviews/reviews_add.html'
@@ -486,7 +489,7 @@ class ReviewAddView(AdminAuthUserMixin, FormView):
         return super(ReviewAddView, self).form_valid(form)
 
 
-class ReviewDeleteView(AdminAuthUserMixin, RedirectView):
+class ReviewDeleteView(AdminClientAuthUserMixin, RedirectView):
     reverse_url = reverse_lazy('reviews')
 
     def get_redirect_url(self, *args, **kwargs):

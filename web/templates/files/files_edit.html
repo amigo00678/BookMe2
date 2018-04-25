@@ -16,7 +16,9 @@
 
 <div class="col-xs-8">
     <div class="row">
-        <a href="{% url 'rooms' p_id=form.instance.id %}">Rooms</a>
+        {% if not '/add' in request.path %}
+            <a href="{% url 'rooms' p_id=form.instance.id %}">Rooms</a>
+        {% endif %}
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
