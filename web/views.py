@@ -595,7 +595,8 @@ class UsersListView(AdminAuthUserMixin, ObjectsListView):
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
-                'created': 'created'
+                'created': 'created_at',
+                'name': 'first_name',
             }
             sort = sort_map.get(sort, sort)
             if 'order' in filter and filter['order'] == 'desc':
