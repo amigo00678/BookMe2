@@ -8,7 +8,7 @@ from web.models import *
 
 
 class SaveFileMixin(object):
-    def save_files(self, files):
+    def save_slider_files(self, files):
         if files:
             slider = ImageSlider.objects.create()
 
@@ -47,8 +47,8 @@ class FileEditForm(forms.ModelForm, SaveFileMixin):
         instance = super(FileEditForm, self).save(commit=commit)
 
         if self.files:
-            instance.top_slider = self.save_files(self.files.getlist('top_images'))
-            instance.bottom_slider = self.save_files(self.files.getlist('bottom_images'))
+            instance.top_slider = self.save_slider_files(self.files.getlist('top_images'))
+            instance.bottom_slider = self.save_slider_files(self.files.getlist('bottom_images'))
             instance.save()
 
         return instance
@@ -122,10 +122,23 @@ class ReviewEditForm(forms.ModelForm):
 
 class RoomEditForm(forms.ModelForm):
 
+    room_images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+
     class Meta:
         model = Room
-        fields = ['name', 'price', 'users_count', 'count', 'features']
+        fields = ['name', 'price', 'users_count', 'count', 'features', 'room_images']
 
         widgets = {
             'name': forms.TextInput(),
         }
+
+    def save(self, commit=True):
+        instance = super(RoomEditForm, self).save(commit=commit)
+
+        if self.files:
+            instance.images.all().delete()
+            for file in self.files.getlist('room_images'):
+                image = SliderImage.objects.create(image=file)
+                instance.images.add(image)
+
+        return instance

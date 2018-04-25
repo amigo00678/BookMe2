@@ -30,6 +30,14 @@
                 <div class="form-label">{{ field.label }}</div>
                 {{ field|add_class:"form-control" }}
 
+                {% if field.name == 'room_images' and form.instance.images.all %}
+                    <div class="slider_images">
+                        {% for img in form.instance.images.all %}
+                        <img src="{{ img.image.url }}"></img>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
             {% endfor %}
 
             <div class="btn-container">

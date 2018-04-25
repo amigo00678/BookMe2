@@ -130,6 +130,7 @@ class Room(models.Model):
     users_count = models.IntegerField(default=1)
     count = models.IntegerField(default=1)
 
+    images = models.ManyToManyField('SliderImage', blank=True)
     features = models.ManyToManyField('RoomFeature')
 
 
