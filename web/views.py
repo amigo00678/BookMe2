@@ -430,7 +430,7 @@ class ReviewsListView(AdminClientAuthUserMixin, ObjectsListView):
 
     def get_list(self, filter):
         if self.request.user.type == 3:
-            objects = self.model.objects.filter(user=self.request.user)
+            objects = self.model.objects.filter(item__owner=self.request.user)
         else:
             objects = self.model.objects.all()
 
