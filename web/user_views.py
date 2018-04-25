@@ -22,7 +22,7 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            if self.request.user.type == 1:
+            if self.request.user.type in (1, 3):
                 return HttpResponseRedirect(reverse('files'))
             else:
                 return HttpResponseRedirect(reverse('fe_home'))

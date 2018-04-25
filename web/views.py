@@ -103,7 +103,11 @@ class FilesListView(AdminClientAuthUserMixin, ObjectsListView):
     base_url = reverse_lazy('files')
 
     def get_list(self, filter):
-        objects = self.model.objects.all()
+        if self.request.user.type == 3:
+            objects = self.model.objects.filter(owner=self.request.user)
+        else:
+            objects = self.model.objects.all()
+
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
         if 'created' in filter:
@@ -124,7 +128,7 @@ class FilesListView(AdminClientAuthUserMixin, ObjectsListView):
         return objects
 
 
-class FilesEditView(AdminAuthUserMixin, FormView):
+class FilesEditView(AdminClientAuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
     template_name = 'files/files_edit.html'
@@ -142,7 +146,7 @@ class FilesEditView(AdminAuthUserMixin, FormView):
         return super(FilesEditView, self).form_valid(form)
 
 
-class FilesAddView(AdminAuthUserMixin, FormView):
+class FilesAddView(AdminClientAuthUserMixin, FormView):
     form_class = FileEditForm
     success_url = reverse_lazy('files')
     template_name = 'files/files_add.html'
@@ -153,7 +157,7 @@ class FilesAddView(AdminAuthUserMixin, FormView):
         return super(FilesAddView, self).form_valid(form)
 
 
-class FilesDeleteView(AdminAuthUserMixin, RedirectView):
+class FilesDeleteView(AdminClientAuthUserMixin, RedirectView):
     reverse_url = reverse_lazy('files')
 
     def get_redirect_url(self, *args, **kwargs):
@@ -300,7 +304,7 @@ class RoomFeatureDeleteView(AdminAuthUserMixin, RedirectView):
 
 #####
 
-class RoomsListView(AdminAuthUserMixin, ObjectsListView):
+class RoomsListView(AdminClientAuthUserMixin, ObjectsListView):
     model = Room
     template_name = 'rooms/rooms_list.html'
     list_template = 'rooms/_rooms_list.html'
@@ -342,7 +346,7 @@ class RoomsListView(AdminAuthUserMixin, ObjectsListView):
         return objects
 
 
-class RoomEditView(AdminAuthUserMixin, FormView):
+class RoomEditView(AdminClientAuthUserMixin, FormView):
     form_class = RoomEditForm
     success_url = 'rooms'
     template_name = 'rooms/rooms_edit.html'
@@ -373,7 +377,7 @@ class RoomEditView(AdminAuthUserMixin, FormView):
         return super(RoomEditView, self).form_valid(form)
 
 
-class RoomAddView(AdminAuthUserMixin, FormView):
+class RoomAddView(AdminClientAuthUserMixin, FormView):
     form_class = RoomEditForm
     success_url = 'rooms'
     template_name = 'rooms/rooms_add.html'
@@ -403,7 +407,7 @@ class RoomAddView(AdminAuthUserMixin, FormView):
         return super(RoomAddView, self).form_valid(form)
 
 
-class RoomDeleteView(AdminAuthUserMixin, RedirectView):
+class RoomDeleteView(AdminClientAuthUserMixin, RedirectView):
     reverse_url = 'rooms'
 
     def get_redirect_url(self, *args, **kwargs):
