@@ -17,17 +17,24 @@
             <th class="sortable" data-field='name'>Name</th>
             <th class="sortable" data-field='created'>Created</th>
             <th class="sortable" data-field='email'>Email</th>
-            <th class="">Options<th>
+            <th class="sortable" data-field='type'>Type</th>
+            <th class="">Options</th>
         </tr>
         <tr>
             <th><input class='form-control filter keyup' data-field='name'></input></th>
             <th><input class='form-control filter change datepicker' data-field='created'></input></th>
             <th><input class='form-control filter keyup' data-field='email'></input></th>
+            <th><select class='filter change selectpicker' data-field='type'>
+                <option value="">--</option>
+                <option value="1">ADMIN</option>
+                <option value="2">CUSTOMER</option>
+                <option value="3">CLIENT</option>
+            </select></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        {% include '_users_list.html' %}
+        {% include 'users/_users_list.html' %}
     </tbody>
 </table>
 

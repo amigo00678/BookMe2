@@ -54,6 +54,7 @@ class File(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('Folder', null=True, blank=True)
     type = models.IntegerField(choices=FILE_TYPE_E, default=1)
+    owner = models.ForeignKey('User')
 
     top_content = models.TextField(null=True, blank=True)
     middle_content = models.TextField(null=True, blank=True)

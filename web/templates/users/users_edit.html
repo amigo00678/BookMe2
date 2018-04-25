@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Users Edit{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "files" %}
+    {% breadcrumb "Users" "files" %}
+    {% breadcrumb "Edit users" "" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="col-xs-8">
+    <div class="row">
+        <a href="{% url 'rooms' p_id=form.instance.id %}">Rooms</a>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include "common/_form_nf_errors.html" %}
+
+            {% for field in form %}
+
+                {% include "common/_form_field_errors.html" %}
+
+                <div class="form-label">{{ field.label }}</div>
+                {{ field|add_class:"form-control" }}
+
+            {% endfor %}
+
+            <div class="btn-container">
+                <input class="btn btn-bold btn-default" type="submit" value="Update" />
+                <a role="button" class="btn btn-bold btn-danger" href="{% url 'users' %}">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

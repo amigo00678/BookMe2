@@ -576,8 +576,8 @@ class AudioListView(AdminAuthUserMixin, ObjectsListView):
 
 class UsersListView(AdminAuthUserMixin, ObjectsListView):
     model = User
-    template_name = 'users_list.html'
-    list_template = '_users_list.html'
+    template_name = 'users/users_list.html'
+    list_template = 'users/_users_list.html'
     base_url = reverse_lazy('users')
 
     def get_list(self, filter):
@@ -590,6 +590,8 @@ class UsersListView(AdminAuthUserMixin, ObjectsListView):
             dates = self.format_dates(filter, 'created')
             objects = objects.filter(created_at__gte=dates[0])
             objects = objects.filter(created_at__lte=dates[1])
+        if 'type' in filter:
+            objects = objects.filter(type=int(filter['type']))
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {
@@ -603,32 +605,32 @@ class UsersListView(AdminAuthUserMixin, ObjectsListView):
 
 
 class UsersEditView(AdminAuthUserMixin, FormView):
-    form_class = FileEditForm
-    success_url = reverse_lazy('files')
-    template_name = 'files_edit.html'
+    form_class = UserEditForm
+    success_url = reverse_lazy('users')
+    template_name = 'users/users_edit.html'
 
     def get_form(self, form_class):
         try:
-            instance = File.objects.get(id=self.kwargs.get('id'))
+            instance = User.objects.get(id=self.kwargs.get('id'))
             return form_class(instance=instance, **self.get_form_kwargs())
-        except File.DoesNotExist:
+        except User.DoesNotExist:
             return form_class(**self.get_form_kwargs())
 
     def form_valid(self, form):
         form.save()
-        messages.info(self.request, 'File updated successfully')
-        return super(FilesEditView, self).form_valid(form)
+        messages.info(self.request, 'User updated successfully')
+        return super(UsersEditView, self).form_valid(form)
 
 
 class UsersDeleteView(AdminAuthUserMixin, RedirectView):
-    reverse_url = reverse_lazy('files')
+    reverse_url = reverse_lazy('users')
 
     def get_redirect_url(self, *args, **kwargs):
         try:
-            file = File.objects.get(id=self.kwargs.get('id'))
-            fname = file.name
-            file.delete()
-            messages.info(self.request, "File '%s' deleted successfully" % (fname))
-        except File.DoesNotExist:
+            user = User.objects.get(id=self.kwargs.get('id'))
+            uname = file.user
+            user.delete()
+            messages.info(self.request, "User '%s' deleted successfully" % (uname))
+        except User.DoesNotExist:
             pass
         return self.reverse_url

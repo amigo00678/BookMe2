@@ -4,6 +4,7 @@
     <td>{{ object }}</td>
     <td>{{ object.created_at }}</td>
     <td>{{ object.email }}</td>
+    <td>{{ object.type }}</td>
     <td>
         <a class="list-option" href="{% url 'users_edit' id=object.id %}"><i class="material-icons">edit</i></a>
         <a class="list-option" href="{% url 'users_delete' id=object.id %}" onclick="return confirm('Please confirm user {{ object }} deletion?')">
