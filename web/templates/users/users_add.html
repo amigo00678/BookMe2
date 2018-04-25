@@ -1,0 +1,12 @@
+{% extends "users/users_edit.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Users Add{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Users" "users" %}
+    {% breadcrumb "Add users" "" %}
+{% endblock %}

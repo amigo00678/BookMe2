@@ -61,6 +61,13 @@ class UserEditForm(forms.ModelForm):
         fields = ['is_active', 'first_name', 'last_name', 'type']
 
 
+class UserAddForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['is_active', 'email', 'first_name', 'last_name', 'type']
+
+
 class FeatureEditForm(forms.ModelForm):
 
     class Meta:

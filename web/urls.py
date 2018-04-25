@@ -59,6 +59,7 @@ urlpatterns = [
     # users
     url(r'^users/$', UsersListView.as_view(), name='users'),
     url(r'^users/edit/(?P<id>\d+)/$', UsersEditView.as_view(), name='users_edit'),
+    url(r'^users/add/$', UsersAddView.as_view(), name='users_add'),
     url(r'^users/delete/(?P<id>\d+)$', UsersDeleteView.as_view(), name='users_delete'),
 
     url(r'^folders/$', FoldersListView.as_view(), name='folders'),

@@ -618,8 +618,22 @@ class UsersEditView(AdminAuthUserMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        messages.info(self.request, 'User updated successfully')
+        try:
+            messages.info(self.request, "User '%s' updated successfully" % (form.instance))
+        except User.DoesNotExist:
+            pass
         return super(UsersEditView, self).form_valid(form)
+
+
+class UsersAddView(AdminAuthUserMixin, FormView):
+    form_class = UserAddForm
+    success_url = reverse_lazy('users')
+    template_name = 'users/users_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, "User '%s' added successfully" % (form.instance))
+        return super(UsersAddView, self).form_valid(form)
 
 
 class UsersDeleteView(AdminAuthUserMixin, RedirectView):
@@ -628,7 +642,7 @@ class UsersDeleteView(AdminAuthUserMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         try:
             user = User.objects.get(id=self.kwargs.get('id'))
-            uname = file.user
+            uname = str(user)
             user.delete()
             messages.info(self.request, "User '%s' deleted successfully" % (uname))
         except User.DoesNotExist:
