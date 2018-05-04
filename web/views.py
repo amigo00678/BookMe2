@@ -173,6 +173,82 @@ class FilesDeleteView(AdminClientAuthUserMixin, RedirectView):
 
 #####
 
+class OrdersListView(AdminClientAuthUserMixin, ObjectsListView):
+    model = Order
+    template_name = 'orders/orders_list.html'
+    list_template = 'orders/_orders_list.html'
+    base_url = reverse_lazy('orders')
+
+    def get_list(self, filter):
+        if self.request.user.type == 3:
+            objects = self.model.objects.filter(owner=self.request.user)
+        else:
+            objects = self.model.objects.all()
+
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'created' in filter:
+            dates = self.format_dates(filter, 'created')
+            objects = objects.filter(created_at__gte=dates[0])
+            objects = objects.filter(created_at__lte=dates[1])
+        if 'type' in filter and int(filter['type']):
+            objects = objects.filter(type=filter['type'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class OrdersEditView(AdminClientAuthUserMixin, FormView):
+    form_class = FileEditForm
+    success_url = reverse_lazy('orders')
+    template_name = 'orders/orders_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = File.objects.get(id=self.kwargs.get('id'))
+            return form_class(instance=instance, **self.get_form_kwargs())
+        except File.DoesNotExist:
+            return form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'File updated successfully')
+        return super(FilesEditView, self).form_valid(form)
+
+
+class OrdersAddView(AdminClientAuthUserMixin, FormView):
+    form_class = OrderEditForm
+    success_url = reverse_lazy('orders')
+    template_name = 'orders/orders_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Order created successfully')
+        return super(OrdersAddView, self).form_valid(form)
+
+
+class OrdersDeleteView(AdminClientAuthUserMixin, RedirectView):
+    reverse_url = reverse_lazy('orders')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            file = File.objects.get(id=self.kwargs.get('id'))
+            fname = file.name
+            file.delete()
+            messages.info(self.request, "File '%s' deleted successfully" % (fname))
+        except File.DoesNotExist:
+            pass
+        return self.reverse_url
+
+#####
+
 class FeaturesListView(AdminAuthUserMixin, ObjectsListView):
     model = Feature
     template_name = 'features/features_list.html'

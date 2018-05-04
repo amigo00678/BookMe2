@@ -128,8 +128,8 @@ class HomeReviewAddView(CustomerAuthUserMixin, FormView):
         self.success_url = reverse(self.success_url, kwargs={'id': self.kwargs.get('id')})
         return super(HomeReviewAddView, self).dispatch(*args, **kwargs)
 
-    def get_additional_context(self):
-        context = {}
+    def get_context_data(self, **kwargs):
+        context = super(HomeReviewAddView, self).get_context_data(**kwargs)
         try:
             file = File.objects.get(id=self.kwargs.get('id'))
             context['file'] = file

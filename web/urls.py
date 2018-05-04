@@ -32,6 +32,12 @@ urlpatterns = [
     url(r'^features/edit/(?P<id>\d+)/$', FeatureEditView.as_view(), name='features_edit'),
     url(r'^features/delete/(?P<id>\d+)$', FeatureDeleteView.as_view(), name='features_delete'),
 
+    # orders
+    url(r'^orders/$', OrdersListView.as_view(), name='orders'),
+    url(r'^orders/add/$', OrdersAddView.as_view(), name='orders_add'),
+    url(r'^orders/edit/(?P<id>\d+)/$', OrdersEditView.as_view(), name='orders_edit'),
+    url(r'^orders/delete/(?P<id>\d+)$', OrdersDeleteView.as_view(), name='orders_delete'),
+
     # room features
     url(r'^room-features/$', RoomFeaturesListView.as_view(), name='room_features'),
     url(r'^room-features/add/$', RoomFeatureAddView.as_view(), name='room_features_add'),

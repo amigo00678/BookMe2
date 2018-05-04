@@ -1,0 +1,17 @@
+
+{% for object in objects %}
+<tr>
+    <td>{{ object.item }}</td>
+    <td>{{ object.room }}</td>
+    <td>{{ object.user }}</td>
+    <td>{{ object.start_date|date:"d M Y" }}</td>
+    <td>{{ object.end_date|date:"d M Y" }}</td>
+    <td>{{ object.end_date|timesince:object.start_date }}</td>
+    <td>
+        <a class="list-option" href="{% url 'orders_edit' id=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="list-option" href="{% url 'orders_delete' id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">
+            <i class="material-icons">delete</i>
+        </a>
+    </td>
+</tr>
+{% endfor %}

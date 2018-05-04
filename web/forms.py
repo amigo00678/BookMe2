@@ -3,6 +3,7 @@
 from django.core.validators import validate_email
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.conf import settings
 
 from web.models import *
 
@@ -142,3 +143,15 @@ class RoomEditForm(forms.ModelForm):
                 instance.images.add(image)
 
         return instance
+
+
+class OrderEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ['item', 'room', 'user', 'start_date', 'end_date']
+
+    def __init__(self, *args, **kwargs):
+        super(OrderEditForm, self).__init__(*args, **kwargs)
+        self.fields['start_date'].input_formats = settings.DATE_INPUT_FORMATS
+        self.fields['end_date'].input_formats = settings.DATE_INPUT_FORMATS

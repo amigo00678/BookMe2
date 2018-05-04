@@ -2,7 +2,7 @@
 
     {% for object in objects %}
         {% if object.type == 1 %}
-            <a href="{% url 'fe_file' id=object.id %}" class='item col-xs-12 {{ object.get_type_display }}'>
+            <a href="{% url 'fe_file' id=object.id %}" class='item col-xs-4 {{ object.get_type_display }}'>
                 <div class="pull-left">
                     <img src="{{ object.top_slider.images.first.image.url }}"></img>
                 </div>

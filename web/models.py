@@ -133,11 +133,22 @@ class Room(models.Model):
     images = models.ManyToManyField('SliderImage', blank=True)
     features = models.ManyToManyField('RoomFeature')
 
+    def __unicode__(self):
+        return "%s" % (self.name)
+
 
 class RoomPrice(models.Model):
     people_number = models.IntegerField(default=1)
     price = models.FloatField(default=0)
     room = models.ForeignKey('Room')
+
+
+class Order(models.Model):
+    item = models.ForeignKey('File')
+    room = models.ForeignKey('Room')
+    user = models.ForeignKey('User')
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
 
 
 class Review(models.Model):
@@ -187,4 +198,3 @@ class Folder(models.Model):
     name = models.CharField(max_length=200)
     parent = models.ForeignKey('Folder', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-

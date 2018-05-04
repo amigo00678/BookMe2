@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Orders Edit{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "files" %}
+    {% breadcrumb "Orders" "orders" %}
+    {% breadcrumb "Edit order" "" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="col-xs-8">
+    <div class="row">
+        {% if not '/add' in request.path %}
+            <a href="{% url 'rooms' p_id=form.instance.id %}">Rooms</a>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include "common/_form_nf_errors.html" %}
+
+            {% for field in form %}
+
+                {% include "common/_form_field_errors.html" %}
+
+                <div class="form-label">{{ field.label }}</div>
+
+                {% if field.name == 'start_date' or field.name == 'end_date' %}
+                    {% include 'common/_datetime_select.html' %}
+                {% else %}
+                    {{ field|add_class:"form-control" }}
+                {% endif %}
+
+            {% endfor %}
+
+            <div class="btn-container">
+                <input class="btn btn-bold btn-default" type="submit" value="Update" />
+                <a role="button" class="btn btn-bold btn-danger" href="{% url 'orders' %}">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

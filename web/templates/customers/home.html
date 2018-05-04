@@ -8,16 +8,18 @@
     <meta charset="utf-8">
     <title>{% block title %}The HTML5 Herald{% endblock %}</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     {% block css %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <link rel="stylesheet" href="{% static 'css/customer_styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://bulma.io/css/bulma-docs.min.css?v=201805030042" rel="stylesheet">
     {% endblock %}
 
     {% block js %}
@@ -27,103 +29,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://bulma.io/lib/main.js?v=201805030042"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     {% endblock %}
 
 </head>
 
 <body>
-    <div class="row">
-        <div class="container col-xs-12">
-            {% block container %}
-            <div class="left-col">
-                <div class="logo">
-                    <a href="{% url 'fe_home' %}" class=""><img src="{% static 'img/project_logo.png' %}"></img></a>
-                </div>
-                <div class="menu">
-
-                    <div><a href="{% url 'fe_files' %}">
-                        <i class="material-icons">attach_file</i>
-                        <span>Files</span>
-                    </a></div>
-
-                    <div><a href="{% url 'fe_audio' %}">
-                        <i class="material-icons">audiotrack</i>
-                        <span>Audio</span>
-                    </a></div>
-
-                    <div><a href="{% url 'fe_video' %}">
-                        <i class="material-icons">personal_video</i>
-                        <span>Videos</span>
-                    </a></div>
-
-                    <div><a href="{% url 'fe_bin' %}">
-                        <i class="material-icons">view_compact</i>
-                        <span>Binaries</span>
-                    </a></div>
-
-                </div>
-
-                {% block left_filters %}
-                {% endblock %}
-
+    <nav class="navbar has-shadow is-spaced">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <img src="{% static 'img/project_logo.png' %}"></img>
+                </a>
             </div>
-
-            <div class="content-container col-xs-8">
-                <div class="header">
-                    <div class="row col-xs-8 breadcrumbs">{% render_breadcrumbs %}</div>
-                    {% if request.user.is_authenticated %}
-                        <div class="row col-xs-4 account">Logged in as:<br>{{ user }}<br>
-                            <a href="{% url 'fe_logout' %}">Logout</a>
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="">Documentation</a>
+                    <a class="navbar-item" href="">Blog</a>
+                    <a class="navbar-item" href="">Expo</a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">More</a>
+                        <div id="moreDropdown" class="navbar-dropdown">
+                            <a class="navbar-item">Love</a>
+                            <a class="navbar-item">Peace</a>
                         </div>
-                    {% else %}
-                        <div class="row col-xs-4 account">
-                            <a href="{% url 'fe_login' %}">Log in</a>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="content">
-                    <div class="btn-container">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            {{ message }}
-                        </div>
-                        {% endfor %}
                     </div>
+                </div>
+                <div class="navbar-end">
+                    <a class="navbar-item is-hidden-mobile">Twitter</a>
+                    <a class="navbar-item is-hidden-mobile">Log in</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="bd-main">
+        <div class="bd-main-container container">
+            <div class="bd-duo">
+                <aside class="bd-side">
+                    <nav class="bd-categories">
+                        {% block left_filters %}
+                        {% endblock %}
+                    </nav>
+                </aside>
+                <div class="bd-lead">
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
-            {% endblock %}
         </div>
-    </div>
-    <script>
-    {% if "/files" in request.path or '/folders' in request.path %}
-        $("#menu_files").parent().find('div').show();
-        $("#menu_files").addClass('shown');
-    {% elif "/video/" in request.path or "/audio/" in request.path %}
-        $("#menu_items_2").parent().find('div').show();
-        $("#menu_items_2").addClass('shown');
-    {% elif "/users/" in request.path %}
-        $("#menu_users").parent().find('div').show();
-        $("#menu_users").addClass('shown');
-    {% endif %}
-
-    $(document).ready(function(){
-        $('body').on('click', '.unfold', function(){
-            if (!$(this).hasClass('shown')){
-                $(this).parent().find('div').show();
-                $(this).addClass('shown');
-            } else {
-                $(this).parent().find('div').hide();
-                $(this).show();
-                $(this).removeClass('shown');
-            }
-        });
-    });
-    </script>
+    </main>
 </body>
+
 </html>
