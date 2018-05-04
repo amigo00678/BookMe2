@@ -6,3 +6,10 @@ body{
 .main{
     
 }
+.bd-lead{
+    padding-left: 2.2em !important;
+}
+.carousel .carousel-navigation.is-overlay .carousel-nav-left, .carousel .carousel-navigation.is-overlay .carousel-nav-right{
+    height: 100% !important;
+    display: -webkit-box !important;
+}
