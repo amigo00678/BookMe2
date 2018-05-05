@@ -7,12 +7,12 @@
             <div class="column is-one-third">
 
                 <a href="{% url 'fe_file' id=object.id %}">
-                    <div class='carousel carousel-animated carousel-animate-slide'>
+                    <div class='carousel carousel-animated carousel-animate-slide list-icons'>
                         <div class='carousel-container'>
                             {% for img in object.top_slider.images.all %}
                                 <div class='carousel-item has-background is-active'>
-                                    {% thumbnail img.image "640x600" crop="center" as im %}
-                                        <img class="is-background" src="{{ im.url }}" width="640" height="600"></img>
+                                    {% thumbnail img.image "640x520" crop="center" as im %}
+                                        <img class="is-background" src="{{ im.url }}" width="640" height="520"></img>
                                     {% endthumbnail %}
                                 </div>
                             {% endfor %}
@@ -32,10 +32,11 @@
             <div class="columns column is-multiline">
                 <div class="column is-half">
                     <a href="{% url 'fe_file' id=object.id %}" class="subtitle is-4">{{ object.name }}</a>
-                    <div class="">{{ object.created_at }}</div>
+                    <br>
+                    <a class="modal-button subtitle is-6" data-target="modal-map">Show on map</a>
                 </div>
                 <div class="column is-half has-text-right">
-                    <div class="">{{ object.rate|floatformat }}</div>
+                    <div class="icon rate-avg">{{ object.rate|floatformat }}</div>
                     <div class="">{{ object.reviews_count }} reviews</div>
                     <a class="button is-link" href="{% url 'fe_file' id=object.id %}">Book now</a>
                 </div>

@@ -69,7 +69,7 @@ function updateTable(){
         dataType: 'json',
         success: function(data){
             $('.list-table tbody').html(data.reply);
-            $('.items-list').html(data.reply);
+            $('.files-list-js').html(data.reply);
             $('.pagin-js').html(data.pagin);
             $('.selectpicker').selectpicker('refresh');
         },
@@ -107,6 +107,15 @@ $(document).ready(function(){
         $('.page_filter').val($(this).data('page'));
         updateTable();
     });
+    $('body').on('click', '.modal-button', function(){
+        var target = $(this).data('target');
+        openModal(target);
+    });
+    $('body').on('click',
+        '.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button',
+        function(){
+            closeModals();
+    });
     $('.selectpicker').selectpicker('refresh');
     $('.datepicker').val('');
     $('.datepicker').daterangepicker({
@@ -127,3 +136,13 @@ $(document).ready(function(){
         updateTable();
     });
 });
+
+function openModal(target) {
+    $(document.documentElement).addClass('is-clipped');
+    $('#'+target).addClass('is-active');
+}
+
+function closeModals() {
+    $(document.documentElement).removeClass('is-clipped');
+    $('.modal').removeClass('is-active');
+}

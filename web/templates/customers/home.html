@@ -33,7 +33,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <script src="https://bulma.io/lib/main.js?v=201805030042"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     {% endblock %}
 
@@ -84,5 +83,22 @@
         </div>
     </main>
 </body>
+
+<div class="modal" id="modal-map">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer>
+    </div>
+</div>
 
 </html>

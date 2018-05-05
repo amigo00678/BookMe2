@@ -13,3 +13,17 @@ body{
     height: 100% !important;
     display: -webkit-box !important;
 }
+.box{
+    margin-bottom: 1.5rem !important;
+}
+.rate-avg{
+    border-radius: 8px 8px 8px 0;
+    padding: 20px;
+    background-color: #00d1b2;
+    color: #fff;
+    font-size: 20px;
+    border: 1px solid transparent;
+}
+.list-icons{
+    border-radius: 3px;
+}

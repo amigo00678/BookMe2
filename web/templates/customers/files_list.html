@@ -39,7 +39,9 @@
 
 {% block content %}
 
-{% include 'customers/_files_list.html' %}
+<div class="files-list-js">
+    {% include 'customers/_files_list.html' %}
+</div>
 
 <div class="pagin-js">
     {% include 'customers/_pagin.html' %}
