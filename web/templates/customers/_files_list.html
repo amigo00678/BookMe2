@@ -33,7 +33,9 @@
                 <div class="column is-half">
                     <a href="{% url 'fe_file' id=object.id %}" class="subtitle is-4">{{ object.name }}</a>
                     <br>
-                    <a class="modal-button subtitle is-6" data-target="modal-map">Show on map</a>
+                    <a class="modal-button subtitle is-6" data-target="modal-map"
+                        data-title="{{ object.name }}">
+                        Show on map</a>
                 </div>
                 <div class="column is-half has-text-right">
                     <div class="icon rate-avg">{{ object.rate|floatformat }}</div>

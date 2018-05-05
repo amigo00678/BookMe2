@@ -1,25 +1,23 @@
+{% load thumbnail %}
 
-<table class="list-table">
+<table class="table is-narrow">
     <thead>
         <tr>
-            <th class="sortable">Room Name</th>
-            <th class="sortable">Price</th>
-            <th class="sortable">Users number</th>
-            <th class="sortable">Count</th>
+            <th class="">Room Name</th>
+            <th class="">Price</th>
+            <th class="">Users number</th>
+            <th class="">Count</th>
         </tr>
     </thead>
-    <tbody class="rooms-list">
+    <tbody class="">
         {% for room in file.rooms %}
         <tr>
-            <td class="room-name">{{ room.name }}<br>
+            <td><a class="subtitle is-5 modal-button" data-target="modal-room-{{ room.id }}"
+                data-title="{{ room.name }}">{{ room.name }}</a><br>
+
                 {% for feature in room.features.all %}
-                    <span class="room-feature">{{ feature }}</span>
+                    <span class="subtitle is-6">{{ feature }}</span>
                 {% endfor %}
-                <div>
-                {% for img in room.images.all %}
-                    <img width="80" src="{{ img.image.url }}"></img>
-                {% endfor %}
-                </div>
             </td>
             <td>${{ room.price }}</td>
             <td>{{ room.users_count }}</td>
@@ -29,3 +27,58 @@
     </tbody>
 </table>
 
+{% for room in file.rooms %}
+    <div class="modal" id="modal-room-{{ room.id }}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">{{ file.name }} {{ room.name }}</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="column is-two-thirds">
+                        <div class="subtitle carousel carousel-animated carousel-animate-slide list-icons">
+                            <div class='carousel-container'>
+                                {% for img in room.images.all %}
+                                    <div class='carousel-item has-background is-active'>
+                                        {% thumbnail img.image "300x200" crop="center" as im %}
+                                            <img class="is-background" src="{{ im.url }}"></img>
+                                        {% endthumbnail %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="carousel-navigation is-overlay">
+                                <div class="carousel-nav-left">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </div>
+                                <div class="carousel-nav-right">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subheader is-6">
+                            {% for img in room.images.all %}
+                                {% thumbnail img.image "80x60" crop="center" as im %}
+                                    <img src="{{ im.url }}"></img>
+                                {% endthumbnail %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        {% for feature in room.features.all %}
+                            <span class="subtitle is-6">{{ feature }}</span><br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button">Book now</button>
+            </footer>
+
+        </div>
+    </div>
+{% endfor %}

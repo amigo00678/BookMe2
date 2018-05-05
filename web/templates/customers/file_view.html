@@ -7,64 +7,75 @@
 
 {% block content %}
 
-<div class="col-xs-8">
-    <div class="row">
+<div class="subtitle">{{ file.name }}</div>
+<div class="subtitle is-6">{{ file.top_content|default_if_none:""|safe }}</div>
 
-        <div class="form-label">{{ file.name }}</div>
-        <div>{{ file.top_content|default_if_none:""|safe }}</div>
-        <div class="main-image">
-            {% thumbnail file.top_slider.images.first.image "600x400" crop="center" as im %}
-                <img src="{{ im.url }}"></img>
-            {% endthumbnail %}
-        </div>
-        <div class="image_slider">
-            {% for img in file.top_slider.images.all %}
-                {% thumbnail img.image "130x100" crop="center" as im %}
-                    <img src="{{ im.url }}"></img>
-                {% endthumbnail %}
+<div class="subtitle">
+    <div class="carousel carousel-animated carousel-animate-slide" data-autoplay="true">
+        <div class="carousel-container">
+            {% for image in file.top_slider.images.all %}
+                <div class="carousel-item has-background is-active">
+                    {% thumbnail image.image "600x400" crop="center" as im %}
+                        <img class="is-background" src="{{ im.url }}" width="600" height="400" />
+                    {% endthumbnail %}
+                    <div class="title">{{ file.name }}</div>
+                </div>
             {% endfor %}
         </div>
-        <div>{{ file.middle_content|default_if_none:""|safe }}</div>
-        <div class="image_slider">
-            {% for img in file.bottom_slider.images.all %}
-                <img src="{{ img.image.url }}"></img>
-            {% endfor %}
-        </div>
-        <div>{{ file.bottom_content|default_if_none:""|safe }}</div>
 
-        <div class="features clearfix">
-            {% for feature in file.features.all %}
-            <div class="pull-left {% if feature.is_main == True %}feature_main{% endif %}">
-                {% if feature.image %}
-                    <img src="{{ feature.image.url }}"></img>
-                {% endif %}
-                {{ feature.name }}
+        <div class="carousel-navigation is-overlay">
+            <div class="carousel-nav-left">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
-            {% endfor %}
-        </div>
-
-        {% include 'customers/_rooms_list.html' %}
-
-        <div class="reviews">
-            <div class="name">
-                <span>Reviews</span>
-                <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">
-                    See all ({{ file.reviews_count }})</a>
-                {% if request.user.is_authenticated %}
-                <a href="{% url 'fe_review_add' id=file.id %}" class="pull-right">
-                    Add review</a>
-                {% endif %}
+            <div class="carousel-nav-right">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </div>
-            {% for review in file.latest_reviews %}
-                {% include 'customers/_review_details.html' %}
-            {% endfor %}
         </div>
-
-        <div class="btn-container">
-            <a role="button" class="btn btn-bold btn-default pull-right" href="{% url 'fe_home' %}">Back</a>
-        </div>
-
     </div>
+</div>
+
+<div class="subtitle">
+    {% for img in file.top_slider.images.all %}
+        {% thumbnail img.image "110x80" crop="center" as im %}
+            <img src="{{ im.url }}" width="110"></img>
+        {% endthumbnail %}
+    {% endfor %}
+</div>
+
+<p>{{ file.middle_content|default_if_none:""|safe }}</p>
+
+<div>{{ file.bottom_content|default_if_none:""|safe }}</div>
+
+<div class="subtitle level">
+    {% for feature in file.features.all %}
+    <div class="{% if feature.is_main == True %}{% endif %}">
+        {% if feature.image %}
+            <img src="{{ feature.image.url }}"></img>
+        {% endif %}
+        {{ feature.name }}
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'customers/_rooms_list.html' %}
+
+<div class="reviews">
+    <div class="name">
+        <span>Reviews</span>
+        <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">
+            See all ({{ file.reviews_count }})</a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'fe_review_add' id=file.id %}" class="pull-right">
+            Add review</a>
+        {% endif %}
+    </div>
+    {% for review in file.latest_reviews %}
+        {% include 'customers/_review_details.html' %}
+    {% endfor %}
+</div>
+
+<div class="btn-container">
+    <a role="button" class="btn btn-bold btn-default pull-right" href="{% url 'fe_home' %}">Back</a>
 </div>
 
 <div class="col-xs-4">

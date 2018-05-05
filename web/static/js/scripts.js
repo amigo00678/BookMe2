@@ -109,7 +109,8 @@ $(document).ready(function(){
     });
     $('body').on('click', '.modal-button', function(){
         var target = $(this).data('target');
-        openModal(target);
+        var title = $(this).data('title');
+        openModal(target, title);
     });
     $('body').on('click',
         '.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button',
@@ -137,8 +138,9 @@ $(document).ready(function(){
     });
 });
 
-function openModal(target) {
+function openModal(target, title) {
     $(document.documentElement).addClass('is-clipped');
+    $('#'+target).find('.modal-card-title').text(title);
     $('#'+target).addClass('is-active');
 }
 
