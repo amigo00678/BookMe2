@@ -41,8 +41,9 @@
 
 {% include 'customers/_files_list.html' %}
 
-{% include 'customers/_pagin.html' %}
-
+<div class="pagin-js">
+    {% include 'customers/_pagin.html' %}
+</div>
 
 <script>
     listURL="{{ list_url }}";

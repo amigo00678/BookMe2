@@ -70,7 +70,7 @@ function updateTable(){
         success: function(data){
             $('.list-table tbody').html(data.reply);
             $('.items-list').html(data.reply);
-            $('.pagin').html(data.pagin);
+            $('.pagin-js').html(data.pagin);
             $('.selectpicker').selectpicker('refresh');
         },
     });
@@ -103,8 +103,8 @@ $(document).ready(function(){
     $('body').on('change', '.change', function(){
         updateTable();
     });
-    $('body').on('click', '.page_select', function(){
-        $('.page_filter').val($(this).text());
+    $('body').on('click', '.pagination-link', function(){
+        $('.page_filter').val($(this).data('page'));
         updateTable();
     });
     $('.selectpicker').selectpicker('refresh');

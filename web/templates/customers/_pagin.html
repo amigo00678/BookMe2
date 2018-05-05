@@ -1,20 +1,20 @@
-<div class="pagin">
+{% if page.paginator.num_pages > 1 %}
 
-    {% if page.paginator.num_pages > 1 %}
-
-    <div class="pages">
+<nav class="pagination" role="navigation" aria-label="pagination">
+    <ul class="pagination-list">
         {% for p in page.paginator.page_range %}
-        <div class="page">
             {% if p == page.number %}
-                {{ p }}
+            <li>
+                <a class="pagination-link is-current" data-page="{{ p }}">{{ p }}</a>
+            </li>
             {% else %}
-                <a class="page_select">{{ p }}</a>
+            <li>
+                <a class="pagination-link" data-page="{{ p }}">{{ p }}</a>
+            </li>
             {% endif %}
-        </div>
         {% endfor %}
-        <input type="hidden" class="filter change page_filter" data-field="page"></input>
-    </div>
+    </ul>
+    <input type="hidden" class="filter change page_filter" data-field="page"></input>
+</nav>
 
-    {% endif %}
-
-</div>
+{% endif %}
