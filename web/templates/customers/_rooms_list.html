@@ -1,6 +1,6 @@
 {% load thumbnail %}
 
-<table class="table is-narrow">
+<table class="table is-fullwidth">
     <thead>
         <tr>
             <th class="">Room Name</th>
@@ -16,7 +16,7 @@
                 data-title="{{ room.name }}">{{ room.name }}</a><br>
 
                 {% for feature in room.features.all %}
-                    <span class="subtitle is-6">{{ feature }}</span>
+                    <span class="subtitle is-6">{{ feature }}</span><br>
                 {% endfor %}
             </td>
             <td>${{ room.price }}</td>
@@ -43,7 +43,7 @@
                             <div class='carousel-container'>
                                 {% for img in room.images.all %}
                                     <div class='carousel-item has-background is-active'>
-                                        {% thumbnail img.image "300x200" crop="center" as im %}
+                                        {% thumbnail img.image "480x320" crop="center" as im %}
                                             <img class="is-background" src="{{ im.url }}"></img>
                                         {% endthumbnail %}
                                     </div>

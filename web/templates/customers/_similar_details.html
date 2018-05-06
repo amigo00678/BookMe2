@@ -1,26 +1,58 @@
 {% load thumbnail %}
 
-<div class="item-details col-xs-12">
-    <div class="col-xs-8">
-        <a href="{% url 'fe_file' id=item.id %}" class="review_user name">{{ item }}</a>
-    </div>
-    <div class="col-xs-4 text-right name">
-        {{ item.rate }}
-    </div>
-    <div class="col-xs-12 text-right">
-        {{ item.reviews_count }} reviews
-    </div>
-    <div class="col-xs-12">
-        {% thumbnail item.top_slider.images.first.image "80x80" crop="center" as im %}
-            <a href="{% url 'fe_file' id=item.id %}">
-                <img align="left" src="{{ im.url }}"></img>
+<div class="box">
+
+    <a href="{% url 'fe_file' id=item.id %}" class="title is-4">{{ item }}</a>
+    <div class="icon rate-avg pull-right">{{ item.rate }}</div>
+    <div class="subtitle is-6">{{ item.reviews_count }} reviews</div>
+
+    <div class="columns">
+        <div class="column is-one-quarter">
+
+            <a href="{% url 'fe_file' id=item.id %}">        
+                <div class="carousel carousel-animated carousel-animate-slide list-icons">
+                    <div class="carousel-container">
+                        {% for image in item.top_slider.images.all %}
+                            <div class="carousel-item has-background is-active">
+                                {% thumbnail image.image "140x80" crop="center" as im %}
+                                    <img class="is-background" src="{{ im.url }}" width="140" height="80" />
+                                {% endthumbnail %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="carousel-navigation is-overlay">
+                        <div class="carousel-nav-left">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </div>
+                        <div class="carousel-nav-right">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                </div>
             </a>
-        {% endthumbnail %}
-        <span class="similar-txt">
-            {{ item.middle_content|truncatewords:12|default_if_none:""|safe }}
-        </span>
-    </div>
-    <div class="col-xs-12">
-        <a class="btn btn-default" href="{% url 'fe_file' id=item.id %}">View now</a>
+
+        </div>
+
+        <div class="column">
+            <div class="subtitle is-6">
+                {{ item.middle_content|truncatewords:12|default_if_none:""|safe }}
+            </div>
+
+            <div class="subtitle is-6">
+                {% for feature in file.features.all %}
+                <span class="{% if feature.is_main == True %}{% endif %}">
+                    {% if feature.image %}
+                        <img src="{{ feature.image.url }}"></img>
+                    {% endif %}
+                    {{ feature.name }}
+                </span>
+                {% endfor %}
+            </div>
+
+            <a class="button pull-right is-link" href="{% url 'fe_file' id=item.id %}">View now</a>
+        </div>
+
     </div>
 </div>

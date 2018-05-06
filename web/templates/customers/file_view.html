@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="subtitle">{{ file.name }}</div>
+<div class="title is-5 is-spaced">{{ file.name }}</div>
 <div class="subtitle is-6">{{ file.top_content|default_if_none:""|safe }}</div>
 
 <div class="subtitle">
@@ -42,49 +42,54 @@
     {% endfor %}
 </div>
 
-<p>{{ file.middle_content|default_if_none:""|safe }}</p>
+{% if file.middle_content %}
+    <div class="subtitle is-5 is-spaced">{{ file.middle_content|default_if_none:""|safe }}</div>
+{% endif %}
 
-<div>{{ file.bottom_content|default_if_none:""|safe }}</div>
+{% if file.bottom_content %}
+    <div class="subtitle is-5 is-spaced">{{ file.bottom_content|default_if_none:""|safe }}</div>
+{% endif %}
 
-<div class="subtitle level">
-    {% for feature in file.features.all %}
-    <div class="{% if feature.is_main == True %}{% endif %}">
-        {% if feature.image %}
-            <img src="{{ feature.image.url }}"></img>
-        {% endif %}
-        {{ feature.name }}
+{% if file.features.exists %}
+    <div class="title is-5 is-spaced">Place facilities</div>
+
+    <div class="subtitle level">
+        {% for feature in file.features.all %}
+        <div class="{% if feature.is_main == True %}{% endif %} subtitle">
+            {% if feature.image %}
+                <img src="{{ feature.image.url }}"></img>
+            {% endif %}
+            {{ feature.name }}
+        </div><br>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+{% endif %}
 
 {% include 'customers/_rooms_list.html' %}
 
-<div class="reviews">
-    <div class="name">
-        <span>Reviews</span>
+{% if file.review_set.exists %}
+    <div class="title is-5 is-spaced">Reviews
         <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">
-            See all ({{ file.reviews_count }})</a>
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'fe_review_add' id=file.id %}" class="pull-right">
-            Add review</a>
-        {% endif %}
+            See all ({{ file.reviews_count }})
+        </a>
     </div>
+
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'fe_review_add' id=file.id %}" class="pull-right">Add review</a>
+    {% endif %}
+
     {% for review in file.latest_reviews %}
         {% include 'customers/_review_details.html' %}
     {% endfor %}
-</div>
+{% endif %}
 
-<div class="btn-container">
-    <a role="button" class="btn btn-bold btn-default pull-right" href="{% url 'fe_home' %}">Back</a>
-</div>
+{% if file.similar.exists %}
+    <div class="title is-5 is-spaced">Similar items</div>
+    {% for item in file.similar %}
+        {% include 'customers/_similar_details.html' %}
+    {% endfor %}
+{% endif %}
 
-<div class="col-xs-4">
-    <div class="row">
-        <div class="form-label">Similar items</div>
-        {% for item in file.similar %}
-            {% include 'customers/_similar_details.html' %}
-        {% endfor %}
-    </div>
-</div>
+<a class="button is-link pull-right" href="{% url 'fe_home' %}">Back</a>
 
 {% endblock %}
