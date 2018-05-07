@@ -21,19 +21,21 @@
                 </div>
 
                 {% if room.rest_places.exists %}
-                    <div class="subtitle is-6">
-                        Sleeping places:
+                    <div class="subtitle is-6 is-spaced">
+                        <strong>Sleeping places:</strong>
                         {% for place in room.rest_places.all %}
                             {% if place.image %}<img src="{{ place.image.url }}" />{% endif %}
-                            {{ place.count }} {{ place }}{% if places.count > 1 %}s{% endif %}
-                            {% if not forloop.last %},{% endif %}
+                            {{ place.count }} {{ place }}{% if places.count > 1 %}s{% endif %}{% if not forloop.last %},{% endif %}
                         {% endfor %}
                     </div>
                 {% endif %}
 
-                {% for feature in room.features.all %}
-                    <span class="subtitle is-6">{{ feature }}</span><br>
-                {% endfor %}
+                {% if room.features.exists %}
+                    <div class="title is-6">Facilities:</div>
+                    {% for feature in room.features.all %}
+                        <span class="subtitle is-6">{{ feature }}</span><br>
+                    {% endfor %}
+                {% endif %}
             </td>
             <td>${{ room.price }}</td>
             <td>{{ room.users_count }}</td>
@@ -86,6 +88,24 @@
                     {% endif %}
 
                     <div class="column">
+
+                        <div class="subtitle is-6 is-spaced">
+                            <strong>Price:</strong> {{ room.price }} for one night</div>
+
+                        {% if room.rest_places.exists %}
+                            <div class="title is-6 is-spaced">Sleeping places:</div>
+                            <div class="subtitle is-6 is-spaced">
+                            {% for place in room.rest_places.all %}
+                                <span class="">
+                                    {% if place.image %}<img src="{{ place.image.url }}" />{% endif %}
+                                    {{ place.count }} {{ place }}{% if places.count > 1 %}s{% endif %}
+                                </span><br>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class="title is-6">Facilities:</div>
+
                         {% for feature in room.features.all %}
                             <span class="subtitle is-6">{{ feature }}</span><br>
                         {% endfor %}
