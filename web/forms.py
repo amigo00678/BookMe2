@@ -127,7 +127,7 @@ class RoomEditForm(forms.ModelForm):
 
     class Meta:
         model = Room
-        fields = ['name', 'price', 'users_count', 'count', 'features', 'room_images']
+        fields = ['name', 'price', 'users_count', 'count', 'features', 'room_images', 'rest_places']
 
         widgets = {
             'name': forms.TextInput(),
@@ -155,3 +155,14 @@ class OrderEditForm(forms.ModelForm):
         super(OrderEditForm, self).__init__(*args, **kwargs)
         self.fields['start_date'].input_formats = settings.DATE_INPUT_FORMATS
         self.fields['end_date'].input_formats = settings.DATE_INPUT_FORMATS
+
+
+class RestPlacesEditForm(forms.ModelForm):
+
+    class Meta:
+        model = RestPlace
+        fields = ['name', 'image', 'count']
+
+        widgets = {
+            'name': forms.TextInput(),
+        }

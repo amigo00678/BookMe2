@@ -1,0 +1,29 @@
+<header class=""><strong>Main features</strong></header>
+{% for feature in features %}
+<div class="">
+    <input type="checkbox" id="feature_{{ feature.id }}" class="filter"
+        data-value="{{ feature.id }}" data-field="feature_{{ feature.id }}"/>
+        <label for="feature_{{ feature.id }}">{{ feature }}</label>
+</div>
+{% endfor %}
+
+<header class=""><strong>Room features</strong></header>
+{% for feature in room_features %}
+<div class="">
+    <input type="checkbox" id="room_feature_{{ feature.id }}" class="filter"
+        data-value="{{ feature.id }}" data-field="room_feature_{{ feature.id }}"/>
+        <label for="room_feature_{{ feature.id }}">{{ feature }}</label>
+</div>
+{% endfor %}
+
+<header class=""><strong>Ratings</strong></header>
+{% for key, value in ratings %}
+<div class="">
+    <input type="checkbox" id="rate_{{ key }}" class="filter"
+        data-value="{{ key }}" data-field="rate_{{ key }}"/>
+        <label for="rate_{{ key }}">{{ value }}</label>
+</div>
+{% endfor %}
+
+<button class="button" onclick="updateTable()">Apply</button>
+<button class="button is-warning" onclick="clearFilters()">Clear</button>

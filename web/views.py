@@ -249,6 +249,72 @@ class OrdersDeleteView(AdminClientAuthUserMixin, RedirectView):
 
 #####
 
+class RestPlacesListView(AdminClientAuthUserMixin, ObjectsListView):
+    model = RestPlace
+    template_name = 'rest_places/places_list.html'
+    list_template = 'rest_places/_places_list.html'
+    base_url = reverse_lazy('places')
+
+    def get_list(self, filter):
+        objects = self.model.objects.all()
+
+        if 'name' in filter:
+            objects = objects.filter(name__icontains=filter['name'])
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
+
+
+class RestPlacesEditView(AdminClientAuthUserMixin, FormView):
+    form_class = RestPlacesEditForm
+    success_url = reverse_lazy('places')
+    template_name = 'rest_places/places_edit.html'
+
+    def get_form(self, form_class):
+        try:
+            instance = RestPlace.objects.get(id=self.kwargs.get('id'))
+            return form_class(instance=instance, **self.get_form_kwargs())
+        except RestPlace.DoesNotExist:
+            return form_class(**self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Updated successfully')
+        return super(RestPlacesEditView, self).form_valid(form)
+
+
+class RestPlacesAddView(AdminClientAuthUserMixin, FormView):
+    form_class = RestPlacesEditForm
+    success_url = reverse_lazy('places')
+    template_name = 'rest_places/places_add.html'
+
+    def form_valid(self, form):
+        form.save()
+        messages.info(self.request, 'Created successfully')
+        return super(RestPlacesAddView, self).form_valid(form)
+
+
+class RestPlacesDeleteView(AdminClientAuthUserMixin, RedirectView):
+    reverse_url = reverse_lazy('places')
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            place = RestPlace.objects.get(id=self.kwargs.get('id'))
+            pname = place.name
+            place.delete()
+            messages.info(self.request, "'%s' deleted successfully" % (pname))
+        except RestPlace.DoesNotExist:
+            pass
+        return self.reverse_url
+
+#####
+
 class FeaturesListView(AdminAuthUserMixin, ObjectsListView):
     model = Feature
     template_name = 'features/features_list.html'

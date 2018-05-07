@@ -115,6 +115,15 @@ def feature_upload_path(instance, filename):
     return path
 
 
+class RestPlace(models.Model):
+    name = models.TextField()
+    image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
+    count = models.IntegerField(default=1)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+
 class RoomFeature(models.Model):
     name = models.TextField()
     image = models.FileField(null=True, blank=True, upload_to=feature_upload_path)
@@ -132,6 +141,7 @@ class Room(models.Model):
 
     images = models.ManyToManyField('SliderImage', blank=True)
     features = models.ManyToManyField('RoomFeature')
+    rest_places = models.ManyToManyField('RestPlace')
 
     def __unicode__(self):
         return "%s" % (self.name)

@@ -1,0 +1,16 @@
+{% extends "rest_places/places_edit.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Places Add{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "/" %}
+    {% breadcrumb "Rest Places" "places" %}
+    {% breadcrumb "Add places" "" %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}

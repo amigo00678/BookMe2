@@ -8,7 +8,6 @@
 {% block content %}
 
 <div class="title is-5 is-spaced">{{ file.name }}</div>
-<div class="subtitle is-6">{{ file.top_content|default_if_none:""|safe }}</div>
 
 <div class="subtitle">
     <div class="carousel carousel-animated carousel-animate-slide" data-autoplay="true" data-delay="4000">
@@ -42,6 +41,8 @@
     {% endfor %}
 </div>
 
+<div class="subtitle is-6">{{ file.top_content|default_if_none:""|safe }}</div>
+
 {% if file.middle_content %}
     <div class="subtitle is-5 is-spaced">{{ file.middle_content|default_if_none:""|safe }}</div>
 {% endif %}
@@ -50,12 +51,17 @@
     <div class="subtitle is-5 is-spaced">{{ file.bottom_content|default_if_none:""|safe }}</div>
 {% endif %}
 
+<div class="title is-5">
+    <a class="modal-button title is-5 is-spaced" data-target="modal-map"
+        data-title="{{ object.name }}">Show on map</a>
+</div>
+
 {% if file.features.exists %}
     <div class="title is-5 is-spaced">Place facilities</div>
 
     <div class="subtitle level">
         {% for feature in file.features.all %}
-        <div class="{% if feature.is_main == True %}{% endif %} subtitle">
+        <div class="{% if feature.is_main == True %}{% endif %} subtitle is-6">
             {% if feature.image %}
                 <img src="{{ feature.image.url }}"></img>
             {% endif %}
@@ -69,7 +75,7 @@
 
 {% if file.review_set.exists %}
     <div class="title is-5 is-spaced">Reviews
-        <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right">
+        <a href="{% url 'fe_reviews' id=file.id %}" class="pull-right title is-5" target="_blank">
             See all ({{ file.reviews_count }})
         </a>
     </div>

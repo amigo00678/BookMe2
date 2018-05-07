@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Places Edit{% endblock %}
+
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb "Home" "files" %}
+    {% breadcrumb "Places" "places" %}
+    {% breadcrumb "Edit places" "" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="col-xs-8">
+    <div class="row">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include "common/_form_nf_errors.html" %}
+
+            {% for field in form %}
+
+                {% include "common/_form_field_errors.html" %}
+
+                <div class="form-label">{{ field.label }}</div>
+                {{ field|add_class:"form-control" }}
+
+                {% if field.name == 'image' and form.instance.image %}
+                    <div class="slider_images">
+                        <img src="{{ form.instance.image.url }}"></img>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+            <div class="btn-container">
+                <input class="btn btn-bold btn-default" type="submit" value="Update" />
+                <a role="button" class="btn btn-bold btn-danger" href="{% url 'places' %}">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
