@@ -70,6 +70,7 @@ function updateTable(){
         success: function(data){
             $('.list-table tbody').html(data.reply);
             $('.files-list-js').html(data.reply);
+            $('.files-list-js').html(data.reply);
             $('.pagin-js').html(data.pagin);
             $('.selectpicker').selectpicker('refresh');
         },
