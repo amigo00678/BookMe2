@@ -2,42 +2,38 @@
 
 <div class="box">
 
-    <a href="{% url 'fe_file' id=item.id %}" class="title is-4">{{ item }}</a>
-    <div class="icon rate-avg pull-right">{{ item.rate }}</div>
-    <div class="subtitle is-6">{{ item.reviews_count }} reviews</div>
-
     <div class="columns">
-        <div class="column is-one-quarter">
+        <div class="column is-one-third">
 
-            <a href="{% url 'fe_file' id=item.id %}">        
-                <div class="carousel carousel-animated carousel-animate-slide list-icons">
-                    <div class="carousel-container">
-                        {% for image in item.top_slider.images.all %}
-                            <div class="carousel-item has-background is-active">
-                                {% thumbnail image.image "140x80" crop="center" as im %}
-                                    <img class="is-background" src="{{ im.url }}" width="140" height="80" />
-                                {% endthumbnail %}
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="carousel-navigation is-overlay">
-                        <div class="carousel-nav-left">
-                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <div class='carousel carousel-animated carousel-animate-slide list-icons'>
+                <div class='carousel-container'>
+                    {% for img in object.top_slider.images.all %}
+                        <div class='carousel-item has-background is-active'>
+                            {% thumbnail img.image "640x520" crop="center" as im %}
+                                <img class="is-background" src="{{ im.url }}" width="640" height="520" />
+                            {% endthumbnail %}
                         </div>
-                        <div class="carousel-nav-right">
-                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
-            </a>
+                <div class="carousel-navigation is-overlay">
+                    <div class="carousel-nav-left">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="carousel-nav-right">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
         <div class="column">
+            <div class="subtitle">
+                <a class="title is-5 is-spaced" href="{% url 'fe_file' id=object.id %}">{{ object }}</a>
+            </div>
+
             <div class="subtitle is-6">
-                {{ item.middle_content|truncatewords:12|default_if_none:""|safe }}
+                {{ object.middle_content|truncatewords:12|default_if_none:""|safe }}
             </div>
 
             <div class="subtitle is-6">
@@ -51,7 +47,7 @@
                 {% endfor %}
             </div>
 
-            <a class="button pull-right is-link" href="{% url 'fe_file' id=item.id %}">View now</a>
+            <a class="button pull-right is-link" href="{% url 'fe_file' id=object.id %}">View now</a>
         </div>
 
     </div>

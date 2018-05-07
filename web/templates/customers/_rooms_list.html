@@ -38,34 +38,36 @@
 
             <section class="modal-card-body">
                 <div class="columns">
-                    <div class="column is-two-thirds">
-                        <div class="subtitle carousel carousel-animated carousel-animate-slide list-icons">
-                            <div class='carousel-container'>
-                                {% for img in room.images.all %}
-                                    <div class='carousel-item has-background is-active'>
-                                        {% thumbnail img.image "480x320" crop="center" as im %}
-                                            <img class="is-background" src="{{ im.url }}"></img>
-                                        {% endthumbnail %}
+                    {% if room.images.exists %}
+                        <div class="column is-two-thirds">
+                            <div class="subtitle carousel carousel-animated carousel-animate-slide list-icons">
+                                <div class='carousel-container'>
+                                    {% for img in room.images.all %}
+                                        <div class='carousel-item has-background is-active'>
+                                            {% thumbnail img.image "480x320" crop="center" as im %}
+                                                <img class="is-background" src="{{ im.url }}"></img>
+                                            {% endthumbnail %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="carousel-navigation is-overlay">
+                                    <div class="carousel-nav-left">
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
                                     </div>
+                                    <div class="carousel-nav-right">
+                                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="subheader is-6">
+                                {% for img in room.images.all %}
+                                    {% thumbnail img.image "80x60" crop="center" as im %}
+                                        <img src="{{ im.url }}"></img>
+                                    {% endthumbnail %}
                                 {% endfor %}
                             </div>
-                            <div class="carousel-navigation is-overlay">
-                                <div class="carousel-nav-left">
-                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                                </div>
-                                <div class="carousel-nav-right">
-                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                                </div>
-                            </div>
                         </div>
-                        <div class="subheader is-6">
-                            {% for img in room.images.all %}
-                                {% thumbnail img.image "80x60" crop="center" as im %}
-                                    <img src="{{ im.url }}"></img>
-                                {% endthumbnail %}
-                            {% endfor %}
-                        </div>
-                    </div>
+                    {% endif %}
 
                     <div class="column">
                         {% for feature in room.features.all %}
