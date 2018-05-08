@@ -5,19 +5,36 @@
 
 {% block content %}
 
-<div class="items-container row">
-    <div class="col-xs-8">
-        <div class="reviews">
-            <div class="form-label">{{ file.name }}</div>
-            <div class="name">Reviews</div>
-            {% include 'customers/_reviews_list.html' %}
-            {% include 'customers/_pagin.html' %}
+<div class="title is-5">
+    <a class="subtitle" href="{% url 'fe_file' id=file.id %}">{{ file.name }}</a>
+    <a class="sortable filter subtitle is-6 button" data-field='created'>Latest</a>
+    <a class="sortable filter subtitle is-6 button" data-field='rate'>Rate</a>
+
+    <div class="dropdown">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>Type</span>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
         </div>
-        <div class="btn-container">
-            <a role="button" class="btn btn-bold btn-default pull-right"
-                href="{% url 'fe_file' id=file.id %}">Back</a>
+        <div class="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                <a class="dropdown-item">Hello</a>
+                <a class="dropdown-item">Hello</a>
+            </div>
         </div>
     </div>
+
+</div>
+
+<div class="files-list-js">
+    {% include 'customers/_reviews_list.html' %}
+</div>
+
+<div class="pagin-js">
+    {% include 'customers/_pagin.html' %}
 </div>
 
 <script>

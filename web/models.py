@@ -169,6 +169,7 @@ class Review(models.Model):
     pros = models.TextField(null=True, blank=True)
     cons = models.TextField(null=True, blank=True)
     heading = models.TextField()
+    type = models.IntegerField(choices=TRIP_TYPE_E, default=1)
 
 
 class Feature(models.Model):

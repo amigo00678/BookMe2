@@ -12,3 +12,10 @@ USER_TYPE_E = (
     (3, 'CLIENT'),
 )
 
+TRIP_TYPE_E = (
+    (1, 'Family'),
+    (2, 'Couple'),
+    (3, 'Group trip'),
+    (4, 'Business'),
+    (5, 'Single'),
+)

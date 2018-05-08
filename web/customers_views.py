@@ -116,7 +116,17 @@ class HomeReviewsListView(FEListView):
         return context
 
     def get_list(self, filter):
-        return self.model.objects.filter(item__id=int(self.kwargs.get('id'))).order_by('-id')
+        objects = self.model.objects.filter(item__id=int(self.kwargs.get('id'))).order_by('-id')
+        if 'sort' in filter and filter['sort']:
+            sort = filter['sort']
+            sort_map = {
+                'created': 'created_at'
+            }
+            sort = sort_map.get(sort, sort)
+            if 'order' in filter and filter['order'] == 'desc':
+                sort = '-' + sort
+            objects = objects.order_by(sort)
+        return objects
 
 
 class HomeReviewAddView(CustomerAuthUserMixin, FormView):

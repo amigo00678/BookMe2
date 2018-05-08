@@ -108,6 +108,7 @@ $(document).ready(function(){
         $('.page_filter').val($(this).data('page'));
         updateTable();
     });
+
     $('body').on('click', '.modal-button', function(){
         var target = $(this).data('target');
         var title = $(this).data('title');
@@ -118,6 +119,15 @@ $(document).ready(function(){
         function(){
             closeModals();
     });
+
+    $('body').on('click', '.dropdown', function(event){
+        event.stopPropagation();
+        $(this).addClass('is-active');
+    });
+    $(document).click(function(){
+        $('.dropdown').removeClass('is-active');
+    });
+
     $('.selectpicker').selectpicker('refresh');
     $('.datepicker').val('');
     $('.datepicker').daterangepicker({
@@ -138,6 +148,8 @@ $(document).ready(function(){
         updateTable();
     });
 });
+
+// Modals
 
 function openModal(target, title) {
     $(document.documentElement).addClass('is-clipped');
