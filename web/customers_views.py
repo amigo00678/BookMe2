@@ -117,6 +117,8 @@ class HomeReviewsListView(FEListView):
 
     def get_list(self, filter):
         objects = self.model.objects.filter(item__id=int(self.kwargs.get('id'))).order_by('-id')
+        if 'type' in filter and int(filter['type']):
+            objects = objects.filter(type=filter['type'])
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
             sort_map = {

@@ -1,3 +1,5 @@
+from random import randint
+
 from django.core.management.base import BaseCommand, CommandError
 
 from web.models import *
@@ -52,7 +54,7 @@ class Command(BaseCommand):
 
     def create_reviews(self, file, count, from_user):
         for i in range(count):
-            Review.objects.create(rate=i, user=from_user, item=file,
+            Review.objects.create(rate=i, user=from_user, item=file, type=randint(1, 5),
                 heading="<strong>Lorem ipsum!</strong>",
                 pros="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!",
                 cons="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!"
@@ -71,27 +73,28 @@ class Command(BaseCommand):
 
         for i in range(10):
             file = File.objects.create(name='file_txt_'+str(i), type=1, parent=folder1,
-                top_content=top_content, middle_content=middle_content)
+                top_content=top_content, middle_content=middle_content, owner=User.objects.last())
             file.features = features
             file.top_slider = slider
             file.save()
-            self.create_reviews(file, 10 - i, User.objects.filter(email="c@c.com").first())
+            self.create_reviews(file, 10 - i,
+                User.objects.filter(email="c@c.com").first())
 
         for i in range(10):
             File.objects.create(name='file_audio_'+str(i), type=2, parent=folder1,
-                top_content=top_content, middle_content=middle_content)
+                top_content=top_content, middle_content=middle_content, owner=User.objects.last())
             file.features = features
             file.save()
 
         for i in range(10):
             File.objects.create(name='file_video_'+str(i), type=3, parent=folder1,
-                top_content=top_content, middle_content=middle_content)
+                top_content=top_content, middle_content=middle_content, owner=User.objects.last())
             file.features = features
             file.save()
 
         for i in range(10):
             File.objects.create(name='file_binary_'+str(i), type=4, parent=folder1,
-                top_content=top_content, middle_content=middle_content)
+                top_content=top_content, middle_content=middle_content, owner=User.objects.last())
             file.features = features
             file.save()
 

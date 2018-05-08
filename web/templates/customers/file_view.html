@@ -71,7 +71,9 @@
     </div>
 {% endif %}
 
-{% include 'customers/_rooms_list.html' %}
+{% if file.rooms.exists %}
+    {% include 'customers/_rooms_list.html' %}
+{% endif %}
 
 {% if file.review_set.exists %}
     <div class="title is-5 is-spaced">Reviews
