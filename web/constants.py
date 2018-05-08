@@ -15,7 +15,6 @@ USER_TYPE_E = (
 TRIP_TYPE_E = (
     (1, 'Family'),
     (2, 'Couple'),
-    (3, 'Group trip'),
-    (4, 'Business'),
-    (5, 'Single'),
+    (3, 'Business'),
+    (4, 'Single'),
 )
