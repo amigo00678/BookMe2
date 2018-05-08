@@ -9,24 +9,16 @@
     <a class="subtitle" href="{% url 'fe_file' id=file.id %}">{{ file.name }}</a>
     <a class="sortable filter subtitle is-6 button" data-field='created'>Latest</a>
     <a class="sortable filter subtitle is-6 button" data-field='rate'>Rate</a>
-
-    <div class="dropdown">
-        <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                <span>Type</span>
-                <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-        <div class="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-                <a class="dropdown-item">Hello</a>
-                <a class="dropdown-item">Hello</a>
-            </div>
-        </div>
+    <div class="select arrow-black subtitle is-6">
+        <select class="change filter" data-field="type">
+            <option value="">Any</option>
+            <option value="1">Family</option>
+            <option value="2">Couple</option>
+            <option value="3">Group trip</option>
+            <option value="4">Business</option>
+            <option value="5">Single</option>
+        </select>
     </div>
-
 </div>
 
 <div class="files-list-js">

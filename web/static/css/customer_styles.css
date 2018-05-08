@@ -27,3 +27,6 @@ body{
 .list-icons{
     border-radius: 3px;
 }
+.select.arrow-black::after{
+    border-color: #363636 !important;
+}
