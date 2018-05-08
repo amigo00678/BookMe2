@@ -14,10 +14,14 @@ class Command(BaseCommand):
         Folder.objects.all().delete()
         File.objects.all().delete()
         Feature.objects.all().delete()
+        RestPlace.objects.all().delete()
+        Room.objects.all().delete()
+        RoomFeature.objects.all().delete()
 
     def handle(self, *args, **options):
         self.clear()
         self.create_features()
+        self.create_rest_places()
         self.create_room_features()
         self.create_users()
         self.create_files()
@@ -60,6 +64,28 @@ class Command(BaseCommand):
                 cons="<strong>Lorem ipsum!</strong>Lorem ipsum! Lorem ipsum! Lorem ipsum!"
             )
 
+    def create_rest_places(self):
+        RestPlace.objects.create(name="Super large bed")
+        RestPlace.objects.create(name="Large bed")
+        RestPlace.objects.create(name="Single bed")
+
+    def create_rooms(self, file):
+        images = []
+        images.append(SliderImage.objects.create(image="uploads/img_01NS.JPG"))
+        images.append(SliderImage.objects.create(image="uploads/img_5UZ8.jpg"))
+        images.append(SliderImage.objects.create(image="uploads/img_8GK0.JPG"))
+
+        room = Room.objects.create(name="Twin room", item=file, price=100, users_count=2)
+        room.features = RoomFeature.objects.all()[2:]
+        room.rest_places.add(RestPlace.objects.first())
+        room.images = images
+        room.save()
+
+        room = Room.objects.create(name="Twin room 2", item=file, price=100, users_count=2)
+        room.features = RoomFeature.objects.all()[:2]
+        room.rest_places.add(RestPlace.objects.last())
+        room.images = images
+        room.save()
 
     def create_files(self):
         # create files in folder1
@@ -79,6 +105,7 @@ class Command(BaseCommand):
             file.save()
             self.create_reviews(file, 10 - i,
                 User.objects.filter(email="c@c.com").first())
+            self.create_rooms(file)
 
         for i in range(10):
             File.objects.create(name='file_audio_'+str(i), type=2, parent=folder1,

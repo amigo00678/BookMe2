@@ -4,6 +4,7 @@
         <div class="column is-one-quarter">
             <div class="title is-6">{{ review.user.public_name }}</div>
             <div class="title is-6">{{ review.user.country }}</div>
+            <div class="subtitle is-6">{{ review.get_type_display }}</div>
             <div class="subtitle is-6">on {{ review.created_at|date:'F Y' }}</div>
         </div>
 
