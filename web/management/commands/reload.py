@@ -75,16 +75,20 @@ class Command(BaseCommand):
         images.append(SliderImage.objects.create(image="uploads/img_5UZ8.jpg"))
         images.append(SliderImage.objects.create(image="uploads/img_8GK0.JPG"))
 
-        room = Room.objects.create(name="Twin room", item=file, price=100, users_count=2)
+        room = Room.objects.create(name="Twin room", item=file, users_count=2)
         room.features = RoomFeature.objects.all()[2:]
         room.rest_places.add(RestPlace.objects.first())
         room.images = images
+        room.prices.add(RoomPrice.objects.create(people_number=1, price=50))
+        room.prices.add(RoomPrice.objects.create(people_number=2, price=100))
         room.save()
 
-        room = Room.objects.create(name="Twin room 2", item=file, price=100, users_count=2)
+        room = Room.objects.create(name="Twin room 2", item=file, users_count=2)
         room.features = RoomFeature.objects.all()[:2]
         room.rest_places.add(RestPlace.objects.last())
         room.images = images
+        room.prices.add(RoomPrice.objects.create(people_number=1, price=50))
+        room.prices.add(RoomPrice.objects.create(people_number=2, price=100))
         room.save()
 
     def create_files(self):

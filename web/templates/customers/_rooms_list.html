@@ -4,9 +4,7 @@
     <thead>
         <tr>
             <th class="">Room Name</th>
-            <th class="">Price</th>
-            <th class="">Users number</th>
-            <th class="">Count</th>
+            <th class=""></th>
         </tr>
     </thead>
     <tbody class="">
@@ -37,9 +35,26 @@
                     {% endfor %}
                 {% endif %}
             </td>
-            <td>${{ room.price }}</td>
-            <td>{{ room.users_count }}</td>
-            <td>{{ room.count }}</td>
+            <td>
+                {% if room.prices.exists %}
+                    <table>
+                        <tr>
+                            <th>Guests number</th>
+                            <th>Price</th>
+                            <th class="is-narrow"></th>
+                        </tr>
+                        {% for price in room.prices.all %}
+                        <tr>
+                            <td><label for="room-price-{{ price.id }}">{{ price.people_number }}</label></td>
+                            <td><label for="room-price-{{ price.id }}">{{ price.price }}</label></td>
+                            <td><input type="checkbox" id="room-price-{{ price.id }}"></input></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+                <br>
+                <div class="button is-info pull-right">Book now</div>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
@@ -62,7 +77,7 @@
                                 <div class='carousel-container'>
                                     {% for img in room.images.all %}
                                         <div class='carousel-item has-background is-active'>
-                                            {% thumbnail img.image "480x320" crop="center" as im %}
+                                            {% thumbnail img.image "540x380" crop="center" as im %}
                                                 <img class="is-background" src="{{ im.url }}"></img>
                                             {% endthumbnail %}
                                         </div>
@@ -90,7 +105,7 @@
                     <div class="column">
 
                         <div class="subtitle is-6 is-spaced">
-                            <strong>Price:</strong> {{ room.price }} for one night</div>
+                            <strong>Price:</strong> {{ room.prices.all }} for one night</div>
 
                         {% if room.rest_places.exists %}
                             <div class="title is-6 is-spaced">Sleeping places:</div>

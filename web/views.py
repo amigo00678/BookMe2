@@ -469,8 +469,8 @@ class RoomsListView(AdminClientAuthUserMixin, ObjectsListView):
         objects = self.model.objects.filter(item__id=int(self.kwargs.get('p_id')))
         if 'name' in filter:
             objects = objects.filter(name__icontains=filter['name'])
-        if 'price' in filter:
-            objects = objects.filter(price=float(filter['price']))
+        #if 'price' in filter:
+            #objects = objects.filter(price=float(filter['price']))
         if 'number' in filter:
             objects = objects.filter(users_count=int(filter['number']))
         if 'count' in filter:

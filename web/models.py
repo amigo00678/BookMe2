@@ -96,7 +96,7 @@ class File(models.Model):
 
     @property
     def rooms(self):
-        return self.room_set.order_by('-price')
+        return self.room_set.all()
 
     @property
     def similar(self):
@@ -135,13 +135,13 @@ class RoomFeature(models.Model):
 class Room(models.Model):
     item = models.ForeignKey('File')
     name = models.TextField()
-    price = models.FloatField(default=0)
     users_count = models.IntegerField(default=1)
     count = models.IntegerField(default=1)
 
     images = models.ManyToManyField('SliderImage', blank=True)
     features = models.ManyToManyField('RoomFeature')
     rest_places = models.ManyToManyField('RestPlace')
+    prices = models.ManyToManyField('RoomPrice')
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -150,7 +150,6 @@ class Room(models.Model):
 class RoomPrice(models.Model):
     people_number = models.IntegerField(default=1)
     price = models.FloatField(default=0)
-    room = models.ForeignKey('Room')
 
 
 class Order(models.Model):

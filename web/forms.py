@@ -127,7 +127,7 @@ class RoomEditForm(forms.ModelForm):
 
     class Meta:
         model = Room
-        fields = ['name', 'price', 'users_count', 'count', 'features', 'room_images', 'rest_places']
+        fields = ['name', 'prices', 'users_count', 'count', 'features', 'room_images', 'rest_places']
 
         widgets = {
             'name': forms.TextInput(),
