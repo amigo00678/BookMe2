@@ -43,7 +43,7 @@
                             <th>Price</th>
                             <th class="is-narrow"></th>
                         </tr>
-                        {% for price in room.prices.all %}
+                        {% for price in room.get_prices_asc %}
                         <tr>
                             <td><label for="room-price-{{ price.id }}">{{ price.people_number }}</label></td>
                             <td><label for="room-price-{{ price.id }}">{{ price.price }}</label></td>

@@ -191,3 +191,6 @@ body{
 select.form-control option{
     padding: 6px;
 }
+.form-group.form-control{
+    height: unset;
+}

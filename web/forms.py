@@ -4,6 +4,7 @@ from django.core.validators import validate_email
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
+from django.forms import formset_factory
 
 from web.models import *
 
@@ -121,6 +122,12 @@ class ReviewEditForm(forms.ModelForm):
         }
 
 
+class RoomPriceForm(forms.ModelForm):
+    class Meta:
+        model = RoomPrice
+        fields = ['price', 'people_number']
+
+
 class RoomEditForm(forms.ModelForm):
 
     room_images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
@@ -133,6 +140,17 @@ class RoomEditForm(forms.ModelForm):
             'name': forms.TextInput(),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(RoomEditForm, self).__init__(*args, **kwargs)
+        self.fields['prices'].queryset = RoomPrice.objects.filter(room__id=self.instance.id)
+        self.prices_formset = formset_factory(RoomPriceForm, extra=2)
+
+    def clean(self, *args, **kwargs):
+        cd = super(RoomEditForm, self).clean(*args, **kwargs)
+        pf = self.prices_formset(self.data)
+        pf.is_valid()
+        return cd
+
     def save(self, commit=True):
         instance = super(RoomEditForm, self).save(commit=commit)
 
@@ -141,6 +159,15 @@ class RoomEditForm(forms.ModelForm):
             for file in self.files.getlist('room_images'):
                 image = SliderImage.objects.create(image=file)
                 instance.images.add(image)
+
+        pf = self.prices_formset(self.data)
+
+        for form in pf:
+            prices_instance = form.save()
+            if prices_instance.price and prices_instance.people_number:
+                instance.prices.add(prices_instance)
+            else:
+                prices_instance.delete()
 
         return instance
 

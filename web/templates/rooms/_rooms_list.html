@@ -2,9 +2,20 @@
 {% for object in objects %}
 <tr>
     <td>{{ object.name }}</td>
-    <td>{{ object.prices.all }}</td>
-    <td>{{ object.users_count }}</td>
-    <td>{{ object.count }}</td>
+    <td>
+        <table class="col-xs-12">
+        <tr>
+            <td class="col-xs-6">Price</td>
+            <td>Persons</td>
+        </tr>
+        {% for price in object.get_prices_desc %}
+        <tr>
+            <td>{{ price.price }}</td>
+            <td>{{ price.people_number }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+    </td>
     <td>
         <a class="list-option" href="{% url 'rooms_edit' p_id=file.id id=object.id %}"><i class="material-icons">edit</i></a>
         <a class="list-option" href="{% url 'rooms_delete' p_id=file.id id=object.id %}" onclick="return confirm('Please confirm {{ object.name }} deletion?')">

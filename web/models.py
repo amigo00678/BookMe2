@@ -143,6 +143,12 @@ class Room(models.Model):
     rest_places = models.ManyToManyField('RestPlace')
     prices = models.ManyToManyField('RoomPrice')
 
+    def get_prices_desc(self):
+        return self.prices.order_by('-price')
+
+    def get_prices_asc(self):
+        return self.prices.order_by('price')
+
     def __unicode__(self):
         return "%s" % (self.name)
 
@@ -150,6 +156,9 @@ class Room(models.Model):
 class RoomPrice(models.Model):
     people_number = models.IntegerField(default=1)
     price = models.FloatField(default=0)
+
+    def __unicode__(self):
+        return "%s for %s guests" % (self.price, self.people_number)
 
 
 class Order(models.Model):

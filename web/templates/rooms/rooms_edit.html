@@ -36,6 +36,22 @@
                         <img src="{{ img.image.url }}"></img>
                         {% endfor %}
                     </div>
+                {% elif field.name == 'prices' %}
+                    <label>More prices</label>
+                    <div class="form-group form-control">
+                        {{ form.prices_formset.management_form }}
+                        {% for subform in form.prices_formset %}
+                            <div class="row">
+                                {% for field in subform %}
+                                    <div class="col-xs-6">
+                                        {% include "common/_form_field_errors.html" %}
+                                        <div class="form-label">{{ field.label }}</div>
+                                        {{ field|add_class:"form-control" }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endif %}
 
             {% endfor %}
