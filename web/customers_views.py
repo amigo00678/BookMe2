@@ -171,7 +171,7 @@ class FileDetailView(DetailView):
 
 
 class OrderView(DetailView):
-    model = File
+    model = Room
     template_name = "customers/make_order.html"
     pk_url_kwarg = 'id'
 

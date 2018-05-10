@@ -56,7 +56,7 @@
                     </table>
                 {% endif %}
                 <br>
-                <div class="button is-info pull-right">Book now</div>
+                <a href="{% url 'fe_order' id=room.id %}" class="button is-info pull-right">Book now</a>
             </td>
         </tr>
         {% endfor %}
