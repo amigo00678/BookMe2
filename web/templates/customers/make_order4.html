@@ -1,0 +1,81 @@
+{% extends "customers/home.html" %}
+
+{% load widget_tweaks %}
+{% load thumbnail %}
+
+{% block title %}{{ file.name }} Make Order{% endblock %}
+
+{% block content %}
+
+    <div class="steps">
+        <div class="step-item is-completed is-success">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-check"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 1</p>
+                <p>Select your room</p>
+            </div>
+        </div>
+        <div class="step-item is-completed is-success">
+            <div class="step-marker"></div>
+            <div class="step-details">
+                <p class="step-title">Step 2</p>
+                <p>Order details</p>
+            </div>
+        </div>
+        <div class="step-item is-completed is-success">
+            <div class="step-marker"></div>
+            <div class="step-details">
+                <p class="step-title">Step 3</p>
+                <p>Checkout</p>
+            </div>
+        </div>
+        <div class="step-item is-active">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-flag"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 4</p>
+                <p>Order review</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="subtitle">Item: <strong>{{ order.item }}</strong></div>
+        <div class="subtitle">Room: <strong>{{ order.room }}</strong></div>
+        <div class="subtitle">First name: <strong>{{ order.first_name }}</strong></div>
+        <div class="subtitle">Last name: <strong>{{ order.last_name }}</strong></div>
+        <div class="subtitle">Email: <strong>{{ order.email }}</strong></div>
+        <div class="subtitle">Message: <strong>{{ order.message }}</strong></div>
+        <div class="subtitle">Price: <strong>{{ order.price }}</strong></div>
+    </div>
+
+    <a href="{% url 'fe_file' id=order.item.id %}" class="button is-info pull-right">OK</a>
+
+    <!-- form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <!-- Identify your business so that you can collect the payments. -->
+        <!-- input type="hidden" name="business" value="herschelgomez@xyzzyu.com">
+
+        <!-- Specify a Buy Now button. -->
+        <!-- input type="hidden" name="cmd" value="_xclick">
+
+        <!-- Specify details about the item that buyers will purchase. -->
+        <!-- input type="hidden" name="item_name" value="Hot Sauce-12oz. Bottle">
+        <input type="hidden" name="amount" value="5.95">
+        <input type="hidden" name="currency_code" value="USD">
+
+        <!-- Display the payment button. -->
+        <!-- input type="image" name="submit" border="0"
+        src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+        alt="Buy Now">
+        <img alt="" border="0" width="1" height="1"
+        src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+    </form-->
+
+{% endblock %}

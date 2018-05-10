@@ -109,6 +109,25 @@ class FEReviewEditForm(forms.ModelForm):
         }
 
 
+class FEOrderForm(forms.ModelForm):
+
+    confirm_email = forms.EmailField()
+
+    class Meta:
+        model = Order
+        fields = ['title', 'first_name', 'last_name', 'email', 'message']
+
+    #item = models.ForeignKey('File')
+    #room = models.ForeignKey('Room')
+    #user = models.ForeignKey('User', blank=True, null=True)
+
+    #start_date = models.DateTimeField()
+    #end_date = models.DateTimeField()
+
+    #title = forms.ChoiceField(choices=((0, ''), (1, 'Mr.'), (2, 'Ms.'), (3, 'Mrs.')), label="Title")
+    #message = forms.CharField(widget=forms.Textarea(attrs={'rows': 4}))
+
+
 class ReviewEditForm(forms.ModelForm):
 
     class Meta:

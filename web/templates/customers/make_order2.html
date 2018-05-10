@@ -1,0 +1,89 @@
+{% extends "customers/home.html" %}
+
+{% load widget_tweaks %}
+{% load thumbnail %}
+
+{% block title %}{{ file.name }} Make Order{% endblock %}
+
+{% block content %}
+
+    <div class="steps">
+        <div class="step-item is-completed is-success">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-check"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 1</p>
+                <p>Select your room</p>
+            </div>
+        </div>
+        <div class="step-item is-active">
+            <div class="step-marker"></div>
+            <div class="step-details">
+                <p class="step-title">Step 2</p>
+                <p>Order details</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-marker"></div>
+            <div class="step-details">
+                <p class="step-title">Step 3</p>
+                <p>Checkout</p>
+            </div>
+        </div>
+        <div class="step-item">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-flag"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 4</p>
+                <p>Order review</p>
+            </div>
+        </div>
+    </div>
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="field is-grouped">
+            <div class="control">
+                <label class="label" for="id-title-select">Title</label>
+                <div class="select">
+                    {{ form.title|add_class:"select" }}
+                </div>
+            </div>
+            <div class="control is-expanded">
+                <label class="label" for="id_first_name">First Name</label>
+                {{ form.first_name|add_class:"input" }}
+            </div>
+            <div class="control is-expanded">
+                <label class="label" for="id_last_name">Last Name</label>
+                {{ form.last_name|add_class:"input" }}
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <label class="label" for="id-email-input">Email Address</label>
+                {{ form.email|add_class:"input" }}
+            </div>
+            <div class="control">
+                <label class="label" for="id-confirm-email-input">Confirm Email Address</label>
+                {{ form.confirm_email|add_class:"input" }}
+            </div>
+            <div class="control">
+                <label class="label" for="id-message">Special Request</label>
+                {{ form.message|add_class:"textarea" }}
+            </div>
+        </div>
+
+        <input class="button is-info pull-right" type="submit" value="OK" />
+
+    </form>
+
+{% endblock %}

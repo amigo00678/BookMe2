@@ -18,3 +18,10 @@ TRIP_TYPE_E = (
     (3, 'Business'),
     (4, 'Single'),
 )
+
+TITLES_E = (
+    (0, ''),
+    (1, 'Mr.'),
+    (2, 'Ms.'),
+    (3, 'Mrs.'),
+)

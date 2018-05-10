@@ -164,9 +164,18 @@ class RoomPrice(models.Model):
 class Order(models.Model):
     item = models.ForeignKey('File')
     room = models.ForeignKey('Room')
-    user = models.ForeignKey('User')
+    user = models.ForeignKey('User', blank=True, null=True)
+
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+
+    price = models.FloatField(default=0)
+
+    title = models.IntegerField(choices=TITLES_E, default=1)
+    first_name = models.CharField(max_length=60)
+    last_name = models.CharField(max_length=60)
+    email = models.EmailField()
+    message = models.TextField()
 
 
 class Review(models.Model):

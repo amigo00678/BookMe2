@@ -1,0 +1,42 @@
+{% extends "customers/home.html" %}
+
+{% load widget_tweaks %}
+{% load thumbnail %}
+
+{% block title %}{{ file.name }} Make Order{% endblock %}
+
+{% block content %}
+
+    <div class="steps">
+        <div class="step-item is-completed is-success">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-check"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 1</p>
+                <p>Select your room</p>
+            </div>
+        </div>
+        <div class="step-item is-success">
+            <div class="step-marker"></div>
+            <div class="step-details">
+                <p class="step-title">Step 2</p>
+                <p>Order details and confirmation</p>
+            </div>
+        </div>
+        <div class="step-item is-active">
+            <div class="step-marker">
+                <span class="icon">
+                    <i class="fa fa-flag"></i>
+                </span>
+            </div>
+            <div class="step-details">
+                <p class="step-title">Step 3</p>
+                <p>Order review</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

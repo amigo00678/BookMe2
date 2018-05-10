@@ -170,10 +170,55 @@ class FileDetailView(DetailView):
     pk_url_kwarg = 'id'
 
 
-class OrderView(DetailView):
-    model = Room
-    template_name = "customers/make_order.html"
+class OrderView2(FormView):
+    form_class = FEOrderForm
+    success_url = 'fe_order_3'
+    template_name = "customers/make_order2.html"
+
+    def form_valid(self, form):
+        try:
+            file = File.objects.get(id=self.kwargs.get('pid'))
+            room = Room.objects.get(id=self.kwargs.get('id'))
+
+            order = form.save(commit=False)
+            order.item = file
+            order.room = room
+
+            order.start_date = datetime.now()
+            order.end_date = datetime.now()
+
+            order.save()
+
+        except File.DoesNotExist, Room.DoesNotExist:
+            pass
+
+        return HttpResponseRedirect(reverse(self.success_url, kwargs={'id': order.id}))
+
+
+class OrderView3(DetailView):
+    model = Order
+    success_url = 'fe_order_4'
+    template_name = "customers/make_order3.html"
     pk_url_kwarg = 'id'
+
+    def dispatch(self, *args, **kwargs):
+        self.success_url = reverse(self.success_url, kwargs={'id': self.kwargs.get('id')})
+        return super(OrderView3, self).dispatch(*args, **kwargs)
+
+
+class OrderView4(DetailView):
+    model = Order
+    success_url = 'fe_file'
+    template_name = "customers/make_order4.html"
+    pk_url_kwarg = 'id'
+
+    def dispatch(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(id=self.kwargs.get('id'))
+            self.success_url = reverse(self.success_url, kwargs={'id': order.item.id})
+        except Order.DoesNotExist:
+            pass
+        return super(OrderView4, self).dispatch(*args, **kwargs)
 
 
 class HomeFilesListView(FEListView):
