@@ -15,7 +15,10 @@
                 <div class="subtitle is-spaced">
                     <a class="subtitle is-5 modal-button is-spaced"
                     data-target="modal-room-{{ room.id }}"
-                    data-title="{{ room.name }}">{{ room.name }}</a><br>
+                    data-title="{{ room.name }}">
+                        {{ room.name }}
+                        <i class="fas fa-xs fa-align-justify"></i></a>
+                    <br>
                 </div>
 
                 {% if room.rest_places.exists %}
@@ -37,7 +40,7 @@
             </td>
             <td>
                 {% if room.prices.exists %}
-                    <table>
+                    <table class="table">
                         <tr>
                             <th>Guests number</th>
                             <th>Price</th>
@@ -77,7 +80,7 @@
                                 <div class='carousel-container'>
                                     {% for img in room.images.all %}
                                         <div class='carousel-item has-background is-active'>
-                                            {% thumbnail img.image "540x380" crop="center" as im %}
+                                            {% thumbnail img.image "640x420" crop="center" as im %}
                                                 <img class="is-background" src="{{ im.url }}"></img>
                                             {% endthumbnail %}
                                         </div>
@@ -105,7 +108,23 @@
                     <div class="column">
 
                         <div class="subtitle is-6 is-spaced">
-                            <strong>Price:</strong> {{ room.prices.all }} for one night</div>
+                            {% if room.prices.exists %}
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Guests number</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        {% for price in room.get_prices_asc %}
+                                        <tr>
+                                            <td><label for="room-price-{{ price.id }}">{{ price.people_number }}</label></td>
+                                            <td><label for="room-price-{{ price.id }}">{{ price.price }}</label></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        </div>
 
                         {% if room.rest_places.exists %}
                             <div class="title is-6 is-spaced">Sleeping places:</div>
@@ -128,8 +147,8 @@
                 </div>
             </section>
 
-            <footer class="modal-card-foot">
-                <button class="button">Book now</button>
+            <footer class="modal-card-foot pull-right">
+                <button class="button is-info pull-right">Book now</button>
             </footer>
 
         </div>

@@ -30,3 +30,6 @@ body{
 .select.arrow-black::after{
     border-color: #363636 !important;
 }
+.modal-card-foot.pull-right{
+    justify-content: flex-end;
+}

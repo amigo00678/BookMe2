@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
     url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
 
+    url(r'^customer-order/(?P<id>\d+)/$', OrderView.as_view(), name='fe_order'),
+
     # admin views
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),

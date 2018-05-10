@@ -170,6 +170,12 @@ class FileDetailView(DetailView):
     pk_url_kwarg = 'id'
 
 
+class OrderView(DetailView):
+    model = File
+    template_name = "customers/make_order.html"
+    pk_url_kwarg = 'id'
+
+
 class HomeFilesListView(FEListView):
     model = File
     base_url = reverse_lazy('fe_files')
