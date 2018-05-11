@@ -117,6 +117,14 @@ class FEOrderForm(forms.ModelForm):
         model = Order
         fields = ['title', 'first_name', 'last_name', 'email', 'message']
 
+    def clean(self):
+        cd = super(FEOrderForm, self).clean()
+        if cd['email'] != cd['confirm_email']:
+            msg = "Email and email confirmation have to match!"
+            self.add_error('confirm_email', msg)
+            raise forms.ValidationError(msg)
+        return cd
+
     #item = models.ForeignKey('File')
     #room = models.ForeignKey('Room')
     #user = models.ForeignKey('User', blank=True, null=True)

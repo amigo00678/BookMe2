@@ -54,31 +54,61 @@
             <div class="control">
                 <label class="label" for="id-title-select">Title</label>
                 <div class="select">
-                    {{ form.title|add_class:"select" }}
+                    {% if form.title.errors %}
+                        {{ form.title|add_class:"select"|add_class:"is-danger" }}
+                        <p class="help is-danger">{{ form.title.errors.0 }}</p>
+                    {% else %}
+                        {{ form.title|add_class:"select" }}
+                    {% endif %}
                 </div>
             </div>
             <div class="control is-expanded">
                 <label class="label" for="id_first_name">First Name</label>
-                {{ form.first_name|add_class:"input" }}
+                {% if form.first_name.errors %}
+                    {{ form.first_name|add_class:"input"|add_class:"is-danger" }}
+                    <p class="help is-danger">{{ form.first_name.errors.0 }}</p>
+                {% else %}
+                    {{ form.first_name|add_class:"input" }}
+                {% endif %}
             </div>
             <div class="control is-expanded">
                 <label class="label" for="id_last_name">Last Name</label>
-                {{ form.last_name|add_class:"input" }}
+                {% if form.last_name.errors %}
+                    {{ form.last_name|add_class:"input"|add_class:"is-danger" }}
+                    <p class="help is-danger">{{ form.last_name.errors.0 }}</p>
+                {% else %}
+                    {{ form.last_name|add_class:"input" }}
+                {% endif %}
             </div>
         </div>
 
         <div class="field">
             <div class="control">
                 <label class="label" for="id-email-input">Email Address</label>
-                {{ form.email|add_class:"input" }}
+                {% if form.email.errors %}
+                    {{ form.email|add_class:"input"|add_class:"is-danger" }}
+                    <p class="help is-danger">{{ form.email.errors.0 }}</p>
+                {% else %}
+                    {{ form.email|add_class:"input" }}
+                {% endif %}
             </div>
             <div class="control">
                 <label class="label" for="id-confirm-email-input">Confirm Email Address</label>
-                {{ form.confirm_email|add_class:"input" }}
+                {% if form.confirm_email.errors %}
+                    {{ form.confirm_email|add_class:"input"|add_class:"is-danger" }}
+                    <p class="help is-danger">{{ form.confirm_email.errors.0 }}</p>
+                {% else %}
+                    {{ form.confirm_email|add_class:"input" }}
+                {% endif %}
             </div>
             <div class="control">
                 <label class="label" for="id-message">Special Request</label>
-                {{ form.message|add_class:"textarea" }}
+                {% if form.message.errors %}
+                    {{ form.message|add_class:"textarea"|add_class:"is-danger" }}
+                    <p class="help is-danger">{{ form.message.errors.0 }}</p>
+                {% else %}
+                    {{ form.message|add_class:"textarea" }}
+                {% endif %}
             </div>
         </div>
 
