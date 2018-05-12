@@ -6,35 +6,47 @@ body{
     
 }
 .carousel .carousel-navigation.is-overlay .carousel-nav-left, .carousel .carousel-navigation.is-overlay .carousel-nav-right{
-    height: 100% !important;
-    display: -webkit-box !important;
+    height: 100%;
+    display: -webkit-box;
 }
 .box{
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1.5rem;
 }
 .rate-avg{
     border-radius: 8px 8px 8px 0;
     padding: 20px;
     background-color: #00d1b2;
-    color: #fff !important;
-    font-size: 20px !important;
+    color: #fff;
+    font-size: 20px;
     border: 1px solid transparent;
 }
 .list-icons{
     border-radius: 3px;
 }
 .select.arrow-black::after{
-    border-color: #363636 !important;
+    border-color: #363636;
 }
 .modal-card-foot.pull-right{
     justify-content: flex-end;
 }
 .bd-side{
-    padding-left:0px !important;
-    padding-right: 0.1rem !important;
-    flex:0 0 calc(17rem + 1.5rem) !important;
+    padding-left:0px;
+    padding-right: 0.1rem;
+    flex:0 0 calc(17rem + 1.5rem);
 }
 .bd-lead{
-    margin-left: 0rem !important;
-    padding-left: 2.2em !important;
+    margin-left: 0rem;
+    padding-left: 2.2em;
+}
+.navbar{
+    z-index: 0;
+}
+.datepicker{
+    padding: 12px 20px 12px 20px;
+}
+.datepicker table tr td.active.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active.disabled:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active:active, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover.active, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active:hover:active, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active[disabled]
+{
+    background-color: #3273dc;
+    background-image: none;
+    border: 1px transparent;
 }

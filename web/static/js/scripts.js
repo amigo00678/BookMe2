@@ -147,6 +147,7 @@ $(document).ready(function(){
         $(this).val('');
         updateTable();
     });
+    $('.datetimepicker').datepicker({ autoclose: true });
 });
 
 // Modals
