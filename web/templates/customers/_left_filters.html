@@ -1,29 +1,76 @@
-<header class=""><strong>Main features</strong></header>
-{% for feature in features %}
-<div class="">
-    <input type="checkbox" id="feature_{{ feature.id }}" class="filter"
-        data-value="{{ feature.id }}" data-field="feature_{{ feature.id }}"/>
-        <label for="feature_{{ feature.id }}">{{ feature }}</label>
+<div class="box">
+    <header class=""><strong>Dates search</strong></header>
+    <header class="">Start date</header>
+    <input class="input is-small datetimepicker" type="text"></input>
+    <header class="">End date</header>
+    <input class="input is-small datetimepicker" type="text"></input>
+    <div>
+        <header class="">Guests number</header>
+        <div class="select is-small">
+            <select class="">
+                <option value='1'>1</option>
+                <option value='2' selected>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+                <option value='6'>6</option>
+                <option value='7'>7</option>
+                <option value='8'>8</option>
+                <option value='9'>9</option>
+                <option value='10'>over 9</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <header class="">Rooms number</header>
+        <div class="select is-small">
+            <select class="">
+                <option value='1'>1</option>
+                <option value='2' selected>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+                <option value='6'>6</option>
+                <option value='7'>7</option>
+                <option value='8'>8</option>
+                <option value='9'>9</option>
+                <option value='10'>over 9</option>
+            </select>
+        </div>
+    </div>
+    <div style="display:inline-block;width:100%">
+        <button class="button is-warning pull-right" onclick="">Apply</button>
+    </div>
 </div>
-{% endfor %}
 
-<header class=""><strong>Room features</strong></header>
-{% for feature in room_features %}
-<div class="">
-    <input type="checkbox" id="room_feature_{{ feature.id }}" class="filter"
-        data-value="{{ feature.id }}" data-field="room_feature_{{ feature.id }}"/>
-        <label for="room_feature_{{ feature.id }}">{{ feature }}</label>
+<div class="box">
+    <header class=""><strong>Main features</strong></header>
+    {% for feature in features %}
+    <div class="">
+        <input type="checkbox" id="feature_{{ feature.id }}" class="filter"
+            data-value="{{ feature.id }}" data-field="feature_{{ feature.id }}"/>
+            <label for="feature_{{ feature.id }}">{{ feature }}</label>
+    </div>
+    {% endfor %}
+
+    <header class=""><strong>Room features</strong></header>
+    {% for feature in room_features %}
+    <div class="">
+        <input type="checkbox" id="room_feature_{{ feature.id }}" class="filter"
+            data-value="{{ feature.id }}" data-field="room_feature_{{ feature.id }}"/>
+            <label for="room_feature_{{ feature.id }}">{{ feature }}</label>
+    </div>
+    {% endfor %}
+
+    <header class=""><strong>Ratings</strong></header>
+    {% for key, value in ratings %}
+    <div class="">
+        <input type="checkbox" id="rate_{{ key }}" class="filter"
+            data-value="{{ key }}" data-field="rate_{{ key }}"/>
+            <label for="rate_{{ key }}">{{ value }}</label>
+    </div>
+    {% endfor %}
+
+    <button class="button" onclick="updateTable()">Apply</button>
+    <button class="button is-warning" onclick="clearFilters()">Clear</button>
 </div>
-{% endfor %}
-
-<header class=""><strong>Ratings</strong></header>
-{% for key, value in ratings %}
-<div class="">
-    <input type="checkbox" id="rate_{{ key }}" class="filter"
-        data-value="{{ key }}" data-field="rate_{{ key }}"/>
-        <label for="rate_{{ key }}">{{ value }}</label>
-</div>
-{% endfor %}
-
-<button class="button" onclick="updateTable()">Apply</button>
-<button class="button is-warning" onclick="clearFilters()">Clear</button>

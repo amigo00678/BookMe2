@@ -1,13 +1,9 @@
 body{
-    font-size: 14px;
-    font-family: 'Fira Sans', sans-serif;
+    /*font-family: 'Fira Sans', sans-serif;*/
     color: #000;
 }
 .main{
     
-}
-.bd-lead{
-    padding-left: 2.2em !important;
 }
 .carousel .carousel-navigation.is-overlay .carousel-nav-left, .carousel .carousel-navigation.is-overlay .carousel-nav-right{
     height: 100% !important;
@@ -32,4 +28,13 @@ body{
 }
 .modal-card-foot.pull-right{
     justify-content: flex-end;
+}
+.bd-side{
+    padding-left:0px !important;
+    padding-right: 0.1rem !important;
+    flex:0 0 calc(17rem + 1.5rem) !important;
+}
+.bd-lead{
+    margin-left: 0rem !important;
+    padding-left: 2.2em !important;
 }
