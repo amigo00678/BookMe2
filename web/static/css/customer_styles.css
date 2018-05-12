@@ -50,3 +50,6 @@ body{
     background-image: none;
     border: 1px transparent;
 }
+a:focus, a:hover{
+    text-decoration: none;
+}
