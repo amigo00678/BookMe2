@@ -1,13 +1,18 @@
 <div class="box">
     <header class=""><strong>Dates search</strong></header>
+
     <header class="">Start date</header>
-    <input class="input is-small datetimepicker" type="text"></input>
+    <input class="input is-small filter" name="start_date" id="id-start-date"
+        type="text" data-field="start_date"></input>
+
     <header class="">End date</header>
-    <input class="input is-small datetimepicker" type="text"></input>
+    <input class="input is-small filter" name="end_date" id="id-end-date"
+        type="text" data-field="end_date"></input>
+
     <div>
         <header class="">Guests number</header>
         <div class="select is-small">
-            <select class="">
+            <select class="filter" name="guest_number" data-field="guest_number">
                 <option value='1'>1</option>
                 <option value='2' selected>2</option>
                 <option value='3'>3</option>
@@ -24,7 +29,7 @@
     <div>
         <header class="">Rooms number</header>
         <div class="select is-small">
-            <select class="">
+            <select class="filter" name="rooms_number" data-field="rooms_number">
                 <option value='1'>1</option>
                 <option value='2' selected>2</option>
                 <option value='3'>3</option>
@@ -39,7 +44,7 @@
         </div>
     </div>
     <div style="display:inline-block;width:100%">
-        <button class="button is-warning pull-right" onclick="">Apply</button>
+        <button class="button is-warning pull-right" onclick="updateTable()">Apply</input>
     </div>
 </div>
 
@@ -76,3 +81,19 @@
         <button class="button is-warning pull-right" onclick="clearFilters()">Clear</button>
     </div>
 </div>
+
+<script>
+    $('#id-start-date').datepicker({ autoclose: true }).on(
+        'changeDate', function(e){
+            $('#id-end-date').datepicker('setStartDate', e.date);
+            var new_date = moment(e.date, "MM/DD/YYYY");
+            $('#id-end-date').datepicker('setDate', new_date.add(1, 'days').format("MM/DD/YYYY"));
+    });
+    $('#id-end-date').datepicker({
+        useCurrent: false, //Important! See issue #1075
+        autoclose: true
+    }).on(
+        'changeDate', function(e){
+            $('#id-start-date').datepicker('setEndDate', e.date);
+    });
+</script>
