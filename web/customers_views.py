@@ -58,7 +58,12 @@ class HomeListView(FEListView):
         }
 
     def get_list(self, filter):
+        from django.db.models import Sum, F
+
         objects = self.model.objects.all()
+
+        objects = objects.annotate(rooms_number=Sum('room__count'))
+        objects = objects.annotate(free_places=Sum(F('room__count') * F('room__users_count')))
 
         fids = []
         rfids = []
@@ -80,6 +85,12 @@ class HomeListView(FEListView):
             rate = min(rates)
             objects = objects.annotate(Avg('review__rate'))
             objects = objects.filter(review__rate__avg__gte=rate)
+
+        if 'guest_number' in filter:
+            objects = objects.filter(free_places__gte=filter.get('guest_number'))
+
+        if 'rooms_number' in filter:
+            objects = objects.filter(rooms_number__gte=filter.get('rooms_number'))
 
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']

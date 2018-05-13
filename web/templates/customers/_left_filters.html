@@ -44,7 +44,7 @@
         </div>
     </div>
     <div style="display:inline-block;width:100%">
-        <button class="button is-warning pull-right" onclick="updateTable()">Apply</input>
+        <button class="button is-warning pull-right" onclick="updateTable()">Apply</button>
     </div>
 </div>
 
@@ -83,12 +83,18 @@
 </div>
 
 <script>
-    $('#id-start-date').datepicker({ autoclose: true }).on(
+    $('#id-start-date').datepicker({
+        autoclose: true,
+    })
+    .on(
         'changeDate', function(e){
             $('#id-end-date').datepicker('setStartDate', e.date);
             var new_date = moment(e.date, "MM/DD/YYYY");
             $('#id-end-date').datepicker('setDate', new_date.add(1, 'days').format("MM/DD/YYYY"));
     });
+
+    $('#id-start-date').datepicker("setDate", new Date());
+
     $('#id-end-date').datepicker({
         useCurrent: false, //Important! See issue #1075
         autoclose: true
