@@ -113,6 +113,7 @@
 <script>
     $('#id-start-date').datepicker({
         autoclose: true,
+        startDate: "today",
     }).on(
         'changeDate', function(e){
             $('#id-end-date').datepicker('setStartDate', e.date);
@@ -120,15 +121,17 @@
             $('#id-end-date').datepicker('setDate', new_date.add(1, 'days').format("MM/DD/YYYY"));
     });
 
-    $('#id-start-date').datepicker("setDate", new Date());
-
     $('#id-end-date').datepicker({
         useCurrent: false, //Important! See issue #1075
         autoclose: true,
-    }).on(
-        'changeDate', function(e){
-            $('#id-start-date').datepicker('setEndDate', e.date);
     });
+    //.on(
+        //'changeDate', function(e){
+        //    $('#id-start-date').datepicker('setEndDate', e.date);
+    //});
+
+    $('#id-start-date').datepicker("setDate", new Date());
+
 </script>
 
 {% endif %}
