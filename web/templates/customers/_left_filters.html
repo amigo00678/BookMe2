@@ -85,8 +85,7 @@
 <script>
     $('#id-start-date').datepicker({
         autoclose: true,
-    })
-    .on(
+    }).on(
         'changeDate', function(e){
             $('#id-end-date').datepicker('setStartDate', e.date);
             var new_date = moment(e.date, "MM/DD/YYYY");
@@ -97,7 +96,7 @@
 
     $('#id-end-date').datepicker({
         useCurrent: false, //Important! See issue #1075
-        autoclose: true
+        autoclose: true,
     }).on(
         'changeDate', function(e){
             $('#id-start-date').datepicker('setEndDate', e.date);

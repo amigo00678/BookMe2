@@ -48,18 +48,15 @@ class HomeListView(FEListView):
     default_pp = 6
     base_url = reverse_lazy('fe_home')
 
-    ratings = { 4: '9+', 3: '8+', 2: '7+', 1: '6+', 0: 'No rating' }
-
     def get_additional_context(self):
         return { 
             'features': Feature.objects.all(),
             'room_features': RoomFeature.objects.all(),
-            'ratings': sorted(self.ratings.iteritems(), reverse=True)
+            'ratings': sorted(RATINGS_E, reverse=True)
         }
 
     def get_list(self, filter):
         from django.db.models import Sum, F
-
         objects = self.model.objects.all()
 
         objects = objects.annotate(rooms_number=Sum('room__count'))
@@ -91,6 +88,17 @@ class HomeListView(FEListView):
 
         if 'rooms_number' in filter:
             objects = objects.filter(rooms_number__gte=filter.get('rooms_number'))
+
+        if 'start_date' in filter and 'end_date' in filter:
+            start_date = datetime.strptime(filter.get('start_date'), "%m/%d/%Y")
+            end_date = datetime.strptime(filter.get('end_date'), "%m/%d/%Y")
+
+            order_ids = Order.objects.filter(start_date__gte=start_date).filter(
+                end_date__lte=end_date).values_list('id').distinct('id')
+
+            room_ids = Room.objects.exclude(order__id__in=order_ids).values_list('id').distinct('id')
+
+            files = objects.filter(room__id__in=room_ids)
 
         if 'sort' in filter and filter['sort']:
             sort = filter['sort']
