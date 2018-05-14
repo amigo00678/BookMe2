@@ -5,29 +5,27 @@
     <div class="columns">
         <div class="column is-one-third">
 
-            <a href="{% url 'fe_file' id=object.id %}" target="_blank">
-
-                <div class='carousel carousel-animated carousel-animate-slide list-icons'>
-                    <div class='carousel-container'>
-                        {% for img in object.top_slider.images.all %}
-                            <div class='carousel-item has-background is-active'>
+            <div class='carousel carousel-animated carousel-animate-slide list-icons'>
+                <div class='carousel-container'>
+                    {% for img in object.top_slider.images.all %}
+                        <div class='carousel-item has-background is-active'>
+                            <a href="{% url 'fe_file' id=object.id %}" target="_blank">
                                 {% thumbnail img.image "640x520" crop="center" as im %}
                                     <img class="is-background" src="{{ im.url }}" width="640" height="520" />
                                 {% endthumbnail %}
-                            </div>
-                        {% endfor %}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="carousel-navigation is-overlay">
+                    <div class="carousel-nav-left">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
                     </div>
-                    <div class="carousel-navigation is-overlay">
-                        <div class="carousel-nav-left">
-                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        </div>
-                        <div class="carousel-nav-right">
-                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        </div>
+                    <div class="carousel-nav-right">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
                     </div>
                 </div>
-
-            </a>
+            </div>
 
         </div>
 

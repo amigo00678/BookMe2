@@ -33,6 +33,7 @@ body{
     padding-left:0px;
     padding-right: 0.1rem;
     flex:0 0 calc(17rem + 1.5rem);
+    background-color: #fff;
 }
 .bd-lead{
     margin-left: 0rem;
@@ -56,3 +57,30 @@ a:focus, a:hover{
 label{
     font-weight: unset;
 }
+.label{
+    text-align:left;
+}
+.carousel .carousel-navigation.is-overlay{
+    height: 100%;
+}
+.carousel .carousel-navigation.is-overlay .carousel-nav-left{
+    background: linear-gradient(to right, rgba(200,200,200,1), transparent);
+    color: #e2e2e2;
+    -webkit-box-pack: end;
+    font-size: 1.1em;
+}
+.carousel .carousel-navigation.is-overlay .carousel-nav-right{
+    background: linear-gradient(to left, rgba(200,200,200,0.7), transparent);
+    color: #e2e2e2;
+    -webkit-box-pack: start;
+    font-size: 1.1em;
+}
+/*
+nav on hover
+.carousel-navigation.is-overlay{
+    display: none;
+}
+.carousel:hover .carousel-navigation.is-overlay{
+    display: block;
+}
+*/

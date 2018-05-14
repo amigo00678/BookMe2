@@ -148,6 +148,7 @@ $(document).ready(function(){
         updateTable();
     });
     $('.datetimepicker').datepicker({ autoclose: true });
+    var carousels = bulmaCarousel.attach();
 });
 
 // Modals
