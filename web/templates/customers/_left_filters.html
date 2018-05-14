@@ -2,6 +2,7 @@
 
 <div class="box">
     <header class=""><strong>Search Dates</strong></header>
+    <br>
     <header class=""><strong>Start Date</strong></header>
     <header>{{ request.session.start_date }}</header>
     <header class=""><strong>End Date</strong></header>
@@ -10,6 +11,14 @@
     <header>{{ request.session.guest_number }}</header>
     <header class=""><strong>Rooms Number</strong></header>
     <header>{{ request.session.rooms_number }}</header>
+    <br>
+    <header><strong>Features</strong></header>
+    <header>{{ request.session.features|safe }}</header>
+    <header><strong>Room Features</strong></header>
+    <header>{{ request.session.room_features|safe }}</header>
+    <header><strong>Ratings</strong></header>
+    <header>{{ request.session.rates|safe }}</header>
+    <br>
     <div style="display:inline-block;width:100%">
         <a href="{% url 'fe_home' %}" class="button pull-right is-warning">Change search</a>
     </div>

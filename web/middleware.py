@@ -1,10 +1,38 @@
 from web.constants import *
+from web.models import *
 
 
 class DataMiddleware(object):
 
     def process_request(self, request):
         if request.method == 'POST':
+
+            fids = []
+            rfids = []
+            rates = []
+
+            for key, value in request.POST.iteritems():
+                if key.startswith('feature_'):
+                    fids.append(int(value))
+                elif key.startswith('room_feature_'):
+                    rfids.append(int(value))
+                elif key.startswith('rate_'):
+                    rates.append(int(value))
+
+            if fids:
+                features = Feature.objects.filter(id__in=fids)
+                request.session['features'] = '<br>'.join(features.values_list('name', flat=True))
+            if rfids:
+                rfeatures = RoomFeature.objects.filter(id__in=rfids)
+                request.session['room_features'] = '<br>'.join(rfeatures.values_list('name', flat=True))
+
+            if rates:
+                rates_names = []
+                for key, value in RATINGS_E:
+                    if key in rates:
+                        rates_names.append(value)
+                request.session['rates'] = '<br>'.join(rates_names)
+
             if 'start_date' in request.POST:
                 request.session['start_date'] = request.POST.get('start_date')
             if 'end_date' in request.POST:
