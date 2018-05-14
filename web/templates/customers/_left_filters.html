@@ -1,3 +1,22 @@
+{% if not request.get_full_path == '/' and request.session.start_date %}
+
+<div class="box">
+    <header class=""><strong>Search Dates</strong></header>
+    <header class=""><strong>Start Date</strong></header>
+    <header>{{ request.session.start_date }}</header>
+    <header class=""><strong>End Date</strong></header>
+    <header>{{ request.session.end_date }}</header>
+    <header class=""><strong>People Number</strong></header>
+    <header>{{ request.session.guest_number }}</header>
+    <header class=""><strong>Rooms Number</strong></header>
+    <header>{{ request.session.rooms_number }}</header>
+    <div style="display:inline-block;width:100%">
+        <a href="{% url 'fe_home' %}" class="button pull-right is-warning">Change search</a>
+    </div>
+</div>
+
+{% else %}
+
 <div class="box">
     <header class=""><strong>Dates search</strong></header>
 
@@ -102,3 +121,5 @@
             $('#id-start-date').datepicker('setEndDate', e.date);
     });
 </script>
+
+{% endif %}
