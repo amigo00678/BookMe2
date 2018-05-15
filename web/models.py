@@ -163,7 +163,7 @@ class RoomPrice(models.Model):
 
 class Order(models.Model):
     item = models.ForeignKey('File')
-    room = models.ForeignKey('Room')
+    rooms = models.ManyToManyField('Room')
     user = models.ForeignKey('User', blank=True, null=True)
 
     start_date = models.DateTimeField()

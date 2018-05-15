@@ -203,7 +203,7 @@ class OrderEditForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['item', 'room', 'user', 'start_date', 'end_date']
+        fields = ['item', 'rooms', 'user', 'start_date', 'end_date']
 
     def __init__(self, *args, **kwargs):
         super(OrderEditForm, self).__init__(*args, **kwargs)

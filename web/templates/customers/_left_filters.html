@@ -12,13 +12,19 @@
     <header class=""><strong>Rooms Number</strong></header>
     <header>{{ request.session.rooms_number }}</header>
     <br>
-    <header><strong>Features</strong></header>
-    <header>{{ request.session.features|safe }}</header>
-    <header><strong>Room Features</strong></header>
-    <header>{{ request.session.room_features|safe }}</header>
-    <header><strong>Ratings</strong></header>
-    <header>{{ request.session.rates|safe }}</header>
-    <br>
+    {% if request.session.features %}
+        <header><strong>Features</strong></header>
+        <header>{{ request.session.features|safe }}</header>
+    {% endif %}
+    {% if request.session.room_features %}
+        <header><strong>Room Features</strong></header>
+        <header>{{ request.session.room_features|safe }}</header>
+    {% endif %}
+    {% if request.session.rates %}
+        <header><strong>Ratings</strong></header>
+        <header>{{ request.session.rates|safe }}</header>
+        <br>
+    {% endif %}
     <div style="display:inline-block;width:100%">
         <a href="{% url 'fe_home' %}" class="button pull-right is-warning">Change search</a>
     </div>

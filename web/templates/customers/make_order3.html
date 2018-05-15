@@ -48,7 +48,13 @@
 
     <div>
         <div class="subtitle">Item: <strong>{{ order.item }}</strong></div>
-        <div class="subtitle">Room: <strong>{{ order.room }}</strong></div>
+        <div class="subtitle">Rooms:
+            {% for room in order.rooms.all %}
+                <strong>{{ room }}</strong>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </div>
+        <div class="subtitle">Start date: <strong>{{ order.start_date|date:"M d, Y" }}</strong></div>
+        <div class="subtitle">End date: <strong>{{ order.end_date|date:"M d, Y" }}</strong></div>
         <div class="subtitle">First name: <strong>{{ order.first_name }}</strong></div>
         <div class="subtitle">Last name: <strong>{{ order.last_name }}</strong></div>
         <div class="subtitle">Email: <strong>{{ order.email }}</strong></div>

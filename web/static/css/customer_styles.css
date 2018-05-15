@@ -60,6 +60,22 @@ label{
 .label{
     text-align:left;
 }
+.carousel-navigation.is-overlay{
+    z-index: 39 !important;
+    height: 100%;
+}
+.carousel .carousel-navigation.is-overlay .carousel-nav-left, .carousel .carousel-navigation.is-overlay .carousel-nav-right{
+    font-size: 22px;
+    background: transparent;
+    color: #fff;
+}
+.carousel:hover .carousel-nav-left{
+    background: linear-gradient(to right, rgba(180,180,180,0.8), transparent) !important;
+}
+.carousel:hover .carousel-nav-right{
+    background: linear-gradient(to left, rgba(180,180,180,0.8), transparent) !important;
+}
+/*
 .carousel .carousel-navigation.is-overlay{
     height: 100%;
 }
@@ -75,6 +91,7 @@ label{
     -webkit-box-pack: start;
     font-size: 1.1em;
 }
+*/
 /*
 nav on hover
 .carousel-navigation.is-overlay{

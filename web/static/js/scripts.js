@@ -149,6 +149,23 @@ $(document).ready(function(){
     });
     $('.datetimepicker').datepicker({ autoclose: true });
     var carousels = bulmaCarousel.attach();
+
+    $('body').on('click', '.book-button', function(){
+        data = {};
+        price_ids = [];
+        $('.room-select').each(function(el){
+            if (this.checked){
+                id = $(this).data('id');
+                price_ids.push(id);
+            }
+        });
+
+        prices = price_ids.join("-");
+        prices = encodeURI(prices);
+
+        href = $(this).data('href')+'?prices='+(prices);
+        window.location.replace(href);
+    });
 });
 
 // Modals

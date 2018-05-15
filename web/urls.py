@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^customer-login/$', HomeLoginView.as_view(), name='fe_login'),
     url(r'^customer-logout/$', HomeLogoutView.as_view(), name='fe_logout'),
 
-    url(r'^customer-order/2/(?P<pid>\d+)/(?P<id>\d+)/$', OrderView2.as_view(), name='fe_order_2'),
+    url(r'^customer-order/2/(?P<id>\d+)/$', OrderView2.as_view(), name='fe_order_2'),
     url(r'^customer-order/3/(?P<id>\d+)/$', OrderView3.as_view(), name='fe_order_3'),
     url(r'^customer-order/4/(?P<id>\d+)/$', OrderView4.as_view(), name='fe_order_4'),
 

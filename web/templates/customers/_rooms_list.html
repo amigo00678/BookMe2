@@ -44,20 +44,34 @@
                         <tr>
                             <th>Guests number</th>
                             <th>Price</th>
+                            <th>Total
+                                {% if request.session.date_diff %}
+                                    ({{ request.session.date_diff }}
+                                {% else %}
+                                    (1
+                                {% endif %} days)
+                                </th>
                             <th class="is-narrow"></th>
                         </tr>
                         {% for price in room.get_prices_asc %}
                         <tr>
                             <td><label for="room-price-{{ price.id }}">{{ price.people_number }}</label></td>
                             <td><label for="room-price-{{ price.id }}">{{ price.price }}</label></td>
-                            <td><input type="checkbox" id="room-price-{{ price.id }}"></input></td>
+                            <td><label for="room-price-{{ price.id }}">
+                                {% if request.session.date_diff %}
+                                    {% widthratio price.price 1 request.session.date_diff %}.0
+                                {% else %}
+                                    {{ price.price }}
+                                {% endif %}
+                            </label></td>
+                            <td><input class="room-select" data-id="{{ price.id }}" type="checkbox" id="room-price-{{ price.id }}"></input></td>
                         </tr>
                         {% endfor %}
                     </table>
                 {% endif %}
                 <br>
-                <a href="{% url 'fe_order_2' pid=file.id id=room.id %}"
-                    class="button is-info pull-right">Book now</a>
+                <a data-href="{% url 'fe_order_2' id=file.id %}"
+                    class="button is-info pull-right book-button">Book now</a>
             </td>
         </tr>
         {% endfor %}

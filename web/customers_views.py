@@ -5,7 +5,7 @@ from datetime import datetime
 
 from django.shortcuts import render
 
-from django.views.generic import ListView
+from django.views.generic import View, ListView
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
@@ -195,17 +195,30 @@ class OrderView2(FormView):
     template_name = "customers/make_order2.html"
 
     def form_valid(self, form):
+        from django.db.models import Sum
+
         try:
-            file = File.objects.get(id=self.kwargs.get('pid'))
-            room = Room.objects.get(id=self.kwargs.get('id'))
+            prices = self.request.GET.get('prices')
+            prices = RoomPrice.objects.filter(id__in=prices.split('-'))
 
             order = form.save(commit=False)
+
+            file = File.objects.get(id=self.kwargs.get('id'))
             order.item = file
-            order.room = room
 
-            order.start_date = datetime.now()
-            order.end_date = datetime.now()
+            start_date = datetime.strptime(self.request.session.get('start_date'), "%m/%d/%Y")
+            end_date = datetime.strptime(self.request.session.get('end_date'), "%m/%d/%Y")
 
+            order.start_date = start_date
+            order.end_date = end_date
+
+            order.price = prices.aggregate(Sum('price')).get('price__sum')
+            order.save()
+
+            room_ids = prices.values_list('room__id', flat=True)
+
+            for room in Room.objects.filter(id__in=room_ids):
+                order.rooms.add(room)
             order.save()
 
         except File.DoesNotExist, Room.DoesNotExist:

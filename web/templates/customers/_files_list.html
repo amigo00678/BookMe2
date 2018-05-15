@@ -4,14 +4,14 @@
     {% if object.type == 1 %}
     <div class="box">
         <div class='columns {{ object.get_type_display }}'>
-            <div class="column is-one-third">
+            <div class="column is-half">
                 <div class='carousel carousel-animated carousel-animate-slide list-icons'>
                     <div class='carousel-container'>
                         {% for img in object.top_slider.images.all %}
                             <div class='carousel-item has-background is-active'>
                                 <a href="{% url 'fe_file' id=object.id %}">
-                                {% thumbnail img.image "640x520" crop="center" as im %}
-                                    <img class="is-background" src="{{ im.url }}" width="640" height="520"></img>
+                                {% thumbnail img.image "320x256" crop="center" as im %}
+                                    <img class="is-background" src="{{ im.url }}" width="220" height="180"></img>
                                 </a>
                                 {% endthumbnail %}
                             </div>
@@ -33,7 +33,7 @@
                     <br>
                     <a class="modal-button subtitle is-6" data-target="modal-map"
                         data-title="{{ object.name }}">
-                        Show on map <i class="fas fa-xs fa-map-marker-alt"></i></a>
+                        Location map <i class="fas fa-xs fa-map-marker-alt"></i></a>
                 </div>
                 <div class="column is-one-third has-text-right">
                     <div class="icon rate-avg">{{ object.rate|floatformat }}</div>
