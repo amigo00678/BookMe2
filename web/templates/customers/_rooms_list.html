@@ -43,20 +43,18 @@
                     <table class="table">
                         <tr>
                             <th>Guests number</th>
-                            <th>Price</th>
-                            <th>Total
+                            <th>Price for
                                 {% if request.session.date_diff %}
-                                    ({{ request.session.date_diff }}
+                                    {{ request.session.date_diff }}
                                 {% else %}
-                                    (1
-                                {% endif %} days)
+                                    1
+                                {% endif %} days
                                 </th>
                             <th class="is-narrow"></th>
                         </tr>
                         {% for price in room.get_prices_asc %}
                         <tr>
                             <td><label for="room-price-{{ price.id }}">{{ price.people_number }}</label></td>
-                            <td><label for="room-price-{{ price.id }}">{{ price.price }}</label></td>
                             <td><label for="room-price-{{ price.id }}">
                                 {% if request.session.date_diff %}
                                     {% widthratio price.price 1 request.session.date_diff %}.0

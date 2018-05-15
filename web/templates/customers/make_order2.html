@@ -46,6 +46,16 @@
         </div>
     </div>
 
+    <div>
+        <div class="subtitle">Item: <strong>{{ file }}</strong></div>
+        <div class="subtitle">Rooms:
+            {% for room in rooms %}
+                <strong>{{ room }}</strong>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </div>
+        <div class="subtitle">Price: <strong>{{ price }}</strong></div>
+    </div>
+
     <form action="" method="post" enctype="multipart/form-data">
 
         {% csrf_token %}

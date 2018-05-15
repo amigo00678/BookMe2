@@ -194,6 +194,27 @@ class OrderView2(FormView):
     success_url = 'fe_order_3'
     template_name = "customers/make_order2.html"
 
+    def get_context_data(self, **kwargs):
+        from django.db.models import Sum
+
+        context = super(OrderView2, self).get_context_data(**kwargs)
+
+        try:
+            prices = self.request.GET.get('prices')
+            prices = RoomPrice.objects.filter(id__in=prices.split('-'))
+
+            room_ids = prices.values_list('room__id', flat=True).distinct()
+            rooms = Room.objects.filter(pk__in=room_ids)
+
+            context['price'] = prices.aggregate(Sum('price')).get('price__sum')
+            context['rooms'] = rooms
+            context['file'] = rooms.first().item
+
+        except (File.DoesNotExist, Room.DoesNotExist):
+            pass
+
+        return context
+
     def form_valid(self, form):
         from django.db.models import Sum
 
