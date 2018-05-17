@@ -68,8 +68,13 @@
                     </table>
                 {% endif %}
                 <br>
-                <a data-href="{% url 'fe_order_2' id=file.id %}"
-                    class="button is-info pull-right book-button">Book now</a>
+                {% if request.session.start_date and request.session.end_date %}
+                    <a data-href="{% url 'fe_order_2' id=file.id %}"
+                        class="button is-info pull-right book-button" disabled>Book now</a>
+                {% else %}
+                    <button disabled class="pull-right button is-primary tooltip"
+                        data-tooltip="Please select stay dates">Book now</button>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
@@ -82,9 +87,16 @@
             var group = "input:checkbox[name='" + $(this).attr("name") + "']";
             $(group).prop("checked", false);
             $(this).prop("checked", true);
+            $('.book-button').removeAttr('disabled');
         } else {
             $(this).prop("checked", false);
         }
+        $('.book-button').attr('disabled', 'disabled');
+        $('.room-select').each(function(idx, el){
+            if ($(el).is(':checked')){
+                $('.book-button').removeAttr('disabled');
+            }
+        });
     });
 </script>
 

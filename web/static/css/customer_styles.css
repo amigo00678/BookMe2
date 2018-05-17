@@ -79,6 +79,15 @@ label{
     width: 780px;
     max-width: 90%;
 }
+.tooltip{
+    opacity: unset;
+}
+.tooltip:hover::before, .tooltip.is-tooltip-active::before{
+    font-size: 1rem;
+}
+a[disabled] {
+    pointer-events: none;
+}
 
 /*
 .carousel .carousel-navigation.is-overlay{
