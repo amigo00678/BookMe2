@@ -6,7 +6,6 @@
 {% block title %}{{ file.name }} Make Order{% endblock %}
 
 {% block content %}
-
     <div class="steps">
         <div class="step-item is-completed is-success">
             <div class="step-marker">
@@ -46,14 +45,29 @@
         </div>
     </div>
 
-    <div>
-        <div class="subtitle">Item: <strong>{{ file }}</strong></div>
-        <div class="subtitle">Rooms:
-            {% for room in rooms %}
-                <strong>{{ room }}</strong>{% if not forloop.last %},{% endif %}
-            {% endfor %}
+    <div class="box">
+        <div>
+            <div class="subtitle"><strong>{{ file }}</strong></div>
+            <div class="subtitle">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Room</th>
+                            <th>Guests number</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for price in prices %}
+                        <tr>
+                            <td><strong>{{ price.room_set.first }}</strong></td>
+                            <td><strong>{{ price.people_number }}</strong></td>
+                            <td><strong>{{ price.price }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="subtitle">Total price: <strong>{{ price }}</strong></div>
         </div>
-        <div class="subtitle">Price: <strong>{{ price }}</strong></div>
     </div>
 
     <form action="" method="post" enctype="multipart/form-data">

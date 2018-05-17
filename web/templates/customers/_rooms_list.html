@@ -62,7 +62,7 @@
                                     {{ price.price }}
                                 {% endif %}
                             </label></td>
-                            <td><input class="room-select" data-id="{{ price.id }}" type="checkbox" id="room-price-{{ price.id }}"></input></td>
+                            <td><input name="room-select-{{ room.id }}" class="room-select" data-id="{{ price.id }}" type="checkbox" id="room-price-{{ price.id }}"></input></td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -75,6 +75,18 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+    $(".room-select").on("change", function(){
+        if ($(this).is(":checked")) {
+            var group = "input:checkbox[name='" + $(this).attr("name") + "']";
+            $(group).prop("checked", false);
+            $(this).prop("checked", true);
+        } else {
+            $(this).prop("checked", false);
+        }
+    });
+</script>
 
 {% for room in file.rooms %}
     <div class="modal" id="modal-room-{{ room.id }}">
@@ -161,7 +173,7 @@
             </section>
 
             <footer class="modal-card-foot pull-right">
-                <button class="button is-info pull-right">Book now</button>
+                <button class="button is-info pull-right">OK</button>
             </footer>
 
         </div>

@@ -75,6 +75,11 @@ label{
 .carousel:hover .carousel-nav-right{
     background: linear-gradient(to left, rgba(180,180,180,0.8), transparent) !important;
 }
+.modal-card{
+    width: 780px;
+    max-width: 90%;
+}
+
 /*
 .carousel .carousel-navigation.is-overlay{
     height: 100%;

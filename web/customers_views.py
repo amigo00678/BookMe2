@@ -199,18 +199,17 @@ class OrderView2(FormView):
 
         context = super(OrderView2, self).get_context_data(**kwargs)
 
+        prices = self.request.GET.get('prices')
+        prices = RoomPrice.objects.filter(id__in=prices.split('-'))
+
+        room_ids = prices.values_list('room__id', flat=True).distinct()
+
+        context['prices'] = prices
+        context['price'] = prices.aggregate(Sum('price')).get('price__sum')
+
         try:
-            prices = self.request.GET.get('prices')
-            prices = RoomPrice.objects.filter(id__in=prices.split('-'))
-
-            room_ids = prices.values_list('room__id', flat=True).distinct()
-            rooms = Room.objects.filter(pk__in=room_ids)
-
-            context['price'] = prices.aggregate(Sum('price')).get('price__sum')
-            context['rooms'] = rooms
-            context['file'] = rooms.first().item
-
-        except (File.DoesNotExist, Room.DoesNotExist):
+            context['file'] = File.objects.get(pk=int(self.kwargs.get('id')))
+        except File.DoesNotExist:
             pass
 
         return context
@@ -242,7 +241,7 @@ class OrderView2(FormView):
                 order.rooms.add(room)
             order.save()
 
-        except File.DoesNotExist, Room.DoesNotExist:
+        except File.DoesNotExist:
             pass
 
         return HttpResponseRedirect(reverse(self.success_url, kwargs={'id': order.id}))
