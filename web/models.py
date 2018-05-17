@@ -144,10 +144,10 @@ class Room(models.Model):
     prices = models.ManyToManyField('RoomPrice')
 
     def get_prices_desc(self):
-        return self.prices.order_by('-price')
+        return self.prices.order_by('-people_number', '-price')
 
     def get_prices_asc(self):
-        return self.prices.order_by('price')
+        return self.prices.order_by('people_number', 'price')
 
     def __unicode__(self):
         return "%s" % (self.name)
