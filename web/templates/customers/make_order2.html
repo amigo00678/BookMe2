@@ -6,6 +6,7 @@
 {% block title %}{{ file.name }} Make Order{% endblock %}
 
 {% block content %}
+
     <div class="steps">
         <div class="step-item is-completed is-success">
             <div class="step-marker">
@@ -46,28 +47,26 @@
     </div>
 
     <div class="box">
-        <div>
-            <div class="subtitle"><strong>{{ file }}</strong></div>
-            <div class="subtitle">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>Room</th>
-                            <th>Guests number</th>
-                            <th>Price</th>
-                        </tr>
-                        {% for price in prices %}
-                        <tr>
-                            <td><strong>{{ price.room_set.first }}</strong></td>
-                            <td><strong>{{ price.people_number }}</strong></td>
-                            <td><strong>{{ price.price }}</strong></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="subtitle">Total price: <strong>{{ price }}</strong></div>
+        <div class="subtitle"><strong>{{ file }}</strong></div>
+        <div class="subtitle">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Room</th>
+                        <th>Guests number</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for price in prices %}
+                    <tr>
+                        <td>{{ price.room_set.first }}</td>
+                        <td>{{ price.people_number }}</td>
+                        <td>{{ price.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+        <div class="subtitle">Total price: <strong>{{ price }}</strong></div>
     </div>
 
     <form action="" method="post" enctype="multipart/form-data">
