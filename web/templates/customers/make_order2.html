@@ -75,7 +75,7 @@
 
         <div class="field is-grouped">
             <div class="control">
-                <label class="label" for="id-title-select">Title</label>
+                <label class="label" for="id_title">Title</label>
                 <div class="select">
                     {% if form.title.errors %}
                         {{ form.title|add_class:"select"|add_class:"is-danger" }}
@@ -107,7 +107,7 @@
 
         <div class="field">
             <div class="control">
-                <label class="label" for="id-email-input">Email Address</label>
+                <label class="label" for="id_email">Email Address</label>
                 {% if form.email.errors %}
                     {{ form.email|add_class:"input"|add_class:"is-danger" }}
                     <p class="help is-danger">{{ form.email.errors.0 }}</p>
@@ -116,7 +116,7 @@
                 {% endif %}
             </div>
             <div class="control">
-                <label class="label" for="id-confirm-email-input">Confirm Email Address</label>
+                <label class="label" for="id_confirm_email">Confirm Email Address</label>
                 {% if form.confirm_email.errors %}
                     {{ form.confirm_email|add_class:"input"|add_class:"is-danger" }}
                     <p class="help is-danger">{{ form.confirm_email.errors.0 }}</p>
@@ -125,7 +125,7 @@
                 {% endif %}
             </div>
             <div class="control">
-                <label class="label" for="id-message">Special Request</label>
+                <label class="label" for="id_message">Special Request</label>
                 {% if form.message.errors %}
                     {{ form.message|add_class:"textarea"|add_class:"is-danger" }}
                     <p class="help is-danger">{{ form.message.errors.0 }}</p>
