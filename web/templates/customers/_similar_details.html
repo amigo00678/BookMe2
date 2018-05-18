@@ -10,7 +10,7 @@
                     {% for img in object.top_slider.images.all %}
                         <div class='carousel-item has-background is-active'>
                             <a href="{% url 'fe_file' id=object.id %}" target="_blank">
-                                {% thumbnail img.image "640x520" crop="center" as im %}
+                                {% thumbnail img.image "660x530" crop="center" as im %}
                                     <img class="is-background" src="{{ im.url }}" width="640" height="520" />
                                 {% endthumbnail %}
                             </a>

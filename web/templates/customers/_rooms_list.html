@@ -113,7 +113,7 @@
                 <div class="columns">
                     {% if room.images.exists %}
                         <div class="column is-two-thirds">
-                            <div class="subtitle carousel carousel-animated carousel-animate-slide list-icons">
+                            <div class="subtitle carousel carousel-animated carousel-animate-slide">
                                 <div class='carousel-container'>
                                     {% for img in room.images.all %}
                                         <div class='carousel-item has-background is-active'>
@@ -132,9 +132,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="subheader is-6">
+                            <div class="subheader is-6 slider-images">
                                 {% for img in room.images.all %}
-                                    {% thumbnail img.image "80x60" crop="center" as im %}
+                                    {% thumbnail img.image "80x53" crop="center" as im %}
                                         <img src="{{ im.url }}"></img>
                                     {% endthumbnail %}
                                 {% endfor %}
