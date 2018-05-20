@@ -130,17 +130,33 @@ a[disabled] {
     border-bottom-right-radius: 2px;
 }
 .box{
-    border-radius: 3px;
+    border-radius: 1px;
+    background-color: #f1f1f1;
 }
 .button{
     padding-left: 1.1em;
     padding-right: 1.1em;
     padding-top: calc(0.58em - 1px);
 }
+.button-spaced{
+    margin-right: .5rem;
+}
 .icon.rate-avg, .button{
     font-family: "Hind", sans-serif;
 }
-
+input:not([type="submit"]), select, textarea{
+    box-shadow: unset !important;
+    border-radius: 0px !important;
+}
+.navbar{
+    background-color: #f1f1f1;
+    border-radius: 0px;
+    border-bottom: 1px solid rgba(10,10,10,0.05);
+    box-shadow: unset !important;
+}
+.pagination-link{
+    background-color: #f1f1f1;
+}
 
 /*
 .carousel .carousel-navigation.is-overlay{
